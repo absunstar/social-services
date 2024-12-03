@@ -1,0 +1,232 @@
+[
+  {
+    "name": "near",
+    "En": "Near",
+    "Ar": "القريب"
+  },
+  {
+    "name": "lowest_price",
+    "En": "Lowest price",
+    "Ar": "الأقل سعر"
+  },
+  {
+    "name": "highest_price",
+    "En": "Highest price",
+    "Ar": "الأعلى سعر"
+  },
+  {
+    "name": "only_new",
+    "En": "Only New",
+    "Ar": "جديد فقط"
+  },
+  {
+    "name": "nearby_ads",
+    "En": "Nearby ads",
+    "Ar": "إعلانات قريبة"
+  },
+  {
+    "name": "search_here_for_what_you_want",
+    "En": "Search here for what you want",
+    "Ar": "إبحث هنا عن ما تريد"
+  },
+  {
+    "name": "cart",
+    "En": "Cart",
+    "Ar": "السلة"
+  },
+  {
+    "name": "tmor",
+    "En": "Dates",
+    "Ar": "تمور"
+  },
+  {
+    "name": "hide_map",
+    "En": "Hide Map",
+    "Ar": "إخفاء"
+  },
+  {
+    "name": "map_search",
+    "En": "Map search",
+    "Ar": "البحث بالخريطة"
+  },
+  {
+    "name": "facebook_account",
+    "En": "Facebook Account",
+    "Ar": "حساب الفيس بوك"
+  },
+  {
+    "name": "instagram_accouunt",
+    "En": "Instagram Account",
+    "Ar": "حساب إنستجرام"
+  },
+  {
+    "name": "you_tube_accouunt",
+    "En": "You Tube Instagram Account",
+    "Ar": "حساب يوتيوب"
+  },
+  {
+    "name": "twitter_accouunt",
+    "En": "Twitter Instagram Account",
+    "Ar": "حساب تويتر"
+  },
+  {
+    "name": "add_your_ad",
+    "En": "Add your ad",
+    "Ar": "أضف إعلانك"
+  },
+  {
+    "name": "only_with_photos",
+    "En": "Only with photos",
+    "Ar": "الإعلانات المُرفقة بصور فقط"
+  },
+  {
+    "name": "no_content_1",
+    "En": "Sorry... we didn't find anything matching this search",
+    "Ar": "عفوًا ... لم نعثر على أي شيء مطابق لهذا البحث"
+  },
+  {
+    "name": "no_content_2",
+    "En": "Try looking for something more general, change the filters or check for spelling errors",
+    "Ar": "حاول البحث عن شيء أكثر عمومية، قم بتغيير عوامل التصفية أو تحقق من الأخطاء الإملائية"
+  },
+  {
+    "name": "more_categories",
+    "En": "More Categories",
+    "Ar": "أقسام أكثر"
+  },
+  {
+    "name": "filtering",
+    "En": "Filtering",
+    "Ar": "تصفية"
+  },
+  {
+    "name": "phone_support",
+    "En": "Phone support",
+    "Ar": "الدعم عبر الهاتف"
+  },
+  {
+    "name": "email_support",
+    "En": "Email support",
+    "Ar": "الدعم عبر البريد الألكتروني"
+  },
+  {
+    "name": "more",
+    "En": "More",
+    "Ar": "المزيد"
+  },
+  {
+    "name": "see_more",
+    "En": "See More",
+    "Ar": "مشاهدة المزيد"
+  },
+  {
+    "name": "quick_navigate",
+    "En": "Quick Navigate",
+    "Ar": "تنقل سريع"
+  },
+  {
+    "name": "jordan",
+    "En": "Jordan",
+    "Ar": "الأردن"
+  },
+  {
+    "name": "iraq",
+    "En": "Iraq",
+    "Ar": "العراق"
+  },
+  {
+    "name": "kuwait",
+    "En": "Kuwait",
+    "Ar": "الكويت"
+  },
+  {
+    "name": "bahrain",
+    "En": "Bahrain",
+    "Ar": "البحرين"
+  },
+  {
+    "name": "qatar",
+    "En": "Qatar",
+    "Ar": "قطر"
+  },
+  {
+    "name": "uae",
+    "En": "UAE",
+    "Ar": "الإمارات"
+  },
+  {
+    "name": "oman",
+    "En": "Oman",
+    "Ar": "عمان"
+  },
+  {
+    "name": "yemen",
+    "En": "Yemen",
+    "Ar": "اليمن"
+  },
+  {
+    "name": "eastern_province",
+    "En": "Ehsaa & Eastern province",
+    "Ar": "الإحساء و المنطقة الشرقية"
+  },
+  {
+    "name": "najran",
+    "En": "Najran",
+    "Ar": "نجران"
+  },
+  {
+    "name": "jazan",
+    "En": "Jazan",
+    "Ar": "جازان"
+  },
+  {
+    "name": "aseer",
+    "En": "Aseer",
+    "Ar": "عسير"
+  },
+  {
+    "name": "baha",
+    "En": "Al-Baha",
+    "Ar": "الباحة"
+  },
+  {
+    "name": "makkah",
+    "En": "Makkah",
+    "Ar": "مكة"
+  },
+  {
+    "name": "medina",
+    "En": "Al-Medina",
+    "Ar": "المدينة"
+  },
+  {
+    "name": "riyadh",
+    "En": "Riyadh",
+    "Ar": "الرياض"
+  },
+  {
+    "name": "qassim",
+    "En": "Qassim",
+    "Ar": "القصيم"
+  },
+  {
+    "name": "hail",
+    "En": "Al-Hail",
+    "Ar": "حائل"
+  },
+  {
+    "name": "northern_borders",
+    "En": "Northern borders",
+    "Ar": "الحدود الشمالية"
+  },
+  {
+    "name": "jouf",
+    "En": "Al-Jouf",
+    "Ar": "الجوف"
+  },
+  {
+    "name": "tabouk",
+    "En": "Tabouk",
+    "Ar": "تبوك"
+  }
+]

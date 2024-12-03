@@ -1,0 +1,7 @@
+[{
+    "module_name" : "public" ,
+    "name": "defaultSettingAdmin",
+    "En": "General Setting Admin",
+    "Ar": "إدارة الإعدادات العامة",
+    "permissions": ["defaultSettingManage"]
+}]

@@ -1,0 +1,38 @@
+@media screen and (max-width: 480px) {
+  .card-title {
+    width: 0px !important;
+    display: block !important;
+  }
+  .card {
+    width: 100% !important;
+    margin: 15px 0px 5px 0px !important;
+  }
+  figure {
+    width: 100% !important;
+    margin: 10px 0px 10px 10px !important;
+  }
+  .banner-site {
+    height: auto;
+  }
+  .nameNotBesidLogoShow {
+    height: auto;
+  }
+  .nft {
+    margin: 10px 0px 15px 0px !important;
+    width: 100% !important;
+  }
+  .banner-word {
+    text-align: right;
+    font-size: 35px;
+    margin-bottom: 10px !important;
+  }
+  .notifacation-logo {
+    position: sticky !important;
+  }
+  body {
+   /*  background-repeat: repeat !important; */
+  }
+  main .mainContent .sidebarContainer .sidebar .lawerJoin {
+    width: 100% !important;
+  }
+}

@@ -1,0 +1,306 @@
+:root {
+ 
+}
+.place-center {
+  place-content: center;
+}
+legend {
+  float: right !important;
+}
+.underline-hover:hover {
+  text-decoration: underline;
+}
+.hover-a:hover {
+  color: #2087e7 !important;
+  text-decoration-line: underline !important;
+}
+.form-label {
+  direction: rtl;
+  float: inline-start;
+}
+.right-content {
+  text-align-last: right;
+}
+.center-content {
+  justify-content: center;
+}
+.tabs .tabs-content {
+  width: 100% !important;
+}
+
+.linesView {
+  -webkit-user-modify: read-write-plaintext-only;
+}
+
+.input-style textarea:focus {
+  border-width: 2px;
+}
+
+.input-style textarea {
+  color: black;
+  border: solid 1px #1475cf;
+  border-radius: 10px !important;
+}
+
+.text-right {
+  text-align-last: right !important;
+}
+
+.text-center {
+  text-align-last: center !important;
+}
+
+.text-left {
+  text-align-last: left !important;
+}
+
+.form-control {
+  border: 1px solid #1475cf !important;
+}
+.selectAll {
+  user-select: all;
+}
+
+.character-style {
+  background: #e3e3e3;
+  text-align: center;
+  border-radius: 50%;
+  font-size: xxx-large;
+}
+
+.card {
+  border: 1px solid #2087e7;
+  display: inline-block;
+  width: 25% !important;
+  margin: 10px 10px 10px 10px !important;
+  background: #ffffff;
+  padding: 25px;
+  height: 200px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 3px 2px #2087e7;
+  div {
+    width: 50%;
+    float: left;
+  }
+}
+
+.card img {
+  width: 45%;
+  height: 100%;
+  float: right;
+  padding: 2px;
+  border-radius: 0px 10px 10px 0px;
+}
+
+.bg-aliceblue {
+  color: aliceblue;
+}
+
+.card-name {
+  font-size: 21px;
+  float: left;
+  font-family: system-ui;
+  font-weight: bold;
+}
+
+.card-number {
+  color: #2087e7;
+  font-size: 20px;
+}
+.mainColor {
+  color: #2087e7 !important;
+}
+
+.card-title {
+  color: #959595;
+  font-size: 20px;
+  display: inline-block;
+  width: 60%;
+  vertical-align: text-top;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.main-menu {
+  max-width: 350px !important;
+}
+.pre-text {
+  white-space: pre-wrap !important;
+}
+.userPrint {
+  user-select: text;
+}
+
+.purchase-text {
+  background: var(--background4);
+  color: var(--color4);
+  text-align: center;
+  font-size: x-large;
+  padding: inherit;
+  margin: revert;
+  white-space: pre-line;
+  border-radius: 10px;
+}
+
+.gray-bg {
+  background-color: #ececec !important;
+}
+/* i-button {
+  display: contents !important;
+} */
+.scrollx-menu {
+  padding: 10px !important;
+  overflow-x: auto;
+  flex-direction: column-reverse;
+  height: 37vw !important;
+  scrollbar-color: #2087e7 #e7e7e7;
+}
+.person-cart:hover {
+  background: #0064ff17;
+}
+.underline {
+  text-decoration-line: underline;
+}
+.person-cart {
+  border: 3px solid #00856a;
+  display: inline-block;
+  width: 50vw !important;
+  margin: 10px 0px 10px 0px !important;
+  box-shadow: 2px 2px 5px 0px #00856a;
+  background: white;
+  padding: 25px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.person-cart img {
+  height: 45px;
+  width: 45px;
+  padding: 2px;
+  border-radius: 50%;
+}
+.bg-yellow {
+  background: yellow !important;
+}
+.bg-red {
+  background: #ff3131 !important;
+}
+.bg-green {
+  background: #00d300 !important;
+}
+.cart-number {
+  color: var(--theme-color);
+  font-size: 20px;
+  display: inherit;
+}
+
+.darkGray {
+  color: #707070 !important;
+}
+.change-color-link {
+  color: blueviolet;
+}
+
+.border-1 {
+  border: 2px black solid;
+  margin: 2px !important;
+  border-radius: 5px;
+}
+.border-dashed {
+  border: 2px black dashed;
+  margin: 2px !important;
+  border-radius: 5px;
+}
+.logoPrint {
+  width: 240px;
+  height: 130px;
+  margin: 0.7px;
+  padding: 0.5px;
+  border-radius: 0;
+  border: 0.7px solid var(--background-color);
+}
+
+.font-14 {
+  font-size: 14px !important;
+}
+.font-15 {
+  font-size: 15px !important;
+}
+.font-16 {
+  font-size: 16px !important;
+}
+.font-17 {
+  font-size: 17px !important;
+}
+
+.font-18 {
+  font-size: 18px !important;
+}
+
+.font-19 {
+  font-size: 19px !important;
+}
+
+.font-20 {
+  font-size: 20px !important;
+}
+
+.font-21 {
+  font-size: 21px !important;
+}
+
+.font-22 {
+  font-size: 22px !important;
+}
+
+.font-23 {
+  font-size: 23px !important;
+}
+
+.font-24 {
+  font-size: 24px !important;
+}
+
+.font-25 {
+  font-size: 25px !important;
+}
+
+.font-26 {
+  font-size: 26px !important;
+}
+
+.font-27 {
+  font-size: 27px !important;
+}
+
+.font-28 {
+  font-size: 28px !important;
+}
+
+.font-29 {
+  font-size: 29px !important;
+}
+
+.font-30 {
+  font-size: 30px !important;
+}
+
+.font-31 {
+  font-size: 31px !important;
+}
+
+.font-32 {
+  font-size: 32px !important;
+}
+
+.font-33 {
+  font-size: 33px !important;
+}
+
+.font-34 {
+  font-size: 34px !important;
+}
+
+.font-35 {
+  font-size: 35px !important;
+}

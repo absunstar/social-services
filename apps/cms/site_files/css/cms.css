@@ -1,0 +1,25 @@
+.error {
+  text-align: center !important;
+  color: red !important;
+}
+
+.userPrint {
+  user-select: text;
+}
+
+i-image.logo {
+  display: inline-block;
+  width: 47px !important;
+  height: 47px !important;
+}
+
+i-image.imgsmall img {
+  width: 60px !important;
+  height: 60px !important;
+  min-width: 60px !important;
+  min-height: 60px !important;
+}
+
+hr {
+  width: 98% !important;
+}

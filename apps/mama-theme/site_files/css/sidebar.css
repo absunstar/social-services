@@ -1,0 +1,155 @@
+main .mainContent .sidebarContainer {
+  position: sticky;
+  height: 50%;
+  top: 50px;
+}
+
+main .mainContent .sidebarContainer .sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px !important;
+}
+
+main .mainContent .sidebarContainer .sidebar .lawerJoin {
+  width: 90%;
+  margin: 5%;
+  padding: 16px !important;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: var(--background3);
+  box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.25);
+  gap: 16px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+}
+
+main .mainContent .sidebarContainer .sidebar .lawerJoin p {
+  margin: 0px !important;
+  text-align: center;
+  color: var(--color3);
+}
+
+main .mainContent .sidebarContainer .sidebar .lawerJoin a {
+  text-align: center;
+
+}
+
+main .mainContent .sidebarContainer .sidebar .lawerJoin button {
+background: var(--button-background2) !important;
+color: var(--button-color) !important;
+border-bottom: unset !important;
+width: 100%;
+}
+
+main .mainContent .sidebarContainer .sidebar .numberAndAnalysis {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main .mainContent .sidebarContainer .sidebar .numberAndAnalysis .numberAndAnalysisTitle {
+  width: 100%;
+}
+
+main .mainContent .sidebarContainer .sidebar .numberAndAnalysis .numberAndAnalysisTitle h4 {
+  width: 100%;
+  text-align: center;
+}
+
+main .mainContent .sidebarContainer .sidebar .numberAndAnalysis .numberAndAnalysisContaner {
+  width: inherit;
+  background-color: var(--main-background-color2);
+  text-align: center;
+  padding: 16px !important;
+}
+
+main .mainContent .sidebarContainer .sidebar .numberAndAnalysis .numberAndAnalysisContaner .numberAndIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px !important;
+}
+
+main .mainContent .sidebarContainer .sidebar .numberAndAnalysis .numberAndAnalysisContaner .numberAndIcon p {
+  margin-bottom: 0px !important;
+  text-align: center;
+}
+
+main .mainContent .sidebarContainer .sidebar .numberAndAnalysis .numberAndAnalysisContaner .numberAndIcon i {
+  font-size: 40px !important;
+  text-align: center;
+  color: black;
+}
+
+main .mainContent .sidebarContainer .sidebar .adsBanner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main .mainContent .sidebarContainer .sidebar .adsBanner img {
+  width: 250 px !important;
+  height: 250 px !important;
+  border-radius: 8px;
+  border: 1px solid grey;
+}
+
+
+
+
+.pulse-button {
+  font-family: "Montserrat";
+  font-size: 20px;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 15px 15px;
+  border: 0px solid #000;
+  }
+
+.pulse-button {
+  animation: borderPulse 1000ms infinite ease-out, colorShift 10000ms infinite ease-in;
+}
+
+
+.pulse-button:hover,
+.pulse-button:focus {
+  animation: borderPulse 1000ms infinite ease-out, colorShift 10000ms infinite ease-in, hoverShine 200ms;
+}
+
+@keyframes colorShift {
+  0%, 100% {
+      background: #0045e6;
+  }
+  33% {
+    background: #fb3e3e;
+  }
+  66%{
+    background: #0dcc00;
+  }
+}
+
+/* Declare border pulse animation */
+@keyframes borderPulse {
+  0% {
+    box-shadow: inset 0px 0px 0px 5px rgba(255, 255, 255,.4), 0px 0px 0px 0px rgba(255,255,255,1);
+  }
+  100% {
+    box-shadow: inset 0px 0px 0px 3px rgba(117, 117, 255,.2), 0px 0px 0px 10px rgba(255,255,255,0);
+  }
+}
+
+.red-dot {
+  height: 25px;
+  width: 25px;
+  background-color: red;
+  border-radius: 50%;
+  display: block;
+}

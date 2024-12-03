@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="##session.language.id##" dir="##session.language.dir##" class="##session.language.dir##" ng-app="myApp">
+  <head x-import="mama-theme/head-dashboard.html"></head>
+    <style>
+      i-image.photo img {
+        min-width: 240px;
+      }
+      .user {
+        padding: 10px;
+        background: var(--theme-color);
+        margin: 5px;
+        border-radius: 10px;
+      }
+
+      .title {
+        font-weight: bold;
+        color: #000 !important;
+      }
+    </style>
+  </head>
+
+  <body class="##session.lang## loaded">
+    <nav
+    x-import="mama-theme/sitebar.html"
+    class="sitebar"
+    data-ng-controller="sitebar"
+  ></nav>
+
+  <nav
+    class="sitebottom"
+    x-import="mama-theme/sitebottom.html"
+    ng-controller="sitebottom"
+  ></nav>
+    <div id="main-layout" class="container" ng-controller="security">
+      <div class="row">
+        <i-button label="##word.Security Users##" ng-click="gotoUsers()"></i-button>
+        <i-button label="##word.Security Roles##" ng-click="gotoRoles()"></i-button>
+      </div>
+    </div>
+
+    <div x-import="mama-theme/scripts-dashboard.html"></div>
+    <script x-import="security/index.js"></script>
+  </body>
+</html>

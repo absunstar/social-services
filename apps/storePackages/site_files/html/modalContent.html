@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="row padding">
+    <div class="row">
+      <div class="col10">
+        <div class="row">
+          <i-checkbox ng-model="item.active" class="col2" label="##word.Active##"></i-checkbox>
+        </div>
+        <i-control type="text" v="r" ng-model="item.title" label="##word.Title##"></i-control>
+        <div class="row">
+          <i-control type="number" v="r" class="col4" ng-model="item.price" label="##word.Price##"></i-control>
+          <i-control type="number" v="r" class="col4" disabled ng-model="item.accountsPrice" label="##word.Accounts Price##"></i-control>
+        </div>
+
+        <fieldset>
+          <legend>##word.Accounts##</legend>
+          <div class="row">
+            <i-control type="text" class="col8" ng-model="item.$email" ng-keydown="getStoreAccount($event,item.$email)" label="##word.Email##"></i-control>
+            <i-button type="search" class="col2" label="##word.Search##" ng-click="getStoreAccount({which :13},item.$email)"> </i-button>
+          </div>
+          <h2 class="center"> ##word.Count## {{item.accountList.length}}</h2>
+          <p class="error">{{errAccount}}</p>
+          <div class="table-responsive">
+            <table class="table hover center bold">
+              <tr>
+                <th>##word.Email##</th>
+                <th>##word.Platform##</th>
+                <th>##word.Price##</th>
+                <th class="not-print">##word.Actions##</th>
+              </tr>
+              <tr ng-repeat="acc in item.accountList">
+                <td class="center">{{acc.email}}</td>
+                <td class="center">{{acc.socialPlatform.name}}</td>
+                <td class="center">{{acc.price}}</td>
+                <td>
+                  <i-button type="delete" label="##word.Delete##" ng-click="removeAccount(acc)"></i-button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col2">
+        <i-image class="img128 center" ng-model="item.image"></i-image>
+      </div>
+    </div>
+    <fieldset>
+      <legend>##word.Description##</legend>
+      <i-content type="text" v="r" ng-model="item.description" label="##word.Description##"></i-content>
+    </fieldset>
+  </div>
+  <div class="row padding"></div>
+</div>
+<div ng-show="mode !== 'add' " class="row">
+  <table class="table hover border">
+    <tr>
+      <th>##word.Add User Info##</th>
+      <th>##word.Edit User Info##</th>
+    </tr>
+    <tr>
+      <td class="center">
+        <p class="blue">{{item.addUserInfo.name}}</p>
+        <small class="green"> {{item.addUserInfo.date |date:"hh:mm"}} </small>
+        <small> {{item.addUserInfo.date |date:"dd - MM - yyyy"}} </small>
+        <p class="bold">IP : {{item.addUserInfo.ip}}</p>
+      </td>
+
+      <td class="center">
+        <p class="blue">{{item.editUserInfo.name}}</p>
+        <small class="green"> {{item.editUserInfo.date |date:"hh:mm"}} </small>
+        <small> {{item.editUserInfo.date |date:"dd - MM - yyyy"}} </small>
+        <p class="bold">IP : {{item.editUserInfo.ip}}</p>
+      </td>
+    </tr>
+  </table>
+</div>

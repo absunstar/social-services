@@ -1,0 +1,74 @@
+.main-menu {
+  opacity: 1;
+  position: fixed;
+  display: block;
+  z-index: 999999999;
+  width: 270px;
+  right: 0px;
+  top: 45px;
+  bottom: 24px;
+  text-align: center;
+  background: var(--color3);
+  padding: 15px;
+  max-width: var(--menu-width);
+  overflow: auto;
+  opacity: 0.8;
+  border-right: 1px solid var(--color2);
+  border-left: 1px solid var(--color2);
+}
+
+.ltr .main-menu {
+  left: 0px;
+  right: auto;
+}
+
+a i {
+  margin: 0px 0px 0px 10px;
+}
+
+.menu-item {
+  display: block !important;
+  margin: 5px 5px 10px 5px !important;
+}
+
+.menu-item {
+  display: block !important;
+  margin: 0px 0px 5px 0px !important;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.menu-item a {
+  color: var(--color1);
+  text-decoration: none;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+.menu-item a i {
+  color: var(--color4);
+}
+.menu-item a:hover {
+  padding-right: 25px;
+}
+
+.menu-item span:hover {
+  background-color: #122620;
+  padding: 1px 10px 1px 10px;
+  color: #f4ebd0;
+  border-radius: 10px;
+}
+
+.ltr .menu-item a:hover {
+  padding-left: 25px;
+}
+#menu-btn {
+  display: none;
+}
+.menu-item2 {
+  margin-right: 20px !important;
+  margin-left: 0px !important;
+}
+.ltr .menu-item2 {
+  margin-left: 20px !important;
+  margin-right: 0px;
+}

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="##session.language.id##" dir="##session.language.dir##" class="##session.language.dir##" ng-app="myApp">
+  <head x-import="mama-theme/head.html">
+    <link rel="stylesheet" href="/css/mama-style.css?v=##site.options.version##" />
+    <link rel="stylesheet" href="/css/mama-mobile.css?v=##site.options.version##" />
+
+    <style>
+      :root {
+        --body-margin-top: 0px;
+        --body-margin-bottom: 0px;
+        --zoom: 100%;
+        --fieldset-border: none;
+        --fieldset-background: #fff;
+      }
+
+      body {
+        background-color: #eceff5 !important;
+
+        background-repeat: repeat !important;
+      }
+      * {
+        max-width: initial;
+      }
+
+      figure {
+        & figcaption {
+          .price {
+            right: 60px !important;
+          }
+        }
+      }
+      .register-content {
+        padding: 30px !important;
+        /*  background-color: #2087e74d; */
+        border-radius: 10px;
+      }
+      .edit-user-btn {
+        margin: 15px -7px 20px 0px;
+        text-align-last: center;
+        background: var(--button-background);
+        color: var(--button-color);
+        border-radius: 5px;
+        font-size: xx-large;
+        width: 100%;
+      }
+      .edit-user-btn:hover {
+        filter: brightness(1.1);
+      }
+      .user-type {
+        text-align-last: center;
+        width: 207px;
+        height: 200px;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+        font-size: xxx-large;
+        margin: 35px;
+        border-radius: 20%;
+        border-color: #2087e7;
+        box-shadow: 3px 4px #2087e7ba;
+        color: #2087e7;
+        background: white;
+      }
+      .user-type-select {
+        color: white !important;
+        background: grey !important;
+        box-shadow: 1px 1px 5px 1px #1d1d1da6;
+      }
+
+      :root {
+        --body-margin-top: 0px;
+        --body-margin-bottom: 0px;
+        --zoom: 100%;
+        --fieldset-border: none;
+        --fieldset-background: #fff;
+      }
+
+      .darkGray {
+        color: #919191;
+      }
+
+      .input-style input {
+        text-align: center;
+      }
+
+      .register-hide {
+        display: none;
+      }
+
+      .img-country img {
+        width: 44px;
+        height: 40px;
+        display: inline-block;
+      }
+
+      * {
+        max-width: initial;
+      }
+      fieldset {
+        background: none;
+      }
+      figure {
+        & figcaption {
+          .price {
+            right: 0px !important;
+          }
+        }
+      }
+      @media screen and (max-width: 480px) {
+        .display-content {
+          display: contents;
+        }
+      }
+    </style>
+    <style x-lang="ar">
+      .nav1 {
+        flex-direction: initial;
+        padding: 7px;
+      }
+
+      :root {
+        --direction: rtl;
+        --text-align: right;
+        --float: right;
+      }
+    </style>
+  </head>
+
+  <body class="##session.language.id## loaded" ng-controller="profileEdit">
+    <div x-replace="mama-theme/header.html"></div>
+    <div class="row">
+      <h2 class="bold text-center color2">##word.Manage My Page##</h2>
+    </div>
+
+    <fieldset id="profileEdit">
+      <div class="tabs">
+        <div class="tabs-header full">
+          <a class="tab-link" onclick="site.showTabContent(event, '#myProfile')" id="myProfile">
+            <span>##word.Personal Informatins## </span>
+          </a>
+      
+
+        <div class="tabs-content">
+          <div id="myProfile" class="tab-content">
+            <div class="form">
+              <div class="row">
+                <div class="register-content">
+                  <div class="row">
+                    <div class="col6">
+                      <p class="right-content label-color">
+                        <span class="red bold"> * </span>
+                        ##word.Profile Image##
+                      </p>
+                      <i-image v="r" class="img256" ng-model="user.image"></i-image>
+                    </div>
+                    <div class="col6" ng-show="user.barcode">
+                      <svg style="max-height: 25mm" class="barcode" jsbarcode-format="auto" jsbarcode-value="{{user.barcode}}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold"></svg>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col6 padding">
+                      <i-control v="r" class="input-style" label="##word.Full Name##" ng-model="user.firstName"> </i-control>
+                      <i-control v="r" class="input-style" label="##word.Mobile Number##" type="tel" ng-model="user.mobile"> </i-control>
+                      <i-control v="r" class="input-style" label="##word.Login E-mail Or Mobile##" ng-model="user.email"> </i-control>
+                      <i-control v="r" class="pass input-style" label="##word.Password##" type="password" id="pass1" ng-model="user.password"></i-control>
+                      <i-checkbox class="right display-content" label="##word.Show Password##" ng-change="showPassword()" ng-model="showPassword"> </i-checkbox>
+                    </div>
+                    <div class="col6 padding">
+                      <i-list
+                        v="r"
+                        class="input-style"
+                        label="##word.Country##"
+                        ng-model="user.country"
+                        ng-change="getGovesList(user.country)"
+                        items="countriesList"
+                        display="name"
+                        ng-search="user.$countries"
+                      ></i-list>
+                      <i-list v="r" label="##word.Governorate##" ng-change="getCitiesList(user.gov)" ng-model="user.gov" display="name" items="govesList" ng-search="user.$gov"></i-list>
+                      <i-list
+                        label="##word.City##"
+                        x-data="setting.citiesAndAreasShow"
+                        ng-model="user.city"
+                        ng-change="getAreasList(user.city)"
+                        items="citiesList"
+                        display="name"
+                        ng-search="user.$city"
+                      >
+                      </i-list>
+                      <i-list label="##word.Area##" x-data="setting.citiesAndAreasShow" ng-model="user.area" items="areasList" display="name" ng-search="user.$area"> </i-list>
+                      <i-control v="r" class="input-style" label="##word.Address##" ng-model="user.address"> </i-control>
+                      <i-control v="e" class="input-style" label="##word.Contact Email##" ng-model="user.contactEmail"> </i-control>
+
+                      <i-control class="input-style" label="##word.Facebook##" ng-model="user.faceBook"> </i-control>
+
+                      <i-control class="input-style" label="##word.Instagram##" ng-model="user.instagram"> </i-control>
+
+                      <i-control class="input-style" label="##word.Twitter##" ng-model="user.twitter"> </i-control>
+                    </div>
+                  </div>
+
+                  <button ng-click="updateUser(user)" class="edit-user-btn">##word.Save## <i class="fas fa-user-edit"></i></button>
+                </div>
+              </div>
+
+              <h2 class="bold center red">{{error}}</h2>
+
+              <div id="alert" class="modal alert small">
+                <div class="modal-content height-auto">
+                  <div class="modal-body">
+                    <h1 class="blue center">##word.Save Successfully##</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        
+        </div>
+      </div>
+    </fieldset>
+    <div x-replace="mama-theme/footer.html"></div>
+    <div x-import="mama-theme/scripts.html"></div>
+    <script x-import="profile/profileEdit.js"></script>
+  </body>
+</html>

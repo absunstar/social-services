@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="##session.language.id##" dir="##session.language.dir##" class="##session.language.dir##" ng-app="myApp">
+  <head x-import="mama-theme/head-dashboard.html"></head>
+
+  <body ng-controller="siteSetting">
+    <nav x-import="mama-theme/sitebar.html" class="sitebar" data-ng-controller="sitebar"></nav>
+
+    <nav class="sitebottom" x-import="mama-theme/sitebottom.html" ng-controller="sitebottom"></nav>
+    <div id="main-layout" class="container">
+      <div class="row">
+        <br />
+        <h1 class="center bold black">##word.Default Settings##</h1>
+        <i-control disabled ng-model="siteSetting.host" label="##word.Host##"></i-control>
+
+        <br />
+
+        <div x-permissions="defaultSettingView || defaultSettingManage" x-import="site-setting/content.html"></div>
+        <h2 class="error">{{error}}</h2>
+      </div>
+    </div>
+
+    <div id="alert" class="modal alert small">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h1 class="blue center">##word.Settings Saved##</h1>
+        </div>
+      </div>
+    </div>
+
+    <div x-import="mama-theme/scripts-dashboard.html"></div>
+    <script x-import="site-setting/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+[{
+    "module_name" : "public" ,
+    "name": "menu_admin",
+    "En": "Menu Admin",
+    "Ar": "إدارة القائمة",
+    "permissions": ["menu_manage"]
+}]

@@ -1,0 +1,118 @@
+<style>
+  #addUserModal .img {
+    width: 200px;
+    height: 200px;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid var(--background-color);
+  }
+</style>
+<style x-lang="En">
+  label {
+    text-align: right;
+  }
+</style>
+
+<div id="addUserModal" class="modal full fixed">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2><i class="fa fa-plus"></i> ##word.New User##</h2>
+    </div>
+    <div class="modal-body">
+      <span ng-show="busy">
+        <i class="fa fa-spinner white fa-pulse fa-3x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+      </span>
+
+      <div class="form">
+        <div class="row">
+          <div class="row">
+            <i-checkbox label="##word.Active##" class="col2" ng-model="user.active"></i-checkbox>
+          </div>
+
+          <div class="row">
+            <i-control v="r" class="col6" label="##word.Email##" ng-model="user.email"></i-control>
+            <i-control v="r" class="col6" label="##word.Password##" ng-model="user.password" ></i-control>
+          </div>
+        </div>
+        <div class="tabs">
+          <div class="tabs-header full">
+            <a class="tab-link" onclick="site.showTabContent(event, '#basicInformation')"> ##word.Basic Information## </a>
+            <a class="tab-link" ng-show="user.type.id == 4" onclick="site.showTabContent(event, '#printersData')">
+              <span> ##word.Printers Data## </span>
+            </a>
+            <a class="tab-link" onclick="site.showTabContent(event, '#securityRoles')"> ##word.Roles## </a>
+
+            <a class="tab-link" onclick="site.showTabContent(event, '#securityPublicPermissions')"> ##word.Public Permissions## </a>
+          </div>
+
+          <div class="tabs-content">
+            <div id="basicInformation" class="tab-content">
+              <div class="row">
+                <div class="col10">
+                  <form class="form">
+                    <div class="row">
+                      <i-control v="r" class="col6" label="##word.First Name##" ng-model="user.firstName"></i-control>
+                      <i-control v="r" class="col6" label="##word.Last Name##" ng-model="user.lastName"></i-control>
+                    </div>
+
+                    <div class="row">
+                      <i-control v="r" class="col6" label="##word.Mobile##" ng-model="user.mobile"></i-control>
+                    </div>
+
+                    <i-textarea ng-model="user.notes" label="##word.Notes##"></i-textarea>
+                  </form>
+                </div>
+                <div class="col2">
+                  <i-image class="img128 center" category="users" ng-model="user.image"></i-image>
+                </div>
+              </div>
+            </div>
+
+            <div id="securityRoles" class="tab-content">
+              <div class="row padding">
+                <fieldset>
+                  <legend>##word.Public Roles##</legend>
+                  <div class="row">
+                    <i-checkbox label="##word.Check All##" ng-model="$publicRoles" ng-change="checkAll('publicRoles')"></i-checkbox>
+                  </div>
+
+                  <i-checklist primary="name" label="" items="publicRoles" display="##session.lang##" ng-model="user.roles"></i-checklist>
+                </fieldset>
+              </div>
+
+              <div class="row padding">
+                <fieldset>
+                  <legend>##word.Custom Roles##</legend>
+                  <div class="row">
+                    <i-checkbox label="##word.Check All##" ng-model="$customRoles" ng-change="checkAll('customRoles')"></i-checkbox>
+                  </div>
+                  <i-checklist primary="name" label="" items="custom_roles" display="##session.lang##" ng-model="user.roles"></i-checklist>
+                </fieldset>
+              </div>
+            </div>
+
+            <div id="securityPublicPermissions" class="tab-content">
+              <div class="row">
+                <div class="row padding">
+                  <fieldset ng-repeat="screen in publicScreens">
+                    <legend>{{screen.name}}</legend>
+                    <i-checklist primary="name" label="" items="screen.permissions" display="##session.lang##" ng-model="user.permissions"></i-checklist>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2 class="red bold center">{{error}}</h2>
+    <div class="modal-footer center">
+      <i-button type="save" ng-show="mode == 'edit'" label="##word.Save##" ng-click="update(user)"></i-button>
+      <i-button type="add" ng-show="mode == 'add'" label="##word.Add User##" ng-click="add()"></i-button>
+      <i-button type="delete" ng-show="mode == 'delete'" title="##word.Delete##" ng-click="delete(user)"></i-button>
+      <i-button type="exit" label="##word.Close##" onclick="site.hideModal('#addUserModal')"></i-button>
+    </div>
+  </div>
+</div>

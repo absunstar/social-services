@@ -1,0 +1,7 @@
+[{
+    "moduleName" : "public" ,
+    "name": "storeAccountsAdmin",
+    "En": "Store Accounts Admin",
+    "Ar": "إدارة الحسابات الإجتماعية",
+    "permissions": ["storeAccountsManage"]
+}]

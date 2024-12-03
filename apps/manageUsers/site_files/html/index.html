@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="##session.language.id##" dir="##session.language.dir##" class="##session.language.dir##" ng-app="myApp">
+  <head x-import="mama-theme/head-dashboard.html"></head>
+
+  <body class="##session.language.id## ##data.language.dir#">
+    <nav x-import="mama-theme/sitebar.html" class="sitebar" data-ng-controller="sitebar"></nav>
+
+    <div id="main-layout" class="container" x-import="manageUsers/_.html" x-permissions="login"></div>
+
+    <div x-import="mama-theme/scripts-dashboard.html"></div>
+    <nav class="sitebottom" x-import="mama-theme/sitebottom.html" ng-controller="sitebottom"></nav>
+    <script x-import="manageUsers/index.js"></script>
+  </body>
+</html>

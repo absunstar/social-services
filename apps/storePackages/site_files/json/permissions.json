@@ -1,0 +1,11 @@
+[
+    { "moduleName": "public", "screenName": "socialPackages", "name": "socialPackagesManage", "En": "Manage", "Ar": "إدارة" },
+    { "moduleName": "public", "screenName": "socialPackages", "name": "socialPackagesAdd", "En": "Add", "Ar": "إضافة" },
+    { "moduleName": "public", "screenName": "socialPackages", "name": "socialPackagesUpdate", "En": "Edit", "Ar": "تعديل" },
+    { "moduleName": "public", "screenName": "socialPackages", "name": "socialPackagesDelete", "En": "Delete", "Ar": "حذف" },
+    { "moduleName": "public", "screenName": "socialPackages", "name": "socialPackagesView", "En": "View", "Ar": "عرض" },
+    { "moduleName": "public", "screenName": "socialPackages", "name": "socialPackagesSearch", "En": "Search", "Ar": "بحث" },
+    { "moduleName": "public", "screenName": "socialPackages", "name": "socialPackagesExport", "En": "Export", "Ar": "تصدير" },
+    { "moduleName": "public", "screenName": "socialPackages", "name": "socialPackagesPrint", "En": "Print", "Ar": "طباعة" },
+    { "moduleName": "public", "screenName": "socialPackages", "name": "socialPackagesUi", "En": "UI", "Ar": "الواجهة الرسومية" }
+]

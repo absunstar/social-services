@@ -1,0 +1,7 @@
+[{
+    "moduleName" : "public" ,
+    "name": "storePackagesAdmin",
+    "En": "Store Packages Admin",
+    "Ar": "إدارة مجموعات الحسابات",
+    "permissions": ["storePackagesManage"]
+}]

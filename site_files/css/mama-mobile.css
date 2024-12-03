@@ -1,0 +1,32 @@
+@media screen and (max-width: 480px) {
+  .card-title {
+    width: 0px !important;
+    display: block !important;
+    
+  }
+  .card {
+    width: 100% !important;
+    margin: 15px 0px 5px 0px !important;
+  }
+  figure { 
+    
+    width: 100% !important;
+  }
+  .banner-site {
+    height: auto;
+  }
+  .nameNotBesidLogoShow {
+    height: auto;
+  }
+  .nft {
+    margin: 5px -5px 15px 0px !important;
+    width: 100% !important;
+  }
+  .tabs .full {
+    display: grid;
+  }
+  :root {
+  
+    margin-right: 0px !important;
+  }
+}

@@ -1,0 +1,64 @@
+<div ng-controller="storeAccounts" class="loaded">
+  <div class="row" x-permissions="storeAccountsUi || storeAccountsManage">
+    <div x-import="storeAccounts/modal.html"></div>
+    <div x-import="storeAccounts/modalSearch.html"></div>
+
+    <div class="top-actions">
+      <i-button type="add" x-permissions="storeAccountsAdd || storeAccountsManage" label="##word.New##" ng-click="showAdd()"></i-button>
+      <i-button type="search" x-permissions="storeAccountsSearch || storeAccountsManage" label="##word.Active##" ng-click="searchAll(search={active:true})"></i-button>
+      <i-button type="search" x-permissions="storeAccountsSearch || storeAccountsManage" label="##word.Not Active##" ng-click="searchAll(search={active:false})"></i-button>
+      <i-button type="search" x-permissions="storeAccountsSearch || storeAccountsManage" label="##word.Allow Sale##" ng-click="searchAll(search={allowSale:true})"></i-button>
+      <i-button type="search" x-permissions="storeAccountsSearch || storeAccountsManage" label="##word.Not Allow Sale##" ng-click="searchAll(search={allowSale:false})"></i-button>
+    </div>
+    <div class="row">
+      <i-list class="col4" label="##word.Social Platform##" ng-model="search.socialPlatform" display="name" items="socialPlatformsList"></i-list>
+      <i-list class="col4" label="##word.Status##" ng-model="search.status" display="name" items="storeAccountsStatusList"></i-list>
+      <i-control class="col4" type="text" ng-model="search.facode" label="##word.2 Facode##"></i-control>
+      <i-control class="col4" type="text" ng-model="search.email" label="##word.Email##"></i-control>
+      <i-control class="col4" type="text" ng-model="search.password" label="##word.Password##"></i-control>
+    </div>
+    <div class="row">
+      <i-control ng-model="$search" class="col8" label="##word.Search All##" x-permissions="storeAccountsSearch || storeAccountsManage"></i-control>
+      <i-button type="search" x-permissions="storeAccountsSearch || storeAccountsManage" class="col2" label="##word.Search##" ng-click="getAll(search)"></i-button>
+    </div>
+    <div class="table-responsive">
+      <table class="table hover bold" id="t1">
+        <tr>
+          <th>##word.Logo##</th>
+          <th>##word.Title##</th>
+          <th>##word.Email##</th>
+          <th>##word.Social Platform Name##</th>
+          <th>##word.Standalone##</th>
+          <th>##word.Active##</th>
+          <th class="not-print">##word.Actions##</th>
+        </tr>
+        <tr ng-repeat="item in list | filter:$search">
+          <td class="center">
+            <i-image view class="logo center" ng-model="item.image"></i-image>
+          </td>
+          <td class="center">{{item.title}}</td>
+          <td class="center userPrint">{{item.email}}</td>
+          <td class="center">{{item.socialPlatform.name}}</td>
+          <td class="center">
+            <span ng-show="item.standalone">##word.Yes##</span>
+            <span ng-show="!item.standalone">##word.No##</span>
+          </td>
+          <td class="center">
+            <span ng-show="item.active" class="text-success">##word.Active##</span>
+            <span ng-show="!item.active" class="text-danger">##word.Not Active##</span>
+          </td>
+
+          <td class="center not-print">
+            <i-button type="view" title="##word.View##" ng-click="showView(item)"></i-button>
+
+            <i-button type="edit" x-permissions="storeAccountsUpdate || storeAccountsManage" title="##word.Edit##" ng-click="showUpdate(item)"></i-button>
+
+            <i-button type="delete" x-permissions="storeAccountsDelete || storeAccountsManage" title="##word.Delete##" ng-click="showDelete(item)"></i-button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <i-button x-permissions="storeAccountsPrint || storeAccountsManage" type="print" label="##word.Print##" onclick="site.print('#t1')"></i-button>
+    <i-button x-permissions="storeAccountsExport || storeAccountsManage" type="export" label="##word.Export to excel##" onclick="export_to_xlsx('t1' , 'report_value_added.xlsx')"> </i-button>
+  </div>
+</div>

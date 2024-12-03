@@ -1,0 +1,11 @@
+[
+    { "moduleName": "public", "screenName": "socialAccounts", "name": "socialAccountsManage", "En": "Manage", "Ar": "إدارة" },
+    { "moduleName": "public", "screenName": "socialAccounts", "name": "socialAccountsAdd", "En": "Add", "Ar": "إضافة" },
+    { "moduleName": "public", "screenName": "socialAccounts", "name": "socialAccountsUpdate", "En": "Edit", "Ar": "تعديل" },
+    { "moduleName": "public", "screenName": "socialAccounts", "name": "socialAccountsDelete", "En": "Delete", "Ar": "حذف" },
+    { "moduleName": "public", "screenName": "socialAccounts", "name": "socialAccountsView", "En": "View", "Ar": "عرض" },
+    { "moduleName": "public", "screenName": "socialAccounts", "name": "socialAccountsSearch", "En": "Search", "Ar": "بحث" },
+    { "moduleName": "public", "screenName": "socialAccounts", "name": "socialAccountsExport", "En": "Export", "Ar": "تصدير" },
+    { "moduleName": "public", "screenName": "socialAccounts", "name": "socialAccountsPrint", "En": "Print", "Ar": "طباعة" },
+    { "moduleName": "public", "screenName": "socialAccounts", "name": "socialAccountsUi", "En": "UI", "Ar": "الواجهة الرسومية" }
+]

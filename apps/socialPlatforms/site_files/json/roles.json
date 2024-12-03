@@ -1,0 +1,7 @@
+[{
+    "moduleName" : "public" ,
+    "name": "socialPlatformsAdmin",
+    "En": "Social Platforms Admin",
+    "Ar": "إدارة المنصات الإجتماعية",
+    "permissions": ["socialPlatformsManage"]
+}]

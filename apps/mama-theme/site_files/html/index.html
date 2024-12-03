@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="##session.language.id##" dir="##session.language.dir##" class="##session.language.dir##" ng-app="myApp">
+  <head x-import="mama-theme/head.html"> </head>
+  <body class="##session.language.id##" ng-controller="mamaTheme">
+    <div x-replace="mama-theme/header.html"></div>
+
+    <main class="container">
+      <div class="d-lg-none mob-login-div" x-permission="!login">
+        <a class="login-btn" href="/login"> تسجيل الدخول </a>
+        <a class="newRegister" href="/register"> مستخدم جديد </a>
+      </div>
+      <div x-data="setting.showBanner">
+        <img class="banner-site" ng-src="##data.banner##" alt="" srcset="" />
+        <div class="separative"></div>
+      </div>
+
+      <div class="row mainContent row-cols-1 row-cols-lg-2" x-data="setting.isEducationalPlatform">
+        <div class="content col-lg-9">
+          <div>
+            <div x-features="ads" class="adsBanner">
+              <img src=" " alt="" srcset="" />
+            </div>
+
+            <div class="row" x-data="showMamas" x-permissions="student || !login">
+              <div class="banner-word">
+                <span> ##word.Mamas## </span>
+                <a class="banner-viewAll" href="/mamasView">##word.View All##</a>
+              </div>
+
+              <ul class="row row-cols-1 row-cols-lg-3 row-cols-md-2">
+                <li class="mama-main-li" x-list1="mamaList">
+                  <a ng-click="selectMama(##item1.id##)" href="#">
+                    <div class="mama-main-div">
+                      <img src="##item1.image.url##" alt="" />
+                      <div>
+                        <p class="center font-20 bold margin">##item1.firstName##</p>
+                        <p class="center">##item1.title##</p>
+                        <p class="mama-main-bio">##item1.bio##</p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+              <div class="separative"></div>
+            </div>
+
+            <div class="row" x-data="isParent">
+              <div class="banner-word">
+                <span> ##word.Students## </span>
+              </div>
+
+              <ul class="row row-cols-1 row-cols-lg-3 row-cols-md-2">
+                <li class="student-parent-main" x-list1="childrenList">
+                  <a href="/lecturesStudentView?id=##item1._id##">
+                    <div class="student-parent">
+                      <img src="##item1.image.url##" alt="" />
+                      <p class="name">##item1.firstName##</p>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+              <div class="separative"></div>
+            </div>
+
+            <div class="row" x-data="setting.showNews">
+              <div class="banner-word">
+                <span> ##word.News## </span>
+                <a class="banner-viewAll" href="/newsListView?type=center">##word.Center News##</a>
+                <a class="banner-viewAll" href="/newsListView?type=faculty">##word.Faculty News##</a>
+              </div>
+
+              <ul class="row ul-list">
+                <li x-list1="newsList">
+                  <a href="/newsView?id=##item1._id##">
+                    <figure class="image-block">
+                      <p class="type">##word.News## ##item1.newsType.nameAr##</p>
+                      <p class="name bottom">##item1.name##</p>
+                      <img src="##item1.image.url##" alt="" />
+                    </figure>
+                  </a>
+                </li>
+              </ul>
+              <div class="separative"></div>
+            </div>
+
+            <div class="row" x-data="setting.showPackages">
+              <div class="banner-word">
+                <span> ##word.Packages## </span>
+                <a class="banner-viewAll" href="/packagesView">##word.View All##</a>
+              </div>
+
+              <ul class="row ul-list">
+                <li x-list1="packagesList">
+                  <a href="/packageView?id=##item1._id##">
+                    <figure class="image-block">
+                      <p class="name">##item1.name##</p>
+                      <img src="##item1.image.url##" alt="" />
+                      <figcaption>
+                        <p>##item1.description##</p>
+                        <div class="row price-more-card">
+                          <i class="price col-6"
+                            >##word.$## ##item1.price##
+                            <s class="red">##item1.totalLecturesPrice##</s>
+                          </i>
+                          <span class="col-6 more-card"> ##word.Details##.. </span>
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </li>
+              </ul>
+              <div class="separative"></div>
+            </div>
+
+            <div class="row" x-permissions="offline || mama || admin || !login" x-data="setting.showLectures">
+              <div class="banner-word">
+                <span> ##word.Lectures## </span>
+                <a class="banner-viewAll" href="/lecturesView">##word.View All##</a>
+              </div>
+
+              <ul class="row ul-list">
+                <li x-list1="lecturesList">
+                  <a href="/lectureView?id=##item1._id##">
+                    <figure class="image-block">
+                      <p class="name">##item1.name##</p>
+                      <img src="##item1.image.url##" alt="" />
+                      <figcaption>
+                        <p>##item1.description##</p>
+                        <div class="row price-more-card">
+                          <i class="price col-6" x-show-item1="price">##word.$## ##item1.price## </i>
+                          <i class="price col-6" x-show-item1="$isFree">##word.Free## </i>
+                          <span class="col-6 more-card"> ##word.Details##.. </span>
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </li>
+              </ul>
+              <div class="separative"></div>
+            </div>
+
+            <div class="row" x-permissions="student || mama || admin || !login" x-data="setting.showMiniBooks">
+              <div class="banner-word">
+                <span> ##word.Mini Books## </span>
+                <a class="banner-viewAll" href="/miniBooksView">##word.View All##</a>
+              </div>
+
+              <ul class="row ul-list">
+                <li x-list1="miniBooksList">
+                  <a href="/miniBookView?id=##item1._id##">
+                    <figure class="image-block">
+                      <p class="name">##item1.name##</p>
+                      <img src="##item1.image.url##" alt="" />
+                      <figcaption>
+                        <p>##item1.description##</p>
+                        <div class="row price-more-card">
+                          <i class="price col-6" x-show-item1="price">##word.$## ##item1.price## </i>
+                          <i class="price col-6" x-show-item1="$isFree">##word.Free## </i>
+                          <span class="col-6 more-card"> ##word.Details##.. </span>
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </li>
+              </ul>
+              <div class="separative"></div>
+            </div>
+
+            <div class="row" x-data="setting.showBooks">
+              <div class="banner-word">
+                <span> ##word.Books## </span>
+                <a class="banner-viewAll" href="/booksView">##word.View All##</a>
+              </div>
+              <ul class="row ul-list">
+                <li x-list1="booksList">
+                  <div class="nft">
+                    <a class="main" href="/bookView?id=##item1._id##">
+                      <img class="tokenImage" src="##item1.image.url##" alt="NFT" />
+                      <h2>##item1.name##</h2>
+                      <p class="description">##item1.description##</p>
+                      <div class="tokenInfo">
+                        <div class="price">
+                          <ins>##word.$##</ins>
+                          <p>##item1.price##</p>
+                        </div>
+                        <span class="white font-20">##word.Details##..</span>
+                      </div>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="sidebarContainer col-lg-3">
+          <div x-replace="mama-theme/sidebar.html"></div>
+        </div>
+      </div>
+    </main>
+    <div id="socialBrowserModal" class="modal codeModal small">
+      <div class="modal-content height-auto">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body center">
+          <p class="bold center font-20">##word.Please download a social browser to watch the video through the link below##</p>
+          <i class="fas fa-arrow-down padding margin font-25"></i>
+          <a href="https://social-browser.com/" target="_blank">
+            <p class="center bold blue font-22 padding margin">https://social-browser.com</p>
+          </a>
+        </div>
+        <div class="modal-footer center">
+          <p class="error">{{errorCode}}</p>
+        </div>
+      </div>
+    </div>
+    <div x-replace="mama-theme/footer.html"></div>
+    <div x-replace="mama-theme/scripts.html"></div>
+    <script x-import="mama-theme/index.js"></script>
+  </body>
+</html>

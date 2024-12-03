@@ -1,0 +1,228 @@
+<header class="HeaderContanier container" ng-controller="mamaHeader">
+  <div class="lgScreen d-lg-flex">
+    <div class="logo">
+      <a href="/">
+        <p x-data="setting.nameBesidLogoShow">##data.site_name##</p>
+        <img class="logoImg1" x-data="setting.nameBesidLogoShow" ng-src="##data.site_logo##" alt="" srcset="" />
+        <img class="logoImg2" x-data="setting.nameNotBesidLogoShow" class="" ng-src="##data.site_logo##" alt="" srcset="" />
+      </a>
+    </div>
+    <div class="button-screen">
+      <div x-data="setting.isEducationalPlatform">
+        <a class="button-screen-a" href="/miniBooksView" x-data="setting.showMiniBooks">
+          <i class="fas fa-layer-group"></i>
+          ##word.Mini Books##
+        </a>
+        <a class="button-screen-a" href="/lecturesView" x-permissions="offline || mama || admin || !login" x-data="setting.showLectures">
+          <i class="fas fa-chalkboard-mama"></i>
+          ##word.Lectures##
+        </a>
+        <a class="button-screen-a" href="/booksView" x-data="setting.showBooks">
+          <i class="fas fa-book"></i>
+          ##word.Books##
+        </a>
+        <a class="button-screen-a" href="/subscriptionsView" x-data="setting.showSubscriptions">
+          <i class="fas fa-tags"></i>
+          ##word.Subscriptions##
+        </a>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+    <a class="exit-mama" x-data="isMama" href="#" ng-click="exitMama();"> ##word.Exit## ##session.selectedMamaName##<i class="fas fa-sign-out-alt"></i></a>
+
+    <a x-features="login" class="desktop" href="#" onclick="event.stopPropagation(); $('.notification-menu').toggle()">
+      <i class="fas fa-bell notifacation-icon"></i>
+      <i x-data="notificationsCount" class="notifacation-padge">##data.notificationsCount##</i>
+    </a>
+    <div class="userContainer">
+      <div class="profile" x-permission="login">
+        <li class="nav-item dropdown">
+          <img src="##data.user_image##" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" alt="" srcset="" />
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <!-- <li><a class="dropdown-item" href="/profileView/##user.id##">##word.Personal Page##</a></li> -->
+            <li><a class="dropdown-item" href="/profileEdit?id=##session.user._id##&type=myProfile">##word.Manage My Page##</a></li>
+            <li><a class="dropdown-item" x-permissions="student" href="/studentsSchedule?id=##session.user._id##">##word.Student Schedule##</a></li>
+            <li><a class="dropdown-item" x-permissions="student" x-data="setting.showSubscriptions" href="/subscriptionsView?type=mySubscriptions">##word.My Subscriptions##</a></li>
+            <li><a class="dropdown-item" x-permissions="student" x-data="setting.showPackages" href="/profileEdit?id=##session.user._id##&type=myPackages">##word.My Packages##</a></li>
+            <li>
+              <a class="dropdown-item" x-permissions="student" ng-hide="'##user.placeType##' == 'online'" x-data="setting.showLectures"href="/lecturesView?type=myLectures"
+                >##word.My Lectures##</a
+              >
+            </li>
+            <li><a class="dropdown-item" x-permissions="student" x-data="setting.showMiniBooks" href="/miniBooksView?type=myMiniBooks">##word.My Mini Books##</a></li>
+            <li><a class="dropdown-item" x-permissions="student" x-data="setting.showBooks" href="/profileEdit?id=##session.user._id##&type=myBooks">##word.My Books##</a></li>
+            <li><a class="dropdown-item" x-permissions="admin || mama" href="/manageUsers?type=student">##word.Dashboard##</a></li>
+            <li><a class="dropdown-item" x-permissions="login" ng-click="logout()">##word.Logout##</a></li>
+          </ul>
+        </li>
+      </div>
+      <a x-permission="!login" class="login-btn" href="/login"> تسجيل الدخول </a>
+      <a x-permission="!login" class="newRegister" href="/register"> مستخدم جديد </a>
+    </div>
+    <div class="notification-menu" style="display: none">
+      <div class="profile" x-permission="login">
+        <div x-list1="notificationsList" class="pointer padding notifacation-data">
+          <a href="/notificationsView">
+            <div class="row">
+              <div class="col2">
+                <img class="notifacation-logo" src="##data.site_logo##" alt="" />
+              </div>
+              <div class="col10">
+                <p class="padding notifacation-title">##item1.title##</p>
+                <p class="padding notifacation-content">##item1.content##</p>
+              </div>
+            </div>
+          </a>
+          <div class="separative"></div>
+        </div>
+        <a href="/notificationsView">
+          <p class="notification-viewAll">##word.View All##</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="smScreen d-flex d-lg-none">
+    <div class="logoAndNav row row-cols-2">
+      <div class="logo col-8">
+        <a href="/">
+          <span x-data="setting.nameBesidLogoShow">##data.site_name##</span>
+          <img class="logoImg1" x-data="setting.nameBesidLogoShow" ng-src="##data.site_logo##" alt="" srcset="" />
+          <img class="logoImg2" x-data="setting.nameNotBesidLogoShow" class="" ng-src="##data.site_logo##" alt="" srcset="" />
+        </a>
+      </div>
+
+      <div class="burgerMenu col-4">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+    <div class="menuContainer">
+      <div class="closeBtn row">
+        <i class="fas fa-window-close"></i>
+      </div>
+      <div class="userAndGovernort pb-2 row row-cols-3" x-permission="login">
+        <!-- <div class="profile" x-permission="login">
+          <li class="nav-item dropdown">
+            <img src="##data.user_image##" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" alt="" srcset="" />
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="/profileEdit?id=##session.user._id##">##word.Manage My Page##</a></li>
+              <li><a class="dropdown-item" x-permissions="admin || mama" href="/lectures">##word.Dashboard##</a></li>
+              <li><a class="dropdown-item" x-permissions="login" ng-click="logout()">##word.Logout##</a></li>
+            </ul>
+          </li>
+        </div> -->
+        <div class="col-5">
+          <a class="exit-mama" x-data="isMama" href="#" ng-click="exitMama();"> ##word.Exit## ##session.selectedMamaName## <i class="fas fa-sign-out-alt"></i></a>
+        </div>
+        <div class="col-3 center">
+          <a x-features="login" href="#" onclick="event.stopPropagation(); $('.notification-menu').toggle()">
+            <i class="fas fa-bell notifacation-icon"></i>
+            <i x-data="notificationsCount" class="notifacation-padge">##data.notificationsCount##</i>
+          </a>
+        </div>
+        <div class="userContainer col-3">
+          <div class="profile">
+            <li class="nav-item dropdown">
+              <img src="##data.user_image##" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" alt="" srcset="" />
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <!-- <li><a class="dropdown-item" href="/profileView/##user.id##">##word.Personal Page##</a></li> -->
+                <li><a class="dropdown-item" href="/profileEdit?id=##session.user._id##&type=myProfile">##word.Manage My Page##</a></li>
+                <li><a class="dropdown-item" x-permissions="student" href="/studentsSchedule?id=##session.user._id##">##word.Student Schedule##</a></li>
+                <li><a class="dropdown-item" x-permissions="student" x-data="setting.showSubscriptions" href="/subscriptionsView?id=##session.user._id##">##word.My Subscriptions##</a></li>
+                <li><a class="dropdown-item" x-permissions="student" x-data="setting.showPackages" href="/profileEdit?id=##session.user._id##&type=myPackages">##word.My Packages##</a></li>
+                <li>
+                  <a class="dropdown-item" x-permissions="student" ng-hide="'##user.placeType##' == 'online'" x-data="setting.showLectures"href="/lecturesView?type=myLectures"
+                    >##word.My Lectures##</a
+                  >
+                </li>
+                <li><a class="dropdown-item" x-permissions="student" x-data="setting.showMiniBooks" href="/miniBooksView?type=myMiniBooks">##word.My Mini Books##</a></li>
+                <li><a class="dropdown-item" x-permissions="student" x-data="setting.showBooks" href="/profileEdit?id=##session.user._id##&type=myBooks">##word.My Books##</a></li>
+                <li><a class="dropdown-item" x-permissions="admin || mama" href="/manageUsers?type=student">##word.Dashboard##</a></li>
+                <li><a class="dropdown-item" x-permissions="login" ng-click="logout()">##word.Logout##</a></li>
+              </ul>
+            </li>
+          </div>
+        </div>
+      </div>
+      <!--    <div class="userAndGovernort pb-2 row row-cols-2 justify-content-between" x-permission="login">
+        <div class="governorat col-5">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">##word.My Menu##</button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="/profileEdit?id=##session.user._id##">##word.Manage My Page##</a></li>
+              <li><a class="dropdown-item" x-permissions="admin || mama" href="/lectures">##word.Dashboard##</a></li>
+              <li><a class="dropdown-item" x-permissions="login" ng-click="logout()">##word.Logout##</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="governorat col-5">
+          <div class="dropdown">
+            <button class="btn btn-secondary" x-data="isMama" ng-click="exitMama();" type="button" aria-expanded="false">##word.Change Mama##</button>
+          </div>
+        </div>
+     
+      </div>
+ -->
+      <div class="userContainer" x-permission="!login">
+        <a class="exit-mama" x-data="isMama" href="#" ng-click="exitMama();"> ##word.Change Mama##</a>
+        <a class="login-btn" href="/login"> تسجيل الدخول </a>
+        <a class="newRegister" href="/register"> مستخدم جديد </a>
+      </div>
+
+      <div class="button-screen" x-data="setting.isEducationalPlatform">
+        <a href="/packagesView" x-data="setting.showPackages">
+          <i class="fas fa-layer-group"></i>
+          ##word.Packages##
+        </a>
+        <a href="/lecturesView" ng-hide="'##user.placeType##' == 'online'" x-data="setting.showLectures">
+          <i class="fas fa-chalkboard-mama"></i>
+          ##word.Lectures##
+        </a>
+        <a href="/booksView" x-data="setting.showBooks">
+          <i class="fas fa-book"></i>
+          ##word.Books##
+        </a>
+        <a href="/subscriptionsView" x-data="setting.showSubscriptions">
+          <i class="fas fa-tags"></i>
+          ##word.Subscriptions##
+        </a>
+      </div>
+    </div>
+    <div class="notification-menu" style="display: none" x-permission="login">
+      <div class="profile">
+        <div x-list1="notificationsList" class="pointer padding notifacation-data">
+          <a href="/notificationsView">
+            <div class="row">
+              <div class="col2">
+                <img class="notifacation-logo" src="##data.site_logo##" alt="" />
+              </div>
+              <div class="col10">
+                <p class="padding notifacation-title">##item1.title##</p>
+                <p class="padding notifacation-content">##item1.content##</p>
+              </div>
+            </div>
+          </a>
+          <div class="separative"></div>
+        </div>
+      </div>
+      <a href="/notificationsView">
+        <p class="notification-viewAll">##word.View All##</p>
+      </a>
+    </div>
+  </div>
+</header>

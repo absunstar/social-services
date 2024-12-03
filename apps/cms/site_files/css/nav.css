@@ -1,0 +1,123 @@
+nav.sitebar {
+  z-index: 999999;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  height: 45px;
+  box-shadow: 1px 1px 8px 2px #000;
+  background: var(--color2);
+  border-radius: 0px 0px 0px 0px;
+}
+
+nav .brand {
+  margin: 0px;
+  padding: 5px;
+}
+
+nav .brand .title {
+  vertical-align: super;
+}
+
+nav .brand .title .fa {
+  font-size: 22px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+nav .brand a.title {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--brand-color) !important;
+  text-decoration: none;
+}
+
+nav .brand a.title span {
+  font-size: 12px;
+  color: #ffffff;
+}
+
+nav .brand a i {
+  color: #ffffff;
+}
+
+nav .links {
+  display: block;
+  -webkit-animation-name: var(--modal-animation-name);
+  -webkit-animation-duration: var(--modal-animation-duration);
+  animation-name: var(--modal-animation-name);
+  animation-duration: var(--modal-animation-duration);
+}
+
+nav .links ul {
+  list-style: none;
+}
+
+nav .links ul li {
+  display: inline-block;
+  margin: 3px;
+  padding: 3px;
+}
+
+nav .links ul li a {
+  color: #030303;
+}
+
+nav.sitebottom {
+  z-index: 999999;
+  position: fixed;
+  display: block;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  height: 40px;
+  background: var(--color3);
+  color: #ffffff;
+  border-top: 1px solid var(--color2);
+}
+
+nav .links {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-content: stretch;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+nav .links p {
+  width: 50%;
+  text-align: center;
+}
+nav.sitebottom a.link {
+  background: #fff;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 5px 20px;
+  margin: 2px;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+nav.sitebottom a.link:hover {
+  background: #fff;
+  color: #444;
+}
+
+.footer {
+  margin: 20px;
+  border: 1px solid #bbb;
+  padding: 5px;
+}
+
+.footer h2 {
+  font-weight: bold;
+  color: #000;
+}
+
+.footer h2 span {
+  font-weight: bold;
+  color: green;
+}

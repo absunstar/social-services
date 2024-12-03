@@ -1,0 +1,63 @@
+<footer class="footerContainer container">
+  <div class="logo">
+    <p x-data="setting.nameBesidLogoShow">##data.site_name##</p>
+    <img height="80px" x-data="setting.nameBesidLogoShow" ng-src="##data.site_footer_logo##" alt="" srcset="" />
+    <img x-data="setting.nameNotBesidLogoShow" class="nameNotBesidLogoShow" ng-src="##data.site_footer_logo##" alt="" srcset="" />
+  </div>
+
+  <div class="phone-call cbh-phone cbh-green cbh-show cbh-static" id="clbh_phone_div">
+    <a id="WhatsApp-button" x-data="setting.whatsapp" href="https://wa.me/##data.setting.whatsapp##" target="_blank" class="phoneJs" title="WhatsApp 360imagem">
+      <p>تواصل مع الدعم الفني</p>
+      <div class="cbh-ph-circle"></div>
+      <div class="cbh-ph-circle-fill"></div>
+      <div class="cbh-ph-img-circle1"><i class="fab fa-whatsapp whatsappContact"></i></div
+    ></a>
+  </div>
+  <div class="social-menu">
+    <ul>
+      <li x-data="setting.youtubeAccouunt">
+        <a target="_blank" class="youtube-icon" href="##data.setting.youtubeAccouunt##"><i class="fab fa-youtube"></i></a>
+      </li>
+
+      <li x-data="setting.instagramAccouunt">
+        <a target="_blank" class="instagram-icon" href="##data.setting.instagramAccouunt##"><i class="fab fa-instagram"></i></a>
+      </li>
+
+      <li x-data="setting.twitterAccouunt">
+        <a target="_blank" class="twitter-icon" href="##data.setting.twitterAccouunt##"><i class="fab fa-twitter"></i></a>
+      </li>
+
+      <li x-data="setting.facebookAccount">
+        <a target="_blank" class="facebook-icon" href="##data.setting.facebookAccount##"><i class="fab fa-facebook"></i></a>
+      </li>
+
+      <li x-data="setting.linkedinAccouunt">
+        <a target="_blank" class="linkedin-icon" href="##data.setting.linkedinAccouunt##"><i class="fab fa-linkedin-in"></i></a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="footerNav">
+    <ul class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+      <li class="col"><a href="/page/invite-friends" class="hover-a">أدع أصدقاءك</a></li>
+      <li class="col"><a href="/page/join-us" class="hover-a">إنضم إلينا</a></li>
+      <li class="col"><a href="/page/usage-agreement" class="hover-a">إتفاقية الإستخدام</a></li>
+      <li class="col"><a href="#" class="hover-a">,</a></li>
+      <li class="col"><a href="/page/privacy-policy" class="hover-a">سياسية الخصوصية</a></li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col">
+      <a x-lang="Ar" ng-click="changeLang('En')" class="link left"> <i class="fa fa-globe"></i> ##word.English## </a>
+      <a x-lang="En" ng-click="changeLang('Ar')" class="link left"> <i class="fa fa-globe"></i> ##word.Arabic## </a>
+    </div>
+    <div class="col">
+      <div class="copyright">
+        <p>جميع الحقوق محفوظة 2024</p>
+      </div>
+      <a href="##data.setting.powerByLink##" target="_blank">
+        <img height="80px" x-data="setting.powerdByLogo" ng-src="##data.powerdByLogo##" alt="" srcset="" />
+      </a>
+    </div>
+  </div>
+</footer>
