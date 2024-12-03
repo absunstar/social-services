@@ -1,3 +1,3 @@
 git add *
 git commit -m "2024-12-03"
-git pull origin master
+git pull origin main
