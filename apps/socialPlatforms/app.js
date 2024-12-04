@@ -224,7 +224,7 @@ module.exports = function init(site) {
             response.done = true;
             response.doc = doc;
           } else {
-            response.error = err?.message || "Not Exists";
+            response.error = err?.message || req.word("Not Exists");
           }
           res.json(response);
         });

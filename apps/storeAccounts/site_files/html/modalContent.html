@@ -1,50 +1,70 @@
 <div class="row">
   <div class="row padding">
     <div class="row">
-      <div class="col9">
-        <div class="row">
-          <i-checkbox ng-model="item.active" class="col3" label="##word.Active##"></i-checkbox>
-          <i-checkbox ng-model="item.allowSale" class="col3" label="##word.Allow Sale##"></i-checkbox>
+      <fieldset>
+        <div class="col9">
+          <i-control type="text" v="r" ng-model="item.title" label="##word.Title##"></i-control>
+          <div class="row">
+            <div class="col">
+              <i-checkbox ng-model="item.active" label="##word.Active##"></i-checkbox>
+            </div>
+            <div class="col">
+              <i-checkbox ng-model="item.allowSale" label="##word.Allow Sale##"></i-checkbox>
+            </div>
+          </div>
         </div>
-        <i-control type="text" v="r" ng-model="item.title" label="##word.Title##"></i-control>
-        <i-list v="r" label="##word.Social Platform##" ng-model="item.socialPlatform" display="name" items="socialPlatformsList"></i-list>
-        <i-control type="text" v="r" ng-model="item.email" label="##word.Email##"></i-control>
-        <i-control type="text" v="r" ng-model="item.password" label="##word.Password##"></i-control>
-        <i-control type="text" v="r" ng-model="item.cookies" label="##word.Cookies##"></i-control>
-        <i-control type="text" v="r" ng-model="item.facode" label="##word.2 Facode##"></i-control>
-        <i-control type="number" v="r" ng-model="item.price" label="##word.Price##"></i-control>
-      </div>
-      <div class="col3">
-        <i-image class="img128 center" ng-model="item.image"></i-image>
-      </div>
-    </div>
-    <fieldset>
-      <legend>##word.Description##</legend>
-      <i-content type="text" v="r" ng-model="item.description" label="##word.Description##"></i-content>
-    </fieldset>
-  </div>
-  <div class="row padding"></div>
-</div>
-<div ng-show="mode !== 'add' " class="row">
-  <table class="table hover border">
-    <tr>
-      <th>##word.Add User Info##</th>
-      <th>##word.Edit User Info##</th>
-    </tr>
-    <tr>
-      <td class="center">
-        <p class="blue">{{item.addUserInfo.name}}</p>
-        <small class="green"> {{item.addUserInfo.date |date:"hh:mm"}} </small>
-        <small> {{item.addUserInfo.date |date:"dd - MM - yyyy"}} </small>
-        <p class="bold">IP : {{item.addUserInfo.ip}}</p>
-      </td>
+        <div class="col3">
+          <i-image class="img128 center" ng-model="item.image"></i-image>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="row">
+          <i-list label="##word.User##" class="col4" ng-get="getUsers($search)" ng-model="item.user" items="usersList" display="firstName" ng-search="item.$user" v="r"> </i-list>
+          <i-list v="r" class="col4" label="##word.Social Platform##" ng-model="item.socialPlatform" display="name" items="socialPlatformsList"></i-list>
+          <i-list v="r" class="col4" label="##word.Store Type##" ng-model="item.storeType" display="##session.lang##" items="storeTypesList"></i-list>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="row">
+          <i-control type="text" v="r" class="col5" ng-model="item.email" label="##word.Email##"></i-control>
+          <i-control type="password" v="r" class="col5" ng-model="item.password" label="##word.Password##"></i-control>
+          <i-control type="number" v="r" class="col2" ng-model="item.price" label="##word.Price / $##"></i-control>
+        </div>
+        <i-control type="text" class="row" ng-model="item.facode" label="##word.2FA Code##"></i-control>
 
-      <td class="center">
-        <p class="blue">{{item.editUserInfo.name}}</p>
-        <small class="green"> {{item.editUserInfo.date |date:"hh:mm"}} </small>
-        <small> {{item.editUserInfo.date |date:"dd - MM - yyyy"}} </small>
-        <p class="bold">IP : {{item.editUserInfo.ip}}</p>
-      </td>
-    </tr>
-  </table>
+        <div class="row">
+          <i-textarea v="r" ng-model="item.cookies" label="##word.Cookies##"></i-textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>##word.Description##</legend>
+        <i-content type="text" v="r" ng-model="item.description" label="##word.Description##"></i-content>
+      </fieldset>
+    </div>
+    <div class="row padding"></div>
+  </div>
+  <div ng-show="mode !== 'add' " class="row">
+    <table class="table hover border">
+      <tr>
+        <th>##word.Add User Info##</th>
+        <th>##word.Edit User Info##</th>
+      </tr>
+      <tr>
+        <td class="center">
+          <p class="blue">{{item.addUserInfo.name}}</p>
+          <small class="green"> {{item.addUserInfo.date |date:"hh:mm"}} </small>
+          <small> {{item.addUserInfo.date |date:"dd - MM - yyyy"}} </small>
+          <p class="bold">IP : {{item.addUserInfo.ip}}</p>
+        </td>
+
+        <td class="center">
+          <p class="blue">{{item.editUserInfo.name}}</p>
+          <small class="green"> {{item.editUserInfo.date |date:"hh:mm"}} </small>
+          <small> {{item.editUserInfo.date |date:"dd - MM - yyyy"}} </small>
+          <p class="bold">IP : {{item.editUserInfo.ip}}</p>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

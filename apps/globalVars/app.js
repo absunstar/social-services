@@ -1,20 +1,15 @@
 module.exports = function init(site) {
-  site.storeAccountsStatus = [
+  site.storeTypes = [
     {
-      name: "available",
-      Ar: "متاح",
-      En: "Available",
+      name: "public",
+      Ar: "عام",
+      En: "Public",
     },
     {
-      name: "reserved",
-      Ar: "محجوز",
-      En: "Reserved",
-    },
-    {
-      name: "sold",
-      Ar: "تم البيع",
-      En: "Sold",
-    },
+      name: "private",
+      Ar: "خاص",
+      En: "Private",
+    }
   ];
   site.genders = [
     { id: 1, nameEn: "Male", nameAr: "ذكر" },
@@ -22,10 +17,10 @@ module.exports = function init(site) {
   ];
 
   
-  site.post("/api/storeAccountsStatus", (req, res) => {
+  site.post("/api/storeTypes", (req, res) => {
     res.json({
       done: true,
-      list: site.storeAccountsStatus,
+      list: site.storeTypes,
     });
   });
 

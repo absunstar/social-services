@@ -272,13 +272,11 @@ module.exports = function init(site) {
             response.done = true;
             response.doc = doc;
           } else {
-            response.error = err?.message || "Not Exists";
+            response.error = err?.message || req.word("Not Exists");
           }
           res.json(response);
         });
       });
-
-   
     }
 
     if (app.allowRouteAll) {
@@ -290,6 +288,8 @@ module.exports = function init(site) {
           id: 1,
           image: 1,
           price: 1,
+          user: 1,
+          storeType : 1,
           title: 1,
           active: 1,
         };
@@ -298,8 +298,30 @@ module.exports = function init(site) {
           where.$or.push({
             id: site.get_RegExp(search, "i"),
           });
+          where.$or.push({
+            title: site.get_RegExp(search, "i"),
+          });
+          where.$or.push({
+            "user.firstName": site.get_RegExp(search, "i"),
+          });
+          where.$or.push({
+            "storeType.name": site.get_RegExp(search, "i"),
+          });
         }
 
+        if (where["title"]) {
+          where["title"] = site.get_RegExp(where["title"], "i");
+        }
+
+        if (where["user"]?.id) {
+          where["user.id"] = where["user"].id;
+          delete where["user"];
+        }
+
+        if (where["storeType"]?.name) {
+          where["storeType.name"] = where["storeType"].name;
+          delete where["storeType"];
+        }
         where["host"] = site.getHostFilter(req.host);
 
         app.all({ where, select, limit, sort: { id: -1 } }, (err, docs) => {

@@ -208,7 +208,7 @@ module.exports = function init(site) {
 
       site.post(
         {
-          name: `/api/${app.name}/updateImplemente`,
+          name: `/api/${app.name}/updateTrusted`,
           require: { permissions: ["login"] },
         },
         (req, res) => {
@@ -216,19 +216,83 @@ module.exports = function init(site) {
             done: false,
           };
 
-          let _data = req.data;
-          _data.done = _data.$done;
-          _data.changeImplementeUser = req.getUserFinger();
-          _data.changeImplementeDate = new Date();
+          let where = req.data;
 
-          app.update(_data, (err, result) => {
-            if (!err) {
-              response.done = true;
-              response.result = result;
+          app.$collection.find(where, (err, doc) => {
+            if (!err && doc) {
+              doc.trusted = true;
+              app.update(doc, (err, result) => {
+                if (!err) {
+                  response.done = true;
+                  response.doc = result.doc;
+                } else {
+                  response.error = err.message || req.word("Not Exists");
+                }
+                res.json(response);
+              });
             } else {
-              response.error = err.message;
+              response.error = err?.message || req.word("Not Exists");
+              res.json(response);
             }
-            res.json(response);
+          });
+        }
+      );
+
+      site.post(
+        {
+          name: `/api/${app.name}/linkWithPackage`,
+          require: { permissions: ["login"] },
+        },
+        (req, res) => {
+          let response = {
+            done: false,
+          };
+
+          let type = req.data.type;
+          let where = req.data.where;
+
+          where["trusted"] = true;
+
+          app.$collection.find(where, (err, doc) => {
+            if (!err && doc) {
+              if (type == "link") {
+                if (!doc.standalone) {
+                  response.error = req.word("This Account Is`t Standalone");
+                  return;
+                }
+                doc.packageId = req.data.packageId;
+                doc.standalone = false;
+              } else if (type == "unlink") {
+                doc.packageId = 0;
+                doc.standalone = true;
+              }
+
+              app.$collection.edit(
+                {
+                  where: {
+                    id: doc.id,
+                  },
+                  set: doc,
+                },
+                (err, result) => {
+                  if (!err) {
+                    response.done = true;
+                    response.doc = {
+                      id: result.doc.id,
+                      email: result.doc.email,
+                      price: result.doc.price,
+                      socialPlatform: result.doc.socialPlatform,
+                    };
+                  } else {
+                    response.error = err.message || req.word("Not Exists");
+                  }
+                  res.json(response);
+                }
+              );
+            } else {
+              response.error = err?.message || req.word("Not Exists");
+              res.json(response);
+            }
           });
         }
       );
@@ -271,7 +335,7 @@ module.exports = function init(site) {
             response.done = true;
             response.doc = doc;
           } else {
-            response.error = err?.message || "Not Exists";
+            response.error = err?.message || req.word("Not Exists");
           }
           res.json(response);
         });
@@ -282,26 +346,21 @@ module.exports = function init(site) {
           done: false,
         };
 
-        let _data = req.data;
-        _data["active"] = true;
-        _data["host"] = site.getHostFilter(req.host);
+        let where = req.data;
+        where["host"] = site.getHostFilter(req.host);
+        let select = {
+          id: 1,
+          email: 1,
+          price: 1,
+          socialPlatform: 1,
+        };
 
-        app.$collection.find(_data, (err, doc) => {
-          if (!err && doc) {
-            if (doc.standalone) {
-              response.done = true;
-              response.doc = {
-                id: doc.id,
-                email: doc.email,
-                price: doc.price,
-                socialPlatform: doc.socialPlatform,
-              };
-            } else {
-              response.error = req.word("This account is not standalone");
-              return;
-            }
+        app.all({ where, select, sort: { id: -1 } }, (err, docs) => {
+          if (!err) {
+            response.done = true;
+            response.docs = docs;
           } else {
-            response.error = err?.message || "Not Exists";
+            response.error = err?.message || req.word("Not Exists");
           }
           res.json(response);
         });
@@ -319,7 +378,10 @@ module.exports = function init(site) {
           standalone: 1,
           email: 1,
           socialPlatform: 1,
+          storeType: 1,
           title: 1,
+          user: 1,
+          trusted: 1,
           active: 1,
         };
         if (search) {
@@ -329,6 +391,15 @@ module.exports = function init(site) {
           });
           where.$or.push({
             "socialPlatform.name": site.get_RegExp(search, "i"),
+          });
+          where.$or.push({
+            "storeType.name": site.get_RegExp(search, "i"),
+          });
+          where.$or.push({
+            "user.firstName": site.get_RegExp(search, "i"),
+          });
+          where.$or.push({
+            title: site.get_RegExp(search, "i"),
           });
           where.$or.push({
             email: site.get_RegExp(search, "i"),
@@ -343,9 +414,14 @@ module.exports = function init(site) {
           delete where["socialPlatform"];
         }
 
-        if (where["status"]?.name) {
-          where["status.name"] = where["status"].name;
-          delete where["status"];
+        if (where["storeType"]?.name) {
+          where["storeType.name"] = where["storeType"].name;
+          delete where["storeType"];
+        }
+
+        if (where["user"]?.id) {
+          where["user.id"] = where["user"].id;
+          delete where["user"];
         }
 
         if (where["email"]) {
@@ -357,7 +433,11 @@ module.exports = function init(site) {
         }
 
         if (where["facode"]) {
-          where["facode"] = where["facode"];
+          where["facode"] = site.get_RegExp(where["facode"], "i");
+        }
+
+        if (where["title"]) {
+          where["title"] = site.get_RegExp(where["title"], "i");
         }
 
         where["host"] = site.getHostFilter(req.host);

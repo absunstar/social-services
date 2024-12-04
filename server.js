@@ -3,7 +3,7 @@ const site = require('../isite')({
   lang: 'En',
   language: { id: 'En', dir: 'ltr', text: 'right' },
   version: new Date().getTime(),
-  name: 'mama',
+  name: 'Mama-Services',
   savingTime: 5,
   log: true,
   require: {
