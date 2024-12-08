@@ -218,17 +218,12 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
     $scope.socialPlatformsList = [];
     $http({
       method: "POST",
-      url: "/api/socialPlatforms/all",
-      data: {
-        where: {
-          active: true,
-        },
-        select: { id: 1, name: 1 },
-      },
+      url: "/api/socialPlatforms",
+      data: {},
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
+        if (response.data.done) {
           $scope.socialPlatformsList = response.data.list;
         }
       },
@@ -292,7 +287,6 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
     $scope.error = "";
     site.showModal($scope.modalSearchID);
   };
-
   $scope.searchAll = function () {
     $scope.getAll($scope.search);
     site.hideModal($scope.modalSearchID);

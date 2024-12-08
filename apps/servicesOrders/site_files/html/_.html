@@ -1,0 +1,58 @@
+<div ng-controller="servicesOrders" class="loaded">
+  <div class="row" x-permissions="servicesOrdersUi || servicesOrdersManage">
+    <div x-import="servicesOrders/modal.html"></div>
+    <div x-import="servicesOrders/modalSearch.html"></div>
+
+    <div class="top-actions">
+      <i-button type="add" x-permissions="servicesOrdersAdd || servicesOrdersManage" label="##word.New##" ng-click="showAdd()"></i-button>
+      <i-button type="search" label="##word.Advanced Search##" ng-click="$showAdvancedSearch = !$showAdvancedSearch"></i-button>
+    </div>
+
+    <fieldset ng-show="$showAdvancedSearch">
+      <legend>##word.Advanced Search##</legend>
+      <div class="row">
+        <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
+        <i-list class="col4" label="##word.Type##" ng-model="search.type" display="name" items="serviceOrderTypesList"></i-list>
+        <i-list class="col4" label="##word.Status##" ng-model="search.status" display="name" items="serviceOrderStatusList"></i-list>
+      </div>
+    </fieldset>
+    <div class="row">
+      <i-control ng-model="$search" class="col8" label="##word.Search All##"></i-control>
+      <i-button type="search" class="col2" label="##word.Search##" ng-click="getAll(search)"></i-button>
+    </div>
+    <div class="table-responsive">
+      <table class="table hover bold" id="t1">
+        <tr>
+          <th>##word.Name##</th>
+          <th>##word.Service##</th>
+          <th>##word.Qty.##</th>
+          <th>##word.Price##</th>
+          <th>##word.Type##</th>
+          <th>##word.Status##</th>
+          <th class="not-print">##word.Actions##</th>
+        </tr>
+        <tr ng-repeat="item in list | filter:$search">
+        
+          <td class="center">{{item.name}}</td>
+          <td class="center">{{item.service.name}}</td>
+          <td class="center">{{item.quantity}}</td>
+          <td class="center">{{item.totalPrice}}</td>
+          <td class="center">{{item.type.name}}</td>
+          <td class="center">{{item.status.name}}</td>
+          <td class="center not-print">
+            <i-button label="##word.Approved##" ng-show="item.type.name == 'view'" ng-click="updateSome(item,'type','approved')"></i-button>
+            <i-button label="##word.Rejected##" ng-show="item.type.name == 'view'" ng-click="updateSome(item,'type','rejected')"></i-button>
+            <i-button label="##word.Running##" ng-show="item.type.name == 'approved' && item.status.name == 'pending'" ng-click="updateSome(item,'status','running')"></i-button>
+            <i-button label="##word.Done##" ng-show="item.type.name == 'approved' && item.status.name == 'running'" ng-click="updateSome(item,'status','done')"></i-button>
+
+            <i-button type="view" title="##word.View##" ng-click="showView(item)"></i-button>
+            <i-button type="edit" x-permissions="servicesOrdersUpdate || servicesOrdersManage" title="##word.Edit##" ng-click="showUpdate(item)"></i-button>
+            <i-button type="delete" x-permissions="servicesOrdersDelete || servicesOrdersManage" title="##word.Delete##" ng-click="showDelete(item)"></i-button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <i-button x-permissions="servicesOrdersPrint || servicesOrdersManage" type="print" label="##word.Print##" onclick="site.print('#t1')"></i-button>
+    <i-button x-permissions="servicesOrdersExport || servicesOrdersManage" type="export" label="##word.Export to excel##" onclick="export_to_xlsx('t1' , 'report_value_added.xlsx')"> </i-button>
+  </div>
+</div>
