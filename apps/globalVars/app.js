@@ -1,4 +1,12 @@
 module.exports = function init(site) {
+  site.ProviderList = [
+    {
+      name: 'Site',
+    },
+    {
+      name: 'User',
+    },
+  ];
   site.storeTypeList = [
     {
       name: 'Private',
@@ -86,7 +94,7 @@ module.exports = function init(site) {
     },
     {
       name: 'Facebook',
-      url : 'https://www.facebook.com/',
+      url: 'https://www.facebook.com/',
       serviceList: [
         {
           name: 'Like',
