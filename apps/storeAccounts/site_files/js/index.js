@@ -201,6 +201,9 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
       function (response) {
         $scope.busy = false;
         if (response.data.done && response.data.list.length > 0) {
+          response.data.list.forEach((s) => {
+            s.socialPlatform.$image = { url: '/images/' + s.socialPlatform.name + '.png' };
+          });
           $scope.list = response.data.list;
           $scope.count = response.data.count;
           site.hideModal($scope.modalSearchID);

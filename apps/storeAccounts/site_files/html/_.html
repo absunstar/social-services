@@ -35,33 +35,35 @@
       <table class="table hover bold" id="StoreAcounts">
         <tr>
           <th>##word.Logo##</th>
-          <th>##word.User##</th>
-          <th>##word.Title##</th>
-          <th>##word.Email##</th>
           <th>##word.Platform##</th>
-          <th>##word.Store##</th>
-          <th>##word.Standalone##</th>
-          <th>##word.Active##</th>
+          <th>##word.Email##</th>
+          <th>##word.Store Type##</th>
           <th>##word.Trusted##</th>
           <th class="not-print">##word.Actions##</th>
         </tr>
         <tr ng-repeat="item in list | filter:$search">
-          <td class="center">
-            <i-image view class="logo center" ng-model="item.image"></i-image>
+          <td>
+            <div class="center">
+              <span ng-show="item.active" class="col text-success">##word.Active##</span>
+              <span ng-show="!item.active" class="col text-danger">##word.Not Active##</span>
+              <i-image view class="logo center" ng-model="item.image"></i-image>
+            </div>
           </td>
-          <td class="center">{{item.user.firstName}}</td>
-          <td class="center">{{item.title}}</td>
+          <td>
+            <div class="center">
+              <span class="col">{{item.socialPlatform.name}}</span>
+              <i-image view class="logo center" ng-model="item.socialPlatform.$image"></i-image>
+            </div>
+          </td>
           <td class="center userPrint">{{item.email}}</td>
-          <td class="center">{{item.socialPlatform.name}}</td>
-          <td class="center">{{item.storeType.name}}</td>
           <td class="center">
-            <span ng-show="item.standalone">##word.Yes##</span>
-            <span ng-show="!item.standalone">##word.No##</span>
+            <span class="blue"> {{item.storeType.name}}</span>
+            <div class="center">
+              <span class="green" ng-show="item.standalone">##word.Standalone##</span>
+              <span class="red" ng-show="!item.standalone">##word.Package##</span>
+            </div>
           </td>
-          <td class="center">
-            <span ng-show="item.active" class="text-success">##word.Active##</span>
-            <span ng-show="!item.active" class="text-danger">##word.Not Active##</span>
-          </td>
+
           <td class="center">
             <i-button ng-show="!item.trusted" label="##word.Trusted##" ng-click="makeTrusted(item)"></i-button>
             <span ng-show="item.trusted">##word.Yes##</span>
