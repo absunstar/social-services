@@ -1,6 +1,6 @@
 module.exports = function init(site) {
   let app = {
-    name: "storePackages",
+    name: "servicesOrders",
     allowMemory: false,
     memoryList: [],
     allowCache: false,
@@ -144,15 +144,7 @@ module.exports = function init(site) {
           name: app.name,
         },
         (req, res) => {
-          res.render(
-            app.name + "/index.html",
-            {
-              title: app.name,
-              appName: req.word("Store Packages"),
-              setting: site.getSiteSetting(req.host),
-            },
-            { parser: "html", compres: true }
-          );
+          res.render(app.name + "/index.html", { title: app.name, appName: req.word("Services Orders"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });
         }
       );
     }
@@ -172,7 +164,6 @@ module.exports = function init(site) {
           if (!err && doc) {
             response.done = true;
             response.doc = doc;
-            site.storeAccountsReserved(doc.accountList);
           } else {
             response.error = err.mesage;
           }
@@ -182,82 +173,43 @@ module.exports = function init(site) {
     }
 
     if (app.allowRouteUpdate) {
-      site.post(
-        {
-          name: `/api/${app.name}/update`,
-          require: { permissions: ["login"] },
-        },
-        (req, res) => {
-          let response = {
-            done: false,
-          };
+      site.post({ name: `/api/${app.name}/update`, require: { permissions: ["login"] } }, (req, res) => {
+        let response = {
+          done: false,
+        };
 
-          let _data = req.data;
-          _data.editUserInfo = req.getUserFinger();
+        let _data = req.data;
+        _data.editUserInfo = req.getUserFinger();
 
-          app.update(_data, (err, result) => {
-            if (!err) {
-              response.done = true;
-              response.result = result;
-            } else {
-              response.error = err.message;
-            }
-            res.json(response);
-          });
-        }
-      );
-
-      site.post(
-        {
-          name: `/api/${app.name}/updateImplemente`,
-          require: { permissions: ["login"] },
-        },
-        (req, res) => {
-          let response = {
-            done: false,
-          };
-
-          let _data = req.data;
-          _data.done = _data.$done;
-          _data.changeImplementeUser = req.getUserFinger();
-          _data.changeImplementeDate = new Date();
-
-          app.update(_data, (err, result) => {
-            if (!err) {
-              response.done = true;
-              response.result = result;
-            } else {
-              response.error = err.message;
-            }
-            res.json(response);
-          });
-        }
-      );
+        app.update(_data, (err, result) => {
+          if (!err) {
+            response.done = true;
+            response.result = result;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        });
+      });
     }
 
     if (app.allowRouteDelete) {
-      site.post(
-        {
-          name: `/api/${app.name}/delete`,
-          require: { permissions: ["login"] },
-        },
-        (req, res) => {
-          let response = {
-            done: false,
-          };
-          let _data = req.data;
+      site.post({ name: `/api/${app.name}/delete`, require: { permissions: ["login"] } }, (req, res) => {
+        let response = {
+          done: false,
+        };
+        let _data = req.data;
 
-          app.delete(_data, (err, result) => {
-            if (!err && result.count === 1) {
-              response.done = true;
-              response.result = result;
-            } else {
-              response.error = err?.message || "Deleted Not Exists";
-            }
-            res.json(response);
-          });
-        }
-      );
+        app.delete(_data, (err, result) => {
+          if (!err && result.count === 1) {
+            response.done = true;
+            response.result = result;
+          } else {
+            response.error = err?.message || "Deleted Not Exists";
+          }
+          res.json(response);
+        });
+      });
     }
 
     if (app.allowRouteView) {
@@ -279,38 +231,80 @@ module.exports = function init(site) {
       });
     }
 
+    site.post(
+      {
+        name: `/api/${app.name}/updateSome`,
+        require: { permissions: ["login"] },
+      },
+      (req, res) => {
+        let response = {
+          done: false,
+        };
+
+        let id = req.data.id;
+        let type = req.data.type;
+        let value = req.data.value;
+
+        app.$collection.find({ id: id }, (err, doc) => {
+          if (!err && doc) {
+            console.log(type, value);
+
+            doc[type].name = value;
+            app.update(doc, (err, result) => {
+              if (!err) {
+                response.done = true;
+                response.doc = result.doc;
+              } else {
+                response.error = err.message || req.word("Not Exists");
+              }
+              res.json(response);
+            });
+          } else {
+            response.error = err?.message || req.word("Not Exists");
+            res.json(response);
+          }
+        });
+      }
+    );
+
     if (app.allowRouteAll) {
       site.post({ name: `/api/${app.name}/all`, public: true }, (req, res) => {
         let where = req.body.where || {};
         let search = req.body.search || "";
-        let limit = req.body.limit || 50;
-        let select = req.body.select || {
-          id: 1,
-          image: 1,
-          price: 1,
-          user: 1,
-          storeType : 1,
-          title: 1,
-          active: 1,
-        };
+        let limit = req.body.limit || 100;
+        let select = req.body.select || { id: 1, name: 1, user: 1, service: 1, totalPrice: 1, quantity: 1, type: 1, status: 1 };
+
         if (search) {
           where.$or = [];
           where.$or.push({
             id: site.get_RegExp(search, "i"),
           });
           where.$or.push({
-            title: site.get_RegExp(search, "i"),
+            name: site.get_RegExp(search, "i"),
           });
           where.$or.push({
-            "user.firstName": site.get_RegExp(search, "i"),
-          });
-          where.$or.push({
-            "storeType.name": site.get_RegExp(search, "i"),
+            "service.name": site.get_RegExp(search, "i"),
           });
         }
 
-        if (where["title"]) {
-          where["title"] = site.get_RegExp(where["title"], "i");
+        if (where["socialPlatform"]?.name) {
+          where["socialPlatform.name"] = where["socialPlatform"].name;
+          delete where["socialPlatform"];
+        }
+
+        if (where["service"]?.name) {
+          where["service.name"] = where["service"].name;
+          delete where["service"];
+        }
+
+        if (where["type"]?.name) {
+          where["type.name"] = where["type"].name;
+          delete where["type"];
+        }
+
+        if (where["status"]?.name) {
+          where["status.name"] = where["status"].name;
+          delete where["status"];
         }
 
         if (where["user"]?.id) {
@@ -318,10 +312,6 @@ module.exports = function init(site) {
           delete where["user"];
         }
 
-        if (where["storeType"]?.name) {
-          where["storeType.name"] = where["storeType"].name;
-          delete where["storeType"];
-        }
         where["host"] = site.getHostFilter(req.host);
 
         app.all({ where, select, limit, sort: { id: -1 } }, (err, docs) => {

@@ -1,0 +1,7 @@
+[{
+    "moduleName" : "public" ,
+    "name": "servicesOrdersAdmin",
+    "En": "ServicesOrders Admin",
+    "Ar": "إدارة طلبات الخدمات الخدمات",
+    "permissions": ["servicesOrdersManage"]
+}]

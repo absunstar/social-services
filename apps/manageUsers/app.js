@@ -386,6 +386,10 @@ module.exports = function init(site) {
           });
 
           where.$or.push({
+            email: site.get_RegExp(search, 'i'),
+          });
+
+          where.$or.push({
             firstName: site.get_RegExp(search, 'i'),
           });
 
@@ -433,7 +437,7 @@ module.exports = function init(site) {
             'area.name': site.get_RegExp(search, 'i'),
           });
         }
-
+        
         app.$collection.findMany({ where, select, limit, sort: { id: -1 } }, (err, users, count) => {
           res.json({
             done: true,

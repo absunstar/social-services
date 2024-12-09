@@ -1,31 +1,128 @@
 module.exports = function init(site) {
-  site.storeAccountsStatus = [
+  site.storeTypes = [
     {
-      name: "available",
-      Ar: "متاح",
-      En: "Available",
+      name: "public",
+      Ar: "عام",
+      En: "Public",
     },
     {
-      name: "reserved",
-      Ar: "محجوز",
-      En: "Reserved",
-    },
-    {
-      name: "sold",
-      Ar: "تم البيع",
-      En: "Sold",
+      name: "private",
+      Ar: "خاص",
+      En: "Private",
     },
   ];
+
+  site.serviceOrderStatus = [
+    {
+      name: "pending",
+    },
+    {
+      name: "running",
+    },
+    {
+      name: "done",
+    },
+  ];
+
+  site.serviceOrderTypes = [
+    {
+      name: "view",
+    },
+    {
+      name: "approved",
+    },
+    {
+      name: "rejected",
+    },
+  ];
+
+  site.socialPlatforms = [
+    {
+      name: "youtube",
+      serviceList: [
+        {
+          name: "like",
+        },
+        {
+          name: "comment",
+        },
+        {
+          name: "share",
+        },
+        {
+          name: "subscribe",
+        },
+        {
+          name: "view",
+        },
+      ],
+    },
+    {
+      name: "facebook",
+      serviceList: [
+        {
+          name: "like",
+        },
+        {
+          name: "comment",
+        },
+        {
+          name: "share",
+        },
+        {
+          name: "follow",
+        },
+      ],
+    },
+    {
+      name: "instagram",
+      serviceList: [
+        {
+          name: "like",
+        },
+        {
+          name: "comment",
+        },
+        {
+          name: "share",
+        },
+        {
+          name: "follow",
+        },
+      ],
+    },
+  ];
+
   site.genders = [
     { id: 1, nameEn: "Male", nameAr: "ذكر" },
     { id: 2, nameEn: "Female", nameAr: "أنثى" },
   ];
 
-  
-  site.post("/api/storeAccountsStatus", (req, res) => {
+  site.post("/api/serviceOrderStatus", (req, res) => {
     res.json({
       done: true,
-      list: site.storeAccountsStatus,
+      list: site.serviceOrderStatus,
+    });
+  });
+
+  site.post("/api/serviceOrderTypes", (req, res) => {
+    res.json({
+      done: true,
+      list: site.serviceOrderTypes,
+    });
+  });
+
+  site.post("/api/storeTypes", (req, res) => {
+    res.json({
+      done: true,
+      list: site.storeTypes,
+    });
+  });
+
+  site.post("/api/socialPlatforms", (req, res) => {
+    res.json({
+      done: true,
+      list: site.socialPlatforms,
     });
   });
 
@@ -35,5 +132,4 @@ module.exports = function init(site) {
       list: site.genders,
     });
   });
-
 };

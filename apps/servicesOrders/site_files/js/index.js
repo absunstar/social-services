@@ -1,21 +1,21 @@
-app.controller("storePackages", function ($scope, $http, $timeout) {
+app.controller("servicesOrders", function ($scope, $http, $timeout) {
   $scope.baseURL = "";
-  $scope.appName = "storePackages";
-  $scope.modalID = "#storePackagesManageModal";
-  $scope.modalSearchID = "#storePackagesSearchModal";
+  $scope.appName = "servicesOrders";
+  $scope.modalID = "#servicesOrdersManageModal";
+  $scope.modalSearchID = "#servicesOrdersSearchModal";
   $scope.setting = site.showObject(`##data.#setting##`);
   $scope.mode = "add";
   $scope._search = {};
-  $scope.structure = {
-    active: true,
-  };
+  $scope.structure = {};
   $scope.item = {};
   $scope.list = [];
 
   $scope.showAdd = function (_item) {
     $scope.error = "";
     $scope.mode = "add";
-    $scope.item = { ...$scope.structure, price: 0, accountsPrice: 0 };
+    $scope.item = { ...$scope.structure, quantity: 1 };
+    $scope.item.type = $scope.serviceOrderTypesList.find((itm) => itm.name == "view");
+    $scope.item.status = $scope.serviceOrderStatusList.find((itm) => itm.name == "pending");
     site.showModal($scope.modalID);
   };
 
@@ -41,6 +41,9 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
           $scope.list.unshift(response.data.doc);
         } else {
           $scope.error = response.data.error;
+          if (response.data.error && response.data.error.like("*Must Enter Code*")) {
+            $scope.error = "##word.Must Enter Code##";
+          }
         }
       },
       function (err) {
@@ -78,6 +81,31 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
           let index = $scope.list.findIndex((itm) => itm.id == response.data.result.doc.id);
           if (index !== -1) {
             $scope.list[index] = response.data.result.doc;
+          }
+        } else {
+          $scope.error = response.data.error;
+        }
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
+  };
+
+  $scope.updateSome = function (_item, type, value) {
+    $scope.error = "";
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: `${$scope.baseURL}/api/${$scope.appName}/updateSome`,
+      data: { id: _item.id, type: type, value: value },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          let index = $scope.list.findIndex((itm) => itm.id == response.data.doc.id);
+          if (index !== -1) {
+            $scope.list[index] = response.data.doc;
           }
         } else {
           $scope.error = response.data.error;
@@ -184,128 +212,6 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.removeAccount = function (item) {
-    $scope.accountList = $scope.accountList.filter(function (itm) {
-      return itm.id !== item.id;
-    });
-    $scope.linkWithPackage({which :13},item.email,'unlink')
-  };
-
-  $scope.calcPrice = function () {
-    $scope.item.accountsPrice = 0;
-    for (let i = 0; i < $scope.accountList.length; i++) {
-      $scope.item.accountsPrice += $scope.accountList[i].price;
-    }
-  };
-
-  $scope.linkWithPackage = function (ev, search, type) {
-    $scope.errAccount = "";
-
-    if (ev.which === 13 && search) {
-      $scope.busy = true;
-      $scope.error = "";
-      $http({
-        method: "POST",
-        url: `${$scope.baseURL}/api/storeAccounts/linkWithPackage`,
-        data: {
-          type: type,
-          packageId: $scope.item.id,
-          where: {
-            email: search,
-            "user.id": $scope.item.user.id,
-            "storeType.name": $scope.item.storeType.name,
-          },
-        },
-      }).then(
-        function (response) {
-          $scope.busy = false;
-
-          if (response.data.done) {
-            if(type == 'link') {
-
-              if (!$scope.accountList.some((_a) => _a.email == response.data.doc.email || _a.id == response.data.doc.id)) {
-                $scope.accountList.unshift(response.data.doc);
-              } else {
-                $scope.errAccount = "##word.Email is exists##";
-              }
-            }
-            $scope.calcPrice();
-          } else {
-            $scope.errAccount = response.data.error;
-          }
-          $scope.item.$email = "";
-        },
-        function (err) {
-          console.log(err);
-        }
-      );
-    }
-  };
-
-  $scope.getStoreAccounts = function (item) {
-    $scope.errAccount = "";
-    $scope.accountList = [];
-    $scope.busy = true;
-    $scope.error = "";
-    $http({
-      method: "POST",
-      url: `${$scope.baseURL}/api/${$scope.appName}/view`,
-      data: {
-        id: item.id,
-      },
-    }).then(function (response) {
-      if (response.data.done) {
-        $scope.item = response.data.doc;
-
-        $http({
-          method: "POST",
-          url: `${$scope.baseURL}/api/storeAccounts/viewSomeData`,
-          data: {
-            "user.id": $scope.item.user.id,
-            "packageId": $scope.item.id,
-          },
-        }).then(
-          function (response1) {
-            $scope.busy = false;
-            if (response1.data.done) {
-              $scope.accountList = response1.data.docs || [];
-              site.showModal("#accountsManageModal");
-            } else {
-              $scope.errAccount = response1.data.error;
-            }
-            $scope.item.$email = "";
-          },
-          function (err) {
-            console.log(err);
-          }
-        );
-      } else {
-        $scope.error = response.data.error;
-      }
-    });
-  };
-
-  $scope.getStoreTypesList = function () {
-    $scope.busy = true;
-    $scope.storeTypesList = [];
-    $http({
-      method: "POST",
-      url: "/api/storeTypes",
-      data: {},
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          $scope.storeTypesList = response.data.list;
-        }
-      },
-      function (err) {
-        $scope.busy = false;
-        $scope.error = err;
-      }
-    );
-  };
-
   $scope.getSocialPlatformsList = function () {
     $scope.busy = true;
     $scope.socialPlatformsList = [];
@@ -318,6 +224,48 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.done) {
           $scope.socialPlatformsList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.getServiceOrderStatusList = function () {
+    $scope.busy = true;
+    $scope.serviceOrderStatusList = [];
+    $http({
+      method: "POST",
+      url: "/api/serviceOrderStatus",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.serviceOrderStatusList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.getServiceOrderTypesList = function () {
+    $scope.busy = true;
+    $scope.serviceOrderTypesList = [];
+    $http({
+      method: "POST",
+      url: "/api/serviceOrderTypes",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.serviceOrderTypesList = response.data.list;
         }
       },
       function (err) {
@@ -354,6 +302,53 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
       }
     );
   };
+
+  $scope.getServicesList = function ($search) {
+    $scope.error = "";
+    if ($search && $search.length < 1) {
+      return;
+    }
+    $scope.busy = true;
+    $scope.serviceList = [];
+    $http({
+      method: "POST",
+      url: "/api/services/all",
+      data: {
+        where: {
+          active: true,
+        },
+        select: {
+          id: 1,
+          name: 1,
+          socialPlatform: 1,
+          platformService: 1,
+          price: 1,
+        },
+        search: $search,
+      },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done && response.data.list.length > 0) {
+          $scope.serviceList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.calcTotalPrice = function () {
+    $scope.error = "";
+    $timeout(() => {
+      if ($scope.item?.service?.id) {
+        $scope.item.totalPrice = $scope.item.service.price * $scope.item.quantity;
+      }
+    }, 500);
+  };
+
   $scope.showSearch = function () {
     $scope.error = "";
     site.showModal($scope.modalSearchID);
@@ -367,5 +362,7 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
 
   $scope.getAll();
   $scope.getSocialPlatformsList();
-  $scope.getStoreTypesList();
+  $scope.getServicesList();
+  $scope.getServiceOrderTypesList();
+  $scope.getServiceOrderStatusList();
 });

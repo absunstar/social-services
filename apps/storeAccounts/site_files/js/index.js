@@ -10,6 +10,7 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
     active: true,
     standalone: true,
     allowSale: false,
+    trusted: false,
   };
   $scope.item = {};
   $scope.list = [];
@@ -17,7 +18,7 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
   $scope.showAdd = function (_item) {
     $scope.error = "";
     $scope.mode = "add";
-    $scope.item = { ...$scope.structure ,status : $scope.storeAccountsStatusList[0] };
+    $scope.item = { ...$scope.structure };
     site.showModal($scope.modalID);
   };
 
@@ -80,6 +81,33 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
           let index = $scope.list.findIndex((itm) => itm.id == response.data.result.doc.id);
           if (index !== -1) {
             $scope.list[index] = response.data.result.doc;
+          }
+        } else {
+          $scope.error = response.data.error;
+        }
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
+  };
+
+  $scope.makeTrusted = function (_item) {
+    $scope.error = "";
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: `${$scope.baseURL}/api/${$scope.appName}/updateTrusted`,
+      data: { id: _item.id },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          site.hideModal($scope.modalID);
+          site.resetValidated($scope.modalID);
+          let index = $scope.list.findIndex((itm) => itm.id == response.data.doc.id);
+          if (index !== -1) {
+            $scope.list[index] = response.data.doc;
           }
         } else {
           $scope.error = response.data.error;
@@ -186,22 +214,16 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
     );
   };
   $scope.getSocialPlatformsList = function () {
- 
     $scope.busy = true;
     $scope.socialPlatformsList = [];
     $http({
       method: "POST",
-      url: "/api/socialPlatforms/all",
-      data: {
-        where: {
-          active: true,
-        },
-        select: { id: 1, name: 1 },
-      },
+      url: "/api/socialPlatforms",
+      data: {},
     }).then(
       function (response) {
-        $scope.busy = false;        
-        if (response.data.done && response.data.list.length > 0) {
+        $scope.busy = false;
+        if (response.data.done) {
           $scope.socialPlatformsList = response.data.list;
         }
       },
@@ -212,12 +234,59 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
     );
   };
 
- 
+  $scope.getStoreTypesList = function () {
+    $scope.busy = true;
+    $scope.storeTypesList = [];
+    $http({
+      method: "POST",
+      url: "/api/storeTypes",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.storeTypesList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.getUsers = function (search) {
+    $scope.error = "";
+    if ($scope.busyAll) {
+      return;
+    }
+    $scope.busyAll = true;
+    $scope.usersList = [];
+    $http({
+      method: "POST",
+      url: `/api/manageUsers/all`,
+      data: {
+        search: search,
+        select: { id: 1, firstName: 1 },
+      },
+    }).then(
+      function (response) {
+        $scope.busyAll = false;
+        if (response.data.done && response.data.list.length > 0) {
+          $scope.usersList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busyAll = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.showSearch = function () {
     $scope.error = "";
     site.showModal($scope.modalSearchID);
   };
-
   $scope.searchAll = function () {
     $scope.getAll($scope.search);
     site.hideModal($scope.modalSearchID);
@@ -226,4 +295,5 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
 
   $scope.getAll();
   $scope.getSocialPlatformsList();
+  $scope.getStoreTypesList();
 });

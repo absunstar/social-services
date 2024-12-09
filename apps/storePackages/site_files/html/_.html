@@ -1,24 +1,33 @@
 <div ng-controller="storePackages" class="loaded">
   <div class="row" x-permissions="storePackagesUi || storePackagesManage">
     <div x-import="storePackages/modal.html"></div>
+    <div x-import="storePackages/accountsManageModal.html"></div>
     <div x-import="storePackages/modalSearch.html"></div>
 
     <div class="top-actions">
       <i-button type="add" x-permissions="storePackagesAdd || storePackagesManage" label="##word.New##" ng-click="showAdd()"></i-button>
       <i-button type="search" x-permissions="storePackagesSearch || storePackagesManage" label="##word.Active##" ng-click="searchAll(search={active:true})"></i-button>
       <i-button type="search" x-permissions="storePackagesSearch || storePackagesManage" label="##word.Not Active##" ng-click="searchAll(search={active:false})"></i-button>
+      <i-button type="search" x-permissions="storePackagesSearch || storePackagesManage" label="##word.Advanced Search##" ng-click="$showAdvancedSearch = !$showAdvancedSearch"></i-button>
     </div>
-
+    <fieldset ng-show="$showAdvancedSearch">
+      <legend>##word.Advanced Search##</legend>
+      <div class="row">
+        <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
+        <i-list class="col4" label="##word.Store Type##" ng-model="search.storeType" display="##session.lang##" items="storeTypesList"></i-list>
+      </div>
+    </fieldset>
     <div class="row">
       <i-control ng-model="$search" class="col8" label="##word.Search All##" x-permissions="storePackagesSearch || storePackagesManage"></i-control>
       <i-button type="search" x-permissions="storePackagesSearch || storePackagesManage" class="col2" label="##word.Search##" ng-click="getAll(search)"></i-button>
     </div>
     <div class="table-responsive">
-      <table class="table hover bold" id="t1">
+      <table class="table hover bold" id="StorePackage">
         <tr>
           <th>##word.Logo##</th>
           <th>##word.Title##</th>
-          <th>##word.Price##</th>
+          <th>##word.User##</th>
+          <th>##word.Package Price##</th>
           <th>##word.Active##</th>
           <th class="not-print">##word.Actions##</th>
         </tr>
@@ -27,14 +36,16 @@
             <i-image view class="logo center" ng-model="item.image"></i-image>
           </td>
           <td class="center">{{item.title}}</td>
+          <td class="center">{{item.user.firstName}}</td>
           <td class="center">{{item.price}}</td>
-      
+
           <td class="center">
             <span ng-show="item.active" class="text-success">##word.Active##</span>
             <span ng-show="!item.active" class="text-danger">##word.Not Active##</span>
           </td>
 
           <td class="center not-print">
+            <i-button label="##word.Accounts Manage##" ng-click="getStoreAccounts(item)"></i-button>
             <i-button type="view" title="##word.View##" ng-click="showView(item)"></i-button>
 
             <i-button type="edit" x-permissions="storePackagesUpdate || storePackagesManage" title="##word.Edit##" ng-click="showUpdate(item)"></i-button>
@@ -44,7 +55,7 @@
         </tr>
       </table>
     </div>
-    <i-button x-permissions="storePackagesPrint || storePackagesManage" type="print" label="##word.Print##" onclick="site.print('#t1')"></i-button>
-    <i-button x-permissions="storePackagesExport || storePackagesManage" type="export" label="##word.Export to excel##" onclick="export_to_xlsx('t1' , 'report_value_added.xlsx')"> </i-button>
+    <i-button x-permissions="storeAccountsPrint || storeAccountsManage" type="print" label="##word.Print##" onclick="site.print('#StorePackage')"></i-button>
+    <i-button x-permissions="storeAccountsExport || storeAccountsManage" type="export" label="##word.Export to excel##" onclick="site.export('#StorePackage')"> </i-button>
   </div>
 </div>

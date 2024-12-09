@@ -1,8 +1,8 @@
-app.controller('socialPlatforms', function ($scope, $http, $timeout) {
+app.controller('services', function ($scope, $http, $timeout) {
   $scope.baseURL = '';
-  $scope.appName = 'socialPlatforms';
-  $scope.modalID = '#socialPlatformsManageModal';
-  $scope.modalSearchID = '#socialPlatformsSearchModal';
+  $scope.appName = 'services';
+  $scope.modalID = '#servicesManageModal';
+  $scope.modalSearchID = '#servicesSearchModal';
   $scope.setting = site.showObject(`##data.#setting##`);
   $scope.mode = 'add';
   $scope._search = {};
@@ -188,6 +188,27 @@ app.controller('socialPlatforms', function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.getSocialPlatformsList = function () {
+    $scope.busy = true;
+    $scope.socialPlatformsList = [];
+    $http({
+      method: "POST",
+      url: "/api/socialPlatforms",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.socialPlatformsList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.showSearch = function () {
     $scope.error = '';
     site.showModal($scope.modalSearchID);
@@ -200,4 +221,5 @@ app.controller('socialPlatforms', function ($scope, $http, $timeout) {
   };
 
   $scope.getAll();
+  $scope.getSocialPlatformsList();
 });

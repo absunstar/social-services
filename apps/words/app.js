@@ -106,7 +106,7 @@ module.exports = function init(site) {
         response.done = true;
         site.fs.writeFileSync(site.options.download_dir + "/wordsFileMama.json", JSON.stringify(wordsList));
       } else {
-        response.error = err?.message || "Not Exists";
+        response.error = err?.message || req.word("Not Exists");
       }
       res.json(response);
     });

@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col9">
+    <div class="row">
+      <i-control type="text" v="r" ng-model="item.name" label="##word.Name##"></i-control>
+      <div class="row">
+        <i-list v="r" class="col6" label="##word.Social Platform##" ng-model="item.socialPlatform" display="name" items="socialPlatformsList"></i-list>
+        <i-list v="r" class="col6" label="##word.Platform Service##" ng-model="item.platformService" display="name" items="item.socialPlatform.serviceList"></i-list>
+      </div>
+      <i-control class="col4" type="number" v="r" ng-model="item.price" label="##word.Price##"></i-control>
+    </div>
+  </div>
+  <div class="col3">
+    <i-image class="img128 center" ng-model="item.image"></i-image>
+    <i-checkbox ng-model="item.active" label="##word.Active##"></i-checkbox>
+  </div>
+</div>
+<div ng-show="mode !== 'add' " class="row">
+  <table class="table hover border">
+    <tr>
+      <th>##word.Add User Info##</th>
+      <th>##word.Edit User Info##</th>
+    </tr>
+    <tr>
+      <td class="center">
+        <p class="blue">{{item.addUserInfo.name}}</p>
+        <small class="green"> {{item.addUserInfo.date |date:"hh:mm"}} </small>
+        <small> {{item.addUserInfo.date |date:"dd - MM - yyyy"}} </small>
+        <p class="bold">IP : {{item.addUserInfo.ip}}</p>
+      </td>
+
+      <td class="center">
+        <p class="blue">{{item.editUserInfo.name}}</p>
+        <small class="green"> {{item.editUserInfo.date |date:"hh:mm"}} </small>
+        <small> {{item.editUserInfo.date |date:"dd - MM - yyyy"}} </small>
+        <p class="bold">IP : {{item.editUserInfo.ip}}</p>
+      </td>
+    </tr>
+  </table>
+</div>

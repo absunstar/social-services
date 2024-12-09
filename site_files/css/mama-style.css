@@ -14,10 +14,7 @@ legend {
   color: #2087e7 !important;
   text-decoration-line: underline !important;
 }
-.form-label {
-  direction: rtl;
-  float: inline-start;
-}
+
 .right-content {
   text-align-last: right;
 }
