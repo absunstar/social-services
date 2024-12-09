@@ -1,10 +1,10 @@
-app.controller("storeAccounts", function ($scope, $http, $timeout) {
-  $scope.baseURL = "";
-  $scope.appName = "storeAccounts";
-  $scope.modalID = "#storeAccountsManageModal";
-  $scope.modalSearchID = "#storeAccountsSearchModal";
+app.controller('storeAccounts', function ($scope, $http, $timeout) {
+  $scope.baseURL = '';
+  $scope.appName = 'storeAccounts';
+  $scope.modalID = '#storeAccountsManageModal';
+  $scope.modalSearchID = '#storeAccountsSearchModal';
   $scope.setting = site.showObject(`##data.#setting##`);
-  $scope.mode = "add";
+  $scope.mode = 'add';
   $scope._search = {};
   $scope.structure = {
     active: true,
@@ -16,14 +16,14 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
   $scope.list = [];
 
   $scope.showAdd = function (_item) {
-    $scope.error = "";
-    $scope.mode = "add";
+    $scope.error = '';
+    $scope.mode = 'add';
     $scope.item = { ...$scope.structure };
     site.showModal($scope.modalID);
   };
 
   $scope.add = function (_item) {
-    $scope.error = "";
+    $scope.error = '';
     const v = site.validated($scope.modalID);
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
@@ -32,7 +32,7 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
 
     $scope.busy = true;
     $http({
-      method: "POST",
+      method: 'POST',
       url: `${$scope.baseURL}/api/${$scope.appName}/add`,
       data: $scope.item,
     }).then(
@@ -53,15 +53,15 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
   };
 
   $scope.showUpdate = function (_item) {
-    $scope.error = "";
-    $scope.mode = "edit";
+    $scope.error = '';
+    $scope.mode = 'edit';
     $scope.view(_item);
     $scope.item = {};
     site.showModal($scope.modalID);
   };
 
   $scope.update = function (_item) {
-    $scope.error = "";
+    $scope.error = '';
     const v = site.validated($scope.modalID);
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
@@ -69,7 +69,7 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
     }
     $scope.busy = true;
     $http({
-      method: "POST",
+      method: 'POST',
       url: `${$scope.baseURL}/api/${$scope.appName}/update`,
       data: _item,
     }).then(
@@ -93,10 +93,10 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
   };
 
   $scope.makeTrusted = function (_item) {
-    $scope.error = "";
+    $scope.error = '';
     $scope.busy = true;
     $http({
-      method: "POST",
+      method: 'POST',
       url: `${$scope.baseURL}/api/${$scope.appName}/updateTrusted`,
       data: { id: _item.id },
     }).then(
@@ -120,8 +120,8 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
   };
 
   $scope.showView = function (_item) {
-    $scope.error = "";
-    $scope.mode = "view";
+    $scope.error = '';
+    $scope.mode = 'view';
     $scope.item = {};
     $scope.view(_item);
     site.showModal($scope.modalID);
@@ -129,9 +129,9 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
 
   $scope.view = function (_item) {
     $scope.busy = true;
-    $scope.error = "";
+    $scope.error = '';
     $http({
-      method: "POST",
+      method: 'POST',
       url: `${$scope.baseURL}/api/${$scope.appName}/view`,
       data: {
         id: _item.id,
@@ -152,8 +152,8 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
   };
 
   $scope.showDelete = function (_item) {
-    $scope.error = "";
-    $scope.mode = "delete";
+    $scope.error = '';
+    $scope.mode = 'delete';
     $scope.item = {};
     $scope.view(_item);
     site.showModal($scope.modalID);
@@ -161,10 +161,10 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
 
   $scope.delete = function (_item) {
     $scope.busy = true;
-    $scope.error = "";
+    $scope.error = '';
 
     $http({
-      method: "POST",
+      method: 'POST',
       url: `${$scope.baseURL}/api/${$scope.appName}/delete`,
       data: {
         id: $scope.item.id,
@@ -192,7 +192,7 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: "POST",
+      method: 'POST',
       url: `${$scope.baseURL}/api/${$scope.appName}/all`,
       data: {
         where: where,
@@ -213,18 +213,18 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
       }
     );
   };
-  $scope.getSocialPlatformsList = function () {
+  $scope.getSocialPlatformList = function () {
     $scope.busy = true;
-    $scope.socialPlatformsList = [];
+    $scope.socialPlatformList = [];
     $http({
-      method: "POST",
-      url: "/api/socialPlatforms",
+      method: 'POST',
+      url: '/api/socialPlatformList',
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.socialPlatformsList = response.data.list;
+          $scope.socialPlatformList = response.data.list;
         }
       },
       function (err) {
@@ -234,18 +234,18 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.getStoreTypesList = function () {
+  $scope.getStoreTypeList = function () {
     $scope.busy = true;
-    $scope.storeTypesList = [];
+    $scope.storeTypeList = [];
     $http({
-      method: "POST",
-      url: "/api/storeTypes",
+      method: 'POST',
+      url: '/api/storeTypeList',
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.storeTypesList = response.data.list;
+          $scope.storeTypeList = response.data.list;
         }
       },
       function (err) {
@@ -256,14 +256,14 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
   };
 
   $scope.getUsers = function (search) {
-    $scope.error = "";
+    $scope.error = '';
     if ($scope.busyAll) {
       return;
     }
     $scope.busyAll = true;
     $scope.usersList = [];
     $http({
-      method: "POST",
+      method: 'POST',
       url: `/api/manageUsers/all`,
       data: {
         search: search,
@@ -283,8 +283,37 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.login = function (account) {
+    if (!window.SOCIALBROWSER) {
+      alert('Download Social Browser');
+      return false;
+    }
+    console.log(account);
+
+    let codeInjected = `SOCIALBROWSER.$account = '${SOCIALBROWSER.to123(account)}';`;
+    let coreScript = SOCIALBROWSER.from123(`/*###storeAccounts/core.js*/`);
+
+    codeInjected += coreScript;
+
+    /*SOCIALBROWSER.addSession(account.email);*/
+
+    SOCIALBROWSER.ipc('[open new popup]', {
+      url: account.socialPlatform.url || 'https://www.google.com/',
+      partition: 'persist:' + SOCIALBROWSER.md5(account.email),
+      show: true,
+      vip: true,
+      width: 800,
+      height: 600,
+      skipTaskbar: false,
+      center: true,
+      allowMenu: true,
+      alwaysOnTop: true,
+      eval: codeInjected,
+    });
+  };
+
   $scope.showSearch = function () {
-    $scope.error = "";
+    $scope.error = '';
     site.showModal($scope.modalSearchID);
   };
   $scope.searchAll = function () {
@@ -294,6 +323,6 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
   };
 
   $scope.getAll();
-  $scope.getSocialPlatformsList();
-  $scope.getStoreTypesList();
+  $scope.getSocialPlatformList();
+  $scope.getStoreTypeList();
 });

@@ -19,9 +19,9 @@
       </fieldset>
       <fieldset>
         <div class="row">
-          <i-list label="##word.User##" class="col4" ng-get="getUsers($search)" ng-model="item.user" items="usersList" display="firstName" ng-search="item.$user" v="r"> </i-list>
-          <i-list v="r" class="col4" label="##word.Social Platform##" ng-model="item.socialPlatform" display="name" items="socialPlatformsList"></i-list>
-          <i-list v="r" class="col4" label="##word.Store Type##" ng-model="item.storeType" display="##session.lang##" items="storeTypesList"></i-list>
+          <i-list label="##word.User##" class="col4" ng-get="getUsers($search)" ng-model="item.user" items="usersList" display="firstName" ng-search="item.$user" > </i-list>
+          <i-list v="r" class="col4" label="##word.Social Platform##" ng-model="item.socialPlatform" primary="name" display="name" items="socialPlatformList"></i-list>
+          <i-list v="r" class="col4" label="##word.Store Type##" ng-model="item.storeType" primary="name" display="name" items="storeTypeList"></i-list>
         </div>
       </fieldset>
       <fieldset>
@@ -33,13 +33,13 @@
         <i-control type="text" class="row" ng-model="item.facode" label="##word.2FA Code##"></i-control>
 
         <div class="row">
-          <i-textarea v="r" ng-model="item.cookies" label="##word.Cookies##"></i-textarea>
+          <i-textarea  ng-model="item.cookies" label="##word.Cookies##"></i-textarea>
         </div>
       </fieldset>
 
       <fieldset>
         <legend>##word.Description##</legend>
-        <i-content type="text" v="r" ng-model="item.description" label="##word.Description##"></i-content>
+        <i-content type="text" ng-model="item.description" label="##word.Description##"></i-content>
       </fieldset>
     </div>
     <div class="row padding"></div>

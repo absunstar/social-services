@@ -14,7 +14,7 @@
       <legend>##word.Advanced Search##</legend>
       <div class="row">
         <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
-        <i-list class="col4" label="##word.Store Type##" ng-model="search.storeType" display="##session.lang##" items="storeTypesList"></i-list>
+        <i-list class="col4" label="##word.Store Type##" ng-model="search.storeType" primary="name" display="name" items="storeTypeList"></i-list>
       </div>
     </fieldset>
     <div class="row">

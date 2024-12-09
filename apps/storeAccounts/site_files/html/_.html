@@ -19,8 +19,8 @@
       <legend>##word.Advanced Search##</legend>
       <div class="row">
         <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
-        <i-list class="col4" label="##word.Social Platform##" ng-model="search.socialPlatform" display="name" items="socialPlatformsList"></i-list>
-        <i-list class="col4" label="##word.Store Type##" ng-model="search.storeType" display="##session.lang##" items="storeTypesList"></i-list>
+        <i-list class="col4" label="##word.Social Platform##" ng-model="search.socialPlatform" primary="name" display="name" items="socialPlatformList"></i-list>
+        <i-list class="col4" label="##word.Store Type##" ng-model="search.storeType" primary="name" display="name" items="storeTypeList"></i-list>
         <i-control class="col4" type="text" ng-model="search.title" label="##word.Title##"></i-control>
         <i-control class="col4" type="text" ng-model="search.email" label="##word.Email##"></i-control>
         <i-control class="col4" type="text" ng-model="search.password" label="##word.Password##"></i-control>
@@ -35,11 +35,11 @@
       <table class="table hover bold" id="StoreAcounts">
         <tr>
           <th>##word.Logo##</th>
+          <th>##word.User##</th>
           <th>##word.Title##</th>
           <th>##word.Email##</th>
-          <th>##word.User##</th>
           <th>##word.Platform##</th>
-          <th>##word.Type##</th>
+          <th>##word.Store##</th>
           <th>##word.Standalone##</th>
           <th>##word.Active##</th>
           <th>##word.Trusted##</th>
@@ -49,11 +49,11 @@
           <td class="center">
             <i-image view class="logo center" ng-model="item.image"></i-image>
           </td>
+          <td class="center">{{item.user.firstName}}</td>
           <td class="center">{{item.title}}</td>
           <td class="center userPrint">{{item.email}}</td>
-          <td class="center">{{item.user.firstName}}</td>
           <td class="center">{{item.socialPlatform.name}}</td>
-          <td class="center">{{item.storeType.##session.lang##}}</td>
+          <td class="center">{{item.storeType.name}}</td>
           <td class="center">
             <span ng-show="item.standalone">##word.Yes##</span>
             <span ng-show="!item.standalone">##word.No##</span>
@@ -67,6 +67,7 @@
             <span ng-show="item.trusted">##word.Yes##</span>
           </td>
           <td class="center not-print">
+            <i-button type="login" title="##word.Login##" ng-click="login(item)"></i-button>
             <i-button type="view" title="##word.View##" ng-click="showView(item)"></i-button>
 
             <i-button type="edit" x-permissions="storeAccountsUpdate || storeAccountsManage" title="##word.Edit##" ng-click="showUpdate(item)"></i-button>

@@ -122,7 +122,7 @@
                 <i-control v="r" class="input-style" label="##word.Full name##" ng-model="user.firstName"> </i-control>
                 <i-control v="r" class="input-style" label="##word.Mobile Number##" type="tel" ng-model="user.mobile"> </i-control>
              
-                <i-list label="##word.Gender##" v="r" ng-model="user.gender" display="name##session.lang##" items="gendersList"></i-list>
+                <i-list label="##word.Gender##" v="r" ng-model="user.gender" display="name##session.lang##" items="genderList"></i-list>
                 <i-list v="r" class="input-style" label="##word.Country##" ng-model="user.country" ng-change="getGovesList(user.country)" items="countriesList" display="name"></i-list>
                 <i-list v="r" label="##word.Governorate##" ng-change="getCitiesList(user.gov)" ng-model="user.gov" display="name" items="govesList"></i-list>
                 <i-list x-data="setting.citiesAndAreasShow" label="##word.City##" ng-model="user.city" ng-change="getAreasList(user.city)" items="citiesList" display="name"> </i-list>

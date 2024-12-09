@@ -3,7 +3,7 @@
     <div class="row">
       <i-control type="text" v="r" ng-model="item.name" label="##word.Name##"></i-control>
       <div class="row">
-        <i-list v="r" class="col6" label="##word.Social Platform##" ng-model="item.socialPlatform" display="name" items="socialPlatformsList"></i-list>
+        <i-list v="r" class="col6" label="##word.Social Platform##" ng-model="item.socialPlatform" display="name" items="socialPlatformList"></i-list>
         <i-list v="r" class="col6" label="##word.Platform Service##" ng-model="item.platformService" display="name" items="item.socialPlatform.serviceList"></i-list>
       </div>
       <i-control class="col4" type="number" v="r" ng-model="item.price" label="##word.Price##"></i-control>

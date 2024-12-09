@@ -1,6 +1,6 @@
 .user-info > a {
   display: inline;
-  float: left;
+  float: right;
   margin-left: 10px;
   background: #fff;
   padding: 5px 10px;
@@ -52,7 +52,7 @@
   overflow: hidden;
 }
 
- .ltr .user-menu {
+.ltr .user-menu {
   right: 5px;
   left: auto;
 }

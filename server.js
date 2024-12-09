@@ -4,7 +4,7 @@ const site = require('../isite')({
   language: { id: 'En', dir: 'ltr', text: 'right' },
   version: new Date().getTime(),
   name: 'Mama-Services',
-  savingTime: 5,
+  savingTime: 1,
   log: true,
   require: {
     features: [],

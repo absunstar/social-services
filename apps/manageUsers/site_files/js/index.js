@@ -356,19 +356,19 @@ app.controller("manageUsers", function ($scope, $http, $timeout) {
   };
 
 
-  $scope.getGenders = function () {
+  $scope.getGenderList = function () {
     $scope.error = "";
     $scope.busy = true;
-    $scope.gendersList = [];
+    $scope.genderList = [];
     $http({
       method: "POST",
-      url: "/api/genders",
+      url: "/api/genderList",
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done && response.data.list.length > 0) {
-          $scope.gendersList = response.data.list;
+          $scope.genderList = response.data.list;
         }
       },
       function (err) {
@@ -380,5 +380,5 @@ app.controller("manageUsers", function ($scope, $http, $timeout) {
 
   $scope.getAll();
   $scope.getCountriesList();
-  $scope.getGenders();
+  $scope.getGenderList();
 });

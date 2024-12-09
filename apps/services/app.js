@@ -1,6 +1,6 @@
 module.exports = function init(site) {
   let app = {
-    name: "services",
+    name: 'services',
     allowMemory: true,
     memoryList: [],
     allowCache: false,
@@ -144,13 +144,13 @@ module.exports = function init(site) {
           name: app.name,
         },
         (req, res) => {
-          res.render(app.name + "/index.html", { title: app.name, appName: req.word("Services"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });
+          res.render(app.name + '/index.html', { title: app.name, appName: req.word('Services'), setting: site.getSiteSetting(req.host) }, { parser: 'html', compres: true });
         }
       );
     }
 
     if (app.allowRouteAdd) {
-      site.post({ name: `/api/${app.name}/add`, require: { permissions: ["login"] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/add`, require: { permissions: ['login'] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -161,6 +161,7 @@ module.exports = function init(site) {
         _data.host = site.getHostFilter(req.host);
         _data.socialPlatform = {
           name: _data.socialPlatform.name,
+          url: _data.socialPlatform.url,
         };
         app.add(_data, (err, doc) => {
           if (!err && doc) {
@@ -175,7 +176,7 @@ module.exports = function init(site) {
     }
 
     if (app.allowRouteUpdate) {
-      site.post({ name: `/api/${app.name}/update`, require: { permissions: ["login"] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/update`, require: { permissions: ['login'] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -184,6 +185,7 @@ module.exports = function init(site) {
         _data.editUserInfo = req.getUserFinger();
         _data.socialPlatform = {
           name: _data.socialPlatform.name,
+          url: _data.socialPlatform.url,
         };
         app.update(_data, (err, result) => {
           if (!err) {
@@ -198,7 +200,7 @@ module.exports = function init(site) {
     }
 
     if (app.allowRouteDelete) {
-      site.post({ name: `/api/${app.name}/delete`, require: { permissions: ["login"] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/delete`, require: { permissions: ['login'] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -209,7 +211,7 @@ module.exports = function init(site) {
             response.done = true;
             response.result = result;
           } else {
-            response.error = err?.message || "Deleted Not Exists";
+            response.error = err?.message || 'Deleted Not Exists';
           }
           res.json(response);
         });
@@ -228,7 +230,7 @@ module.exports = function init(site) {
             response.done = true;
             response.doc = doc;
           } else {
-            response.error = err?.message || req.word("Not Exists");
+            response.error = err?.message || req.word('Not Exists');
           }
           res.json(response);
         });
@@ -238,23 +240,23 @@ module.exports = function init(site) {
     if (app.allowRouteAll) {
       site.post({ name: `/api/${app.name}/all`, public: true }, (req, res) => {
         let where = req.body.where || {};
-        let search = req.body.search || "";
+        let search = req.body.search || '';
         let limit = req.body.limit || 50;
-        let select = req.body.select || { id: 1,active:1, name: 1, image: 1, socialPlatform: 1,platformService : 1 ,price : 1 };
+        let select = req.body.select || { id: 1, active: 1, name: 1, image: 1, socialPlatform: 1, platformService: 1, price: 1 };
 
         if (search) {
           where.$or = [];
 
           where.$or.push({
-            id: site.get_RegExp(search, "i"),
+            id: site.get_RegExp(search, 'i'),
           });
 
           where.$or.push({
-            name: site.get_RegExp(search, "i"),
+            name: site.get_RegExp(search, 'i'),
           });
         }
         if (!search) {
-          search = "id";
+          search = 'id';
         }
         let host = site.getHostFilter(req.host);
 

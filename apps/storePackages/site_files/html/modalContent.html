@@ -6,7 +6,7 @@
           <i-control type="text" v="r" ng-model="item.title" label="##word.Title##"></i-control>
           <div class="row">
             <i-list class="col6" label="##word.User##" ng-get="getUsers($search)" ng-model="item.user" items="usersList" display="firstName" ng-search="item.$user" v="r"> </i-list>
-            <i-list v="r" class="col6" label="##word.Store Type##" ng-model="item.storeType" display="##session.lang##" items="storeTypesList"></i-list>
+            <i-list v="r" class="col6" label="##word.Store Type##" ng-model="item.storeType" primary="name" display="name" items="storeTypeList"></i-list>
           </div>
 
           <div class="row">

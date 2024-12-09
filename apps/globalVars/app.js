@@ -1,135 +1,146 @@
 module.exports = function init(site) {
-  site.storeTypes = [
+  site.storeTypeList = [
     {
-      name: "public",
-      Ar: "عام",
-      En: "Public",
+      name: 'Private',
     },
     {
-      name: "private",
-      Ar: "خاص",
-      En: "Private",
-    },
-  ];
-
-  site.serviceOrderStatus = [
-    {
-      name: "pending",
+      name: 'Public',
     },
     {
-      name: "running",
-    },
-    {
-      name: "done",
+      name: 'shared',
     },
   ];
 
-  site.serviceOrderTypes = [
+  site.serviceOrderStatusList = [
     {
-      name: "view",
+      name: 'Pending',
     },
     {
-      name: "approved",
+      name: 'Running',
     },
     {
-      name: "rejected",
+      name: 'Done',
     },
   ];
 
-  site.socialPlatforms = [
+  site.serviceOrderStateList = [
     {
-      name: "youtube",
+      name: 'Review',
+    },
+    {
+      name: 'Approved',
+    },
+    {
+      name: 'Rejected',
+    },
+  ];
+
+  site.socialPlatformList = [
+    {
+      name: 'Website',
       serviceList: [
         {
-          name: "like",
-        },
-        {
-          name: "comment",
-        },
-        {
-          name: "share",
-        },
-        {
-          name: "subscribe",
-        },
-        {
-          name: "view",
+          name: 'View',
         },
       ],
     },
     {
-      name: "facebook",
+      name: 'Instagram',
       serviceList: [
         {
-          name: "like",
+          name: 'Like',
         },
         {
-          name: "comment",
+          name: 'Comment',
         },
         {
-          name: "share",
+          name: 'Share',
         },
         {
-          name: "follow",
+          name: 'Follow User',
+        },
+        {
+          name: 'Un-Follow User',
         },
       ],
     },
     {
-      name: "instagram",
+      name: 'Youtube',
       serviceList: [
         {
-          name: "like",
+          name: 'Like',
         },
         {
-          name: "comment",
+          name: 'Comment',
         },
         {
-          name: "share",
+          name: 'Share',
         },
         {
-          name: "follow",
+          name: 'Subscribe',
+        },
+        {
+          name: 'View',
+        },
+      ],
+    },
+    {
+      name: 'Facebook',
+      url : 'https://www.facebook.com/',
+      serviceList: [
+        {
+          name: 'Like',
+        },
+        {
+          name: 'Comment',
+        },
+        {
+          name: 'Share',
+        },
+        {
+          name: 'Follow',
         },
       ],
     },
   ];
 
-  site.genders = [
-    { id: 1, nameEn: "Male", nameAr: "ذكر" },
-    { id: 2, nameEn: "Female", nameAr: "أنثى" },
+  site.genderList = [
+    { id: 1, nameEn: 'Male', nameAr: 'ذكر' },
+    { id: 2, nameEn: 'Female', nameAr: 'أنثى' },
   ];
 
-  site.post("/api/serviceOrderStatus", (req, res) => {
+  site.post('/api/serviceOrderStatusList', (req, res) => {
     res.json({
       done: true,
-      list: site.serviceOrderStatus,
+      list: site.serviceOrderStatusList,
     });
   });
 
-  site.post("/api/serviceOrderTypes", (req, res) => {
+  site.post('/api/serviceOrderStateList', (req, res) => {
     res.json({
       done: true,
-      list: site.serviceOrderTypes,
+      list: site.serviceOrderStateList,
     });
   });
 
-  site.post("/api/storeTypes", (req, res) => {
+  site.post('/api/storeTypeList', (req, res) => {
     res.json({
       done: true,
-      list: site.storeTypes,
+      list: site.storeTypeList,
     });
   });
 
-  site.post("/api/socialPlatforms", (req, res) => {
+  site.post('/api/socialPlatformList', (req, res) => {
     res.json({
       done: true,
-      list: site.socialPlatforms,
+      list: site.socialPlatformList,
     });
   });
 
-  site.post("/api/genders", (req, res) => {
+  site.post('/api/genderList', (req, res) => {
     res.json({
       done: true,
-      list: site.genders,
+      list: site.genderList,
     });
   });
 };

@@ -14,7 +14,7 @@ app.controller("servicesOrders", function ($scope, $http, $timeout) {
     $scope.error = "";
     $scope.mode = "add";
     $scope.item = { ...$scope.structure, quantity: 1 };
-    $scope.item.type = $scope.serviceOrderTypesList.find((itm) => itm.name == "view");
+    $scope.item.type = $scope.serviceOrderStateList.find((itm) => itm.name == "view");
     $scope.item.status = $scope.serviceOrderStatusList.find((itm) => itm.name == "pending");
     site.showModal($scope.modalID);
   };
@@ -212,18 +212,18 @@ app.controller("servicesOrders", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.getSocialPlatformsList = function () {
+  $scope.getSocialPlatformList = function () {
     $scope.busy = true;
-    $scope.socialPlatformsList = [];
+    $scope.socialPlatformList = [];
     $http({
       method: "POST",
-      url: "/api/socialPlatforms",
+      url: "/api/socialPlatformList",
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.socialPlatformsList = response.data.list;
+          $scope.socialPlatformList = response.data.list;
         }
       },
       function (err) {
@@ -238,7 +238,7 @@ app.controller("servicesOrders", function ($scope, $http, $timeout) {
     $scope.serviceOrderStatusList = [];
     $http({
       method: "POST",
-      url: "/api/serviceOrderStatus",
+      url: "/api/serviceOrderStatusList",
       data: {},
     }).then(
       function (response) {
@@ -254,18 +254,18 @@ app.controller("servicesOrders", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.getServiceOrderTypesList = function () {
+  $scope.getServiceOrderStateList = function () {
     $scope.busy = true;
-    $scope.serviceOrderTypesList = [];
+    $scope.serviceOrderStateList = [];
     $http({
       method: "POST",
-      url: "/api/serviceOrderTypes",
+      url: "/api/serviceOrderStateList",
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.serviceOrderTypesList = response.data.list;
+          $scope.serviceOrderStateList = response.data.list;
         }
       },
       function (err) {
@@ -361,8 +361,8 @@ app.controller("servicesOrders", function ($scope, $http, $timeout) {
   };
 
   $scope.getAll();
-  $scope.getSocialPlatformsList();
+  $scope.getSocialPlatformList();
   $scope.getServicesList();
-  $scope.getServiceOrderTypesList();
+  $scope.getServiceOrderStateList();
   $scope.getServiceOrderStatusList();
 });

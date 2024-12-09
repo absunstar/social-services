@@ -285,18 +285,18 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
     });
   };
 
-  $scope.getStoreTypesList = function () {
+  $scope.getStoreTypeList = function () {
     $scope.busy = true;
-    $scope.storeTypesList = [];
+    $scope.storeTypeList = [];
     $http({
       method: "POST",
-      url: "/api/storeTypes",
+      url: "/api/storeTypeList",
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.storeTypesList = response.data.list;
+          $scope.storeTypeList = response.data.list;
         }
       },
       function (err) {
@@ -306,18 +306,18 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.getSocialPlatformsList = function () {
+  $scope.getSocialPlatformList = function () {
     $scope.busy = true;
-    $scope.socialPlatformsList = [];
+    $scope.socialPlatformList = [];
     $http({
       method: "POST",
-      url: "/api/socialPlatforms",
+      url: "/api/socialPlatformList",
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.socialPlatformsList = response.data.list;
+          $scope.socialPlatformList = response.data.list;
         }
       },
       function (err) {
@@ -366,6 +366,6 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
   };
 
   $scope.getAll();
-  $scope.getSocialPlatformsList();
-  $scope.getStoreTypesList();
+  $scope.getSocialPlatformList();
+  $scope.getStoreTypeList();
 });
