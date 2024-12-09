@@ -1,6 +1,6 @@
 module.exports = function init(site) {
   let app = {
-    name: "storeAccounts",
+    name: 'storeAccounts',
     allowMemory: false,
     memoryList: [],
     allowCache: false,
@@ -145,20 +145,20 @@ module.exports = function init(site) {
         },
         (req, res) => {
           res.render(
-            app.name + "/index.html",
+            app.name + '/index.html',
             {
               title: app.name,
-              appName: req.word("Store Accounts"),
+              appName: req.word('Store Accounts'),
               setting: site.getSiteSetting(req.host),
             },
-            { parser: "html", compres: true }
+            { parser: 'html', compres: true }
           );
         }
       );
     }
 
     if (app.allowRouteAdd) {
-      site.post({ name: `/api/${app.name}/add`, require: { permissions: ["login"] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/add`, require: { permissions: ['login'] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -187,7 +187,7 @@ module.exports = function init(site) {
       site.post(
         {
           name: `/api/${app.name}/update`,
-          require: { permissions: ["login"] },
+          require: { permissions: ['login'] },
         },
         (req, res) => {
           let response = {
@@ -215,7 +215,7 @@ module.exports = function init(site) {
       site.post(
         {
           name: `/api/${app.name}/updateTrusted`,
-          require: { permissions: ["login"] },
+          require: { permissions: ['login'] },
         },
         (req, res) => {
           let response = {
@@ -232,12 +232,12 @@ module.exports = function init(site) {
                   response.done = true;
                   response.doc = result.doc;
                 } else {
-                  response.error = err.message || req.word("Not Exists");
+                  response.error = err.message || req.word('Not Exists');
                 }
                 res.json(response);
               });
             } else {
-              response.error = err?.message || req.word("Not Exists");
+              response.error = err?.message || req.word('Not Exists');
               res.json(response);
             }
           });
@@ -247,7 +247,7 @@ module.exports = function init(site) {
       site.post(
         {
           name: `/api/${app.name}/linkWithPackage`,
-          require: { permissions: ["login"] },
+          require: { permissions: ['login'] },
         },
         (req, res) => {
           let response = {
@@ -257,18 +257,18 @@ module.exports = function init(site) {
           let type = req.data.type;
           let where = req.data.where;
 
-          where["trusted"] = true;
+          where['trusted'] = true;
 
           app.$collection.find(where, (err, doc) => {
             if (!err && doc) {
-              if (type == "link") {
+              if (type == 'link') {
                 if (!doc.standalone) {
-                  response.error = req.word("This Account Is`t Standalone");
+                  response.error = req.word('This Account Is`t Standalone');
                   return;
                 }
                 doc.packageId = req.data.packageId;
                 doc.standalone = false;
-              } else if (type == "unlink") {
+              } else if (type == 'unlink') {
                 doc.packageId = 0;
                 doc.standalone = true;
               }
@@ -290,13 +290,13 @@ module.exports = function init(site) {
                       socialPlatform: result.doc.socialPlatform,
                     };
                   } else {
-                    response.error = err.message || req.word("Not Exists");
+                    response.error = err.message || req.word('Not Exists');
                   }
                   res.json(response);
                 }
               );
             } else {
-              response.error = err?.message || req.word("Not Exists");
+              response.error = err?.message || req.word('Not Exists');
               res.json(response);
             }
           });
@@ -308,7 +308,7 @@ module.exports = function init(site) {
       site.post(
         {
           name: `/api/${app.name}/delete`,
-          require: { permissions: ["login"] },
+          require: { permissions: ['login'] },
         },
         (req, res) => {
           let response = {
@@ -321,7 +321,7 @@ module.exports = function init(site) {
               response.done = true;
               response.result = result;
             } else {
-              response.error = err?.message || "Deleted Not Exists";
+              response.error = err?.message || 'Deleted Not Exists';
             }
             res.json(response);
           });
@@ -341,7 +341,7 @@ module.exports = function init(site) {
             response.done = true;
             response.doc = doc;
           } else {
-            response.error = err?.message || req.word("Not Exists");
+            response.error = err?.message || req.word('Not Exists');
           }
           res.json(response);
         });
@@ -353,7 +353,7 @@ module.exports = function init(site) {
         };
 
         let where = req.data;
-        where["host"] = site.getHostFilter(req.host);
+        where['host'] = site.getHostFilter(req.host);
         let select = {
           id: 1,
           email: 1,
@@ -366,7 +366,7 @@ module.exports = function init(site) {
             response.done = true;
             response.docs = docs;
           } else {
-            response.error = err?.message || req.word("Not Exists");
+            response.error = err?.message || req.word('Not Exists');
           }
           res.json(response);
         });
@@ -376,77 +376,66 @@ module.exports = function init(site) {
     if (app.allowRouteAll) {
       site.post({ name: `/api/${app.name}/all`, public: true }, (req, res) => {
         let where = req.body.where || {};
-        let search = req.body.search || "";
+        let search = req.body.search || '';
         let limit = req.body.limit || 50;
-        let select = req.body.select || {
-          id: 1,
-          image: 1,
-          standalone: 1,
-          email: 1,
-          socialPlatform: 1,
-          storeType: 1,
-          title: 1,
-          user: 1,
-          trusted: 1,
-          active: 1,
-        };
+        let select = req.body.select || {};
         if (search) {
           where.$or = [];
           where.$or.push({
-            id: site.get_RegExp(search, "i"),
+            id: site.get_RegExp(search, 'i'),
           });
           where.$or.push({
-            "socialPlatform.name": site.get_RegExp(search, "i"),
+            'socialPlatform.name': site.get_RegExp(search, 'i'),
           });
           where.$or.push({
-            "storeType.name": site.get_RegExp(search, "i"),
+            'storeType.name': site.get_RegExp(search, 'i'),
           });
           where.$or.push({
-            "user.firstName": site.get_RegExp(search, "i"),
+            'user.firstName': site.get_RegExp(search, 'i'),
           });
           where.$or.push({
-            title: site.get_RegExp(search, "i"),
+            title: site.get_RegExp(search, 'i'),
           });
           where.$or.push({
-            email: site.get_RegExp(search, "i"),
+            email: site.get_RegExp(search, 'i'),
           });
           where.$or.push({
-            facode: site.get_RegExp(search, "i"),
+            facode: site.get_RegExp(search, 'i'),
           });
         }
 
-        if (where["socialPlatform"]?.name) {
-          where["socialPlatform.name"] = where["socialPlatform"].name;
-          delete where["socialPlatform"];
+        if (where['socialPlatform']?.name) {
+          where['socialPlatform.name'] = where['socialPlatform'].name;
+          delete where['socialPlatform'];
         }
 
-        if (where["storeType"]?.name) {
-          where["storeType.name"] = where["storeType"].name;
-          delete where["storeType"];
+        if (where['storeType']?.name) {
+          where['storeType.name'] = where['storeType'].name;
+          delete where['storeType'];
         }
 
-        if (where["user"]?.id) {
-          where["user.id"] = where["user"].id;
-          delete where["user"];
+        if (where['user']?.id) {
+          where['user.id'] = where['user'].id;
+          delete where['user'];
         }
 
-        if (where["email"]) {
-          where["email"] = where["email"];
+        if (where['email']) {
+          where['email'] = where['email'];
         }
 
-        if (where["password"]) {
-          where["password"] = where["password"];
+        if (where['password']) {
+          where['password'] = where['password'];
         }
 
-        if (where["facode"]) {
-          where["facode"] = site.get_RegExp(where["facode"], "i");
+        if (where['facode']) {
+          where['facode'] = site.get_RegExp(where['facode'], 'i');
         }
 
-        if (where["title"]) {
-          where["title"] = site.get_RegExp(where["title"], "i");
+        if (where['title']) {
+          where['title'] = site.get_RegExp(where['title'], 'i');
         }
 
-        where["host"] = site.getHostFilter(req.host);
+        where['host'] = site.getHostFilter(req.host);
 
         app.all({ where, select, limit, sort: { id: -1 } }, (err, docs) => {
           res.json({
@@ -461,7 +450,7 @@ module.exports = function init(site) {
   site.storeAccountsReserved = function (data) {
     let where = {};
     let idList = data.map((_item) => _item.id);
-    where["id"] = {
+    where['id'] = {
       $in: idList,
     };
     app.$collection.findMany({ where }, (err, docs) => {

@@ -81,6 +81,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
           let index = $scope.list.findIndex((itm) => itm.id == response.data.result.doc.id);
           if (index !== -1) {
             $scope.list[index] = response.data.result.doc;
+            $scope.list[index].socialPlatform.$image = { url: '/images/' + $scope.list[index].socialPlatform.name + '.png' };
           }
         } else {
           $scope.error = response.data.error;
@@ -108,6 +109,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
           let index = $scope.list.findIndex((itm) => itm.id == response.data.doc.id);
           if (index !== -1) {
             $scope.list[index] = response.data.doc;
+            $scope.list[index].socialPlatform.$image = { url: '/images/' + $scope.list[index].socialPlatform.name + '.png' };
           }
         } else {
           $scope.error = response.data.error;
@@ -141,6 +143,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.done) {
           $scope.item = response.data.doc;
+          $scope.item.socialPlatform.$image = { url: '/images/' + $scope.item.socialPlatform.name + '.png' };
         } else {
           $scope.error = response.data.error;
         }

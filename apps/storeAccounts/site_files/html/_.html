@@ -24,7 +24,7 @@
         <i-control class="col4" type="text" ng-model="search.title" label="##word.Title##"></i-control>
         <i-control class="col4" type="text" ng-model="search.email" label="##word.Email##"></i-control>
         <i-control class="col4" type="text" ng-model="search.password" label="##word.Password##"></i-control>
-        <i-control class="col4" type="text" ng-model="search.facode" label="##word.2FA code##"></i-control>
+        <i-control class="col4" type="text" ng-model="search.faCode" label="##word.2FA code##"></i-control>
       </div>
     </fieldset>
     <div class="row">
@@ -32,19 +32,19 @@
       <i-button type="search" x-permissions="storeAccountsSearch || storeAccountsManage" class="col2" label="##word.Search##" ng-click="getAll(search)"></i-button>
     </div>
     <div class="table-responsive">
-      <table class="table hover bold" id="StoreAcounts">
+      <table class="table hover" id="StoreAcounts">
         <tr>
           <th>##word.Logo##</th>
           <th>##word.Platform##</th>
           <th>##word.Email##</th>
           <th>##word.Store Type##</th>
-          <th>##word.Trusted##</th>
+          <th>##word.Features##</th>
           <th class="not-print">##word.Actions##</th>
         </tr>
         <tr ng-repeat="item in list | filter:$search">
           <td>
             <div class="center">
-              <span ng-show="item.active" class="col text-success">##word.Active##</span>
+              <span ng-show="item.active" class="col bold text-success">##word.Active##</span>
               <span ng-show="!item.active" class="col text-danger">##word.Not Active##</span>
               <i-image view class="logo center" ng-model="item.image"></i-image>
             </div>
@@ -55,19 +55,25 @@
               <i-image view class="logo center" ng-model="item.socialPlatform.$image"></i-image>
             </div>
           </td>
-          <td class="center userPrint">{{item.email}}</td>
+          <td class="center userPrint">
+            <p class="brown">{{item.title}}</p>
+            <span class="bold">{{item.email}}</span>
+          </td>
           <td class="center">
-            <span class="blue"> {{item.storeType.name}}</span>
+            <span class="bold"> {{item.storeType.name}}</span>
             <div class="center">
-              <span class="green" ng-show="item.standalone">##word.Standalone##</span>
-              <span class="red" ng-show="!item.standalone">##word.Package##</span>
+              <span class="green bold" ng-show="item.standalone">##word.Standalone##</span>
+              <span class="red bold" ng-show="!item.standalone">##word.Package##</span>
             </div>
           </td>
 
           <td class="center">
             <i-button ng-show="!item.trusted" label="##word.Trusted##" ng-click="makeTrusted(item)"></i-button>
-            <span ng-show="item.trusted">##word.Yes##</span>
+            <span class="green bold" ng-show="item.trusted">[ ##word.Trusted## ]</span>
+            <span class="green bold" ng-show="item.cookies">[ ##word.Cookie Set## ]</span>
+            <span class="green bold" ng-show="item.faCode">[ ##word.2FA Code## ]</span>
           </td>
+
           <td class="center not-print">
             <i-button type="login" title="##word.Login##" ng-click="login(item)"></i-button>
             <i-button type="view" title="##word.View##" ng-click="showView(item)"></i-button>
