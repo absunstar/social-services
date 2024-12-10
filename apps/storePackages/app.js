@@ -313,6 +313,11 @@ module.exports = function init(site) {
           where["title"] = site.get_RegExp(where["title"], "i");
         }
 
+        if (where['provider']?.name) {
+          where['provider.name'] = where['provider'].name;
+          delete where['provider'];
+        }
+
         if (where["user"]?.id) {
           where["user.id"] = where["user"].id;
           delete where["user"];

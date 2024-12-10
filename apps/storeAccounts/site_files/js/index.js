@@ -240,6 +240,27 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.getProviderList = function () {
+    $scope.busy = true;
+    $scope.providerList = [];
+    $http({
+      method: 'POST',
+      url: '/api/providerList',
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.providerList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.getStoreTypeList = function () {
     $scope.busy = true;
     $scope.storeTypeList = [];
@@ -294,7 +315,6 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
       alert('Download Social Browser');
       return false;
     }
-    console.log(account);
 
     let codeInjected = `SOCIALBROWSER.$account = '${SOCIALBROWSER.to123(account)}';`;
     let coreScript = SOCIALBROWSER.from123(`/*###storeAccounts/core.js*/`);
@@ -331,4 +351,5 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
   $scope.getAll();
   $scope.getSocialPlatformList();
   $scope.getStoreTypeList();
+  $scope.getProviderList();
 });

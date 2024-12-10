@@ -1,5 +1,5 @@
 module.exports = function init(site) {
-  site.ProviderList = [
+  site.providerList = [
     {
       name: 'Site',
     },
@@ -116,6 +116,14 @@ module.exports = function init(site) {
     { id: 1, nameEn: 'Male', nameAr: 'ذكر' },
     { id: 2, nameEn: 'Female', nameAr: 'أنثى' },
   ];
+
+  site.post('/api/providerList', (req, res) => {
+    res.json({
+      done: true,
+      list: site.providerList,
+    });
+  });
+
 
   site.post('/api/serviceOrderStatusList', (req, res) => {
     res.json({
