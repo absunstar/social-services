@@ -240,26 +240,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.getProviderList = function () {
-    $scope.busy = true;
-    $scope.providerList = [];
-    $http({
-      method: 'POST',
-      url: '/api/providerList',
-      data: {},
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          $scope.providerList = response.data.list;
-        }
-      },
-      function (err) {
-        $scope.busy = false;
-        $scope.error = err;
-      }
-    );
-  };
+
 
   $scope.getStoreTypeList = function () {
     $scope.busy = true;
@@ -281,7 +262,26 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
       }
     );
   };
-
+  $scope.getProviderList = function () {
+    $scope.busy = true;
+    $scope.providerList = [];
+    $http({
+      method: 'POST',
+      url: '/api/providerList',
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.providerList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
   $scope.getUsers = function (search) {
     $scope.error = '';
     if ($scope.busyAll) {

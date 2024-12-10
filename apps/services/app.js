@@ -1,7 +1,7 @@
 module.exports = function init(site) {
   let app = {
-    name: 'services',
-    allowMemory: true,
+    name: "services",
+    allowMemory: false,
     memoryList: [],
     allowCache: false,
     cacheList: [],
@@ -144,13 +144,13 @@ module.exports = function init(site) {
           name: app.name,
         },
         (req, res) => {
-          res.render(app.name + '/index.html', { title: app.name, appName: req.word('Services'), setting: site.getSiteSetting(req.host) }, { parser: 'html', compres: true });
+          res.render(app.name + "/index.html", { title: app.name, appName: req.word("Services"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });
         }
       );
     }
 
     if (app.allowRouteAdd) {
-      site.post({ name: `/api/${app.name}/add`, require: { permissions: ['login'] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/add`, require: { permissions: ["login"] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -176,7 +176,7 @@ module.exports = function init(site) {
     }
 
     if (app.allowRouteUpdate) {
-      site.post({ name: `/api/${app.name}/update`, require: { permissions: ['login'] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/update`, require: { permissions: ["login"] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -200,7 +200,7 @@ module.exports = function init(site) {
     }
 
     if (app.allowRouteDelete) {
-      site.post({ name: `/api/${app.name}/delete`, require: { permissions: ['login'] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/delete`, require: { permissions: ["login"] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -211,7 +211,7 @@ module.exports = function init(site) {
             response.done = true;
             response.result = result;
           } else {
-            response.error = err?.message || 'Deleted Not Exists';
+            response.error = err?.message || "Deleted Not Exists";
           }
           res.json(response);
         });
@@ -230,7 +230,7 @@ module.exports = function init(site) {
             response.done = true;
             response.doc = doc;
           } else {
-            response.error = err?.message || req.word('Not Exists');
+            response.error = err?.message || req.word("Not Exists");
           }
           res.json(response);
         });
@@ -240,42 +240,38 @@ module.exports = function init(site) {
     if (app.allowRouteAll) {
       site.post({ name: `/api/${app.name}/all`, public: true }, (req, res) => {
         let where = req.body.where || {};
-        let search = req.body.search || '';
+        let search = req.body.search || "";
         let limit = req.body.limit || 50;
         let select = req.body.select || { id: 1, active: 1, name: 1, image: 1, socialPlatform: 1, platformService: 1, price: 1 };
+        let host = site.getHostFilter(req.host);
 
         if (search) {
           where.$or = [];
 
           where.$or.push({
-            id: site.get_RegExp(search, 'i'),
+            id: site.get_RegExp(search, "i"),
           });
 
           where.$or.push({
-            name: site.get_RegExp(search, 'i'),
+            name: site.get_RegExp(search, "i"),
           });
         }
-        if (!search) {
-          search = 'id';
+        if (where["provider"]?.name) {
+          where["provider.name"] = where["provider"].name;
+          delete where["provider"];
         }
-        let host = site.getHostFilter(req.host);
 
-        let list = [];
-        app.memoryList.forEach((doc) => {
-          let obj = { ...doc };
-          if ((!where.active || doc.active) && doc.host == host) {
-            list.push(obj);
-          }
+        if (where["user"]?.id) {
+          where["user.id"] = where["user"].id;
+          delete where["user"];
+        }
+        where["host"] = site.getHostFilter(req.host);
 
-          for (const p in obj) {
-            if (!Object.hasOwnProperty.call(select, p)) {
-              delete obj[p];
-            }
-          }
-        });
-        res.json({
-          done: true,
-          list: list,
+        app.all({ where, select, limit, sort: { id: -1 } }, (err, docs) => {
+          res.json({
+            done: true,
+            list: docs,
+          });
         });
       });
     }

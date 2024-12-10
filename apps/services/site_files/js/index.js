@@ -209,6 +209,54 @@ app.controller('services', function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.getProviderList = function () {
+    $scope.busy = true;
+    $scope.providerList = [];
+    $http({
+      method: 'POST',
+      url: '/api/providerList',
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.providerList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+  $scope.getUsers = function (search) {
+    $scope.error = '';
+    if ($scope.busyAll) {
+      return;
+    }
+    $scope.busyAll = true;
+    $scope.usersList = [];
+    $http({
+      method: 'POST',
+      url: `/api/manageUsers/all`,
+      data: {
+        search: search,
+        select: { id: 1, firstName: 1 },
+      },
+    }).then(
+      function (response) {
+        $scope.busyAll = false;
+        if (response.data.done && response.data.list.length > 0) {
+          $scope.usersList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busyAll = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.showSearch = function () {
     $scope.error = '';
     site.showModal($scope.modalSearchID);
@@ -222,4 +270,5 @@ app.controller('services', function ($scope, $http, $timeout) {
 
   $scope.getAll();
   $scope.getSocialPlatformList();
+  $scope.getProviderList();
 });

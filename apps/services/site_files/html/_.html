@@ -7,10 +7,18 @@
       <i-button type="add" x-permissions="servicesAdd || servicesManage" label="##word.New##" ng-click="showAdd()"></i-button>
       <i-button type="search" x-permissions="servicesSearch || servicesManage" label="##word.Active##" ng-click="searchAll(search={active:true})"></i-button>
       <i-button type="search" x-permissions="servicesSearch || servicesManage" label="##word.Not Active##" ng-click="searchAll(search={active:false})"></i-button>
+      <i-button type="search" x-permissions="servicesSearch || servicesManage" label="##word.Advanced Search##" ng-click="$showAdvancedSearch = !$showAdvancedSearch"></i-button>
     </div>
-
-    <div class="row padding">
-      <i-control ng-model="$search" x-permissions="servicesSearch || servicesManage"></i-control>
+    <fieldset ng-show="$showAdvancedSearch">
+      <legend>##word.Advanced Search##</legend>
+      <div class="row">
+        <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
+        <i-list class="col4" label="##word.Provider##" ng-model="search.provider" primary="name" display="name" items="providerList"></i-list>
+      </div>
+    </fieldset>
+    <div class="row">
+      <i-control ng-model="$search" class="col8" label="##word.Search All##" x-permissions="servicesSearch || servicesManage"></i-control>
+      <i-button type="search" x-permissions="servicesSearch || servicesManage" class="col2" label="##word.Search##" ng-click="getAll(search)"></i-button>
     </div>
     <div class="table-responsive">
       <table class="table hover bold" id="t1">
