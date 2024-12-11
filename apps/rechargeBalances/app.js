@@ -1,6 +1,6 @@
 module.exports = function init(site) {
   let app = {
-    name: "services",
+    name: "rechargeBalances",
     allowMemory: false,
     memoryList: [],
     allowCache: false,
@@ -144,7 +144,7 @@ module.exports = function init(site) {
           name: app.name,
         },
         (req, res) => {
-          res.render(app.name + "/index.html", { title: app.name, appName: req.word("Services"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });
+          res.render(app.name + "/index.html", { title: app.name, appName: req.word("Recharge Balances"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });
         }
       );
     }
@@ -159,10 +159,7 @@ module.exports = function init(site) {
 
         _data.addUserInfo = req.getUserFinger();
         _data.host = site.getHostFilter(req.host);
-        _data.socialPlatform = {
-          name: _data.socialPlatform.name,
-          url: _data.socialPlatform.url,
-        };
+
         app.add(_data, (err, doc) => {
           if (!err && doc) {
             response.done = true;
@@ -183,10 +180,6 @@ module.exports = function init(site) {
 
         let _data = req.data;
         _data.editUserInfo = req.getUserFinger();
-        _data.socialPlatform = {
-          name: _data.socialPlatform.name,
-          url: _data.socialPlatform.url,
-        };
         app.update(_data, (err, result) => {
           if (!err) {
             response.done = true;
@@ -237,12 +230,48 @@ module.exports = function init(site) {
       });
     }
 
+    site.post(
+      {
+        name: `/api/${app.name}/updateType`,
+        require: { permissions: ["login"] },
+      },
+      (req, res) => {
+        let response = {
+          done: false,
+        };
+
+        let id = req.data.id;
+        let type = req.data.type;
+
+        app.$collection.find({ id: id }, (err, doc) => {
+
+          if (!err && doc) {
+            doc.type = {
+              name: type,
+            };
+            app.update(doc, (err, result) => {
+              if (!err) {
+                response.done = true;
+                response.doc = result.doc;
+              } else {
+                response.error = err.message || req.word("Not Exists");
+              }
+              res.json(response);
+            });
+          } else {
+            response.error = err?.message || req.word("Not Exists");
+            res.json(response);
+          }
+        });
+      }
+    );
+
     if (app.allowRouteAll) {
       site.post({ name: `/api/${app.name}/all`, public: true }, (req, res) => {
         let where = req.body.where || {};
         let search = req.body.search || "";
         let limit = req.body.limit || 50;
-        let select = req.body.select || { id: 1, active: 1, name: 1, image: 1, user: 1, provider: 1, price: 1 };
+        let select = req.body.select || { id: 1, active: 1, name: 1, user: 1, type: 1, paymentMethod: 1, price: 1 };
         let host = site.getHostFilter(req.host);
 
         if (search) {
@@ -256,9 +285,14 @@ module.exports = function init(site) {
             name: site.get_RegExp(search, "i"),
           });
         }
-        if (where["provider"]?.name) {
-          where["provider.name"] = where["provider"].name;
-          delete where["provider"];
+        if (where["paymentMethod"]?.name) {
+          where["paymentMethod.name"] = where["paymentMethod"].name;
+          delete where["paymentMethod"];
+        }
+
+        if (where["type"]?.name) {
+          where["type.name"] = where["type"].name;
+          delete where["type"];
         }
 
         if (where["user"]?.id) {

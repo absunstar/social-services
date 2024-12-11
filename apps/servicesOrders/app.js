@@ -247,8 +247,6 @@ module.exports = function init(site) {
 
         app.$collection.find({ id: id }, (err, doc) => {
           if (!err && doc) {
-            console.log(type, value);
-
             doc[type].name = value;
             app.update(doc, (err, result) => {
               if (!err) {

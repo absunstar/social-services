@@ -1,0 +1,7 @@
+[{
+    "moduleName" : "public" ,
+    "name": "rechargeBalancesAdmin",
+    "En": "Recharge Balances Admin",
+    "Ar": "إدارة شحن الأرصدة",
+    "permissions": ["rechargeBalancesManage"]
+}]

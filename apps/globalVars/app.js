@@ -1,4 +1,24 @@
 module.exports = function init(site) {
+  site.rechargeBalanceTypeList = [
+    {
+      name: 'pending',
+    },
+    {
+      name: 'approved',
+    },
+    {
+      name: 'rejected',
+    },
+  ];
+  
+  site.paymentMethodList = [
+    {
+      name: 'paypal',
+    },
+    {
+      name: 'WalletCash',
+    },
+  ];
   site.providerList = [
     {
       name: 'Site',
@@ -116,6 +136,21 @@ module.exports = function init(site) {
     { id: 1, nameEn: 'Male', nameAr: 'ذكر' },
     { id: 2, nameEn: 'Female', nameAr: 'أنثى' },
   ];
+
+  site.post('/api/rechargeBalanceTypeList', (req, res) => {
+    res.json({
+      done: true,
+      list: site.rechargeBalanceTypeList,
+    });
+  });
+
+  site.post('/api/paymentMethodList', (req, res) => {
+    res.json({
+      done: true,
+      list: site.paymentMethodList,
+    });
+  });
+
 
   site.post('/api/providerList', (req, res) => {
     res.json({

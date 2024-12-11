@@ -25,8 +25,8 @@
         <tr>
           <th class="w150">##word.Logo##</th>
           <th>##word.Name##</th>
-          <th>##word.Social Platform##</th>
-          <th>##word.Platform Service##</th>
+          <th>##word.User##</th>
+          <th>##word.Provider##</th>
           <th>##word.Price##</th>
           <th>##word.Status##</th>
           <th class="not-print">##word.Actions##</th>
@@ -36,8 +36,8 @@
             <i-image view class="logo center" ng-model="item.image"></i-image>
           </td>
           <td class="center">{{item.name}}</td>
-          <td class="center">{{item.socialPlatform.name}}</td>
-          <td class="center">{{item.platformService.name}}</td>
+          <td class="center">{{item.user.name}}</td>
+          <td class="center">{{item.provider.name}}</td>
           <td class="center">{{item.price}}</td>
           <td class="center">
             <span ng-show="item.active" class="text-success">##word.Active##</span>

@@ -1,0 +1,11 @@
+[
+    { "moduleName": "public", "screenName": "rechargeBalances", "name": "rechargeBalancesManage", "En": "Manage", "Ar": "إدارة" },
+    { "moduleName": "public", "screenName": "rechargeBalances", "name": "rechargeBalancesAdd", "En": "Add", "Ar": "إضافة" },
+    { "moduleName": "public", "screenName": "rechargeBalances", "name": "rechargeBalancesUpdate", "En": "Edit", "Ar": "تعديل" },
+    { "moduleName": "public", "screenName": "rechargeBalances", "name": "rechargeBalancesDelete", "En": "Delete", "Ar": "حذف" },
+    { "moduleName": "public", "screenName": "rechargeBalances", "name": "rechargeBalancesView", "En": "View", "Ar": "عرض" },
+    { "moduleName": "public", "screenName": "rechargeBalances", "name": "rechargeBalancesSearch", "En": "Search", "Ar": "بحث" },
+    { "moduleName": "public", "screenName": "rechargeBalances", "name": "rechargeBalancesExport", "En": "Export", "Ar": "تصدير" },
+    { "moduleName": "public", "screenName": "rechargeBalances", "name": "rechargeBalancesPrint", "En": "Print", "Ar": "طباعة" },
+    { "moduleName": "public", "screenName": "rechargeBalances", "name": "rechargeBalancesUi", "En": "UI", "Ar": "الواجهة الرسومية" }
+]
