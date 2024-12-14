@@ -471,15 +471,33 @@ module.exports = function init(site) {
   };
 
   site.updateUserInStoreAccount = function (data) {
+
     app.$collection.find({ id: data.id }, (err, doc) => {
       if (!err && doc) {
         doc.user = data.user;
+        
         app.update(doc, (err, result) => {
           if (!err) {
           }
         });
       }
     });
+  };
+
+
+  site.updateUserInStoreAccountByPackage = function (data) {
+    console.log(data);
+    
+    app.$collection.editMany(
+      {
+        where: {
+          'packageId': data.id,
+        },
+        set: {user : data.user},
+      },
+      (err, result) => {
+      }
+    )
   };
 
   app.init();

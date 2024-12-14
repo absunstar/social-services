@@ -340,6 +340,7 @@ app.controller("transactions", function ($scope, $http, $timeout) {
         select: {
           id: 1,
           name: 1,
+          user: 1,
           socialPlatform: 1,
           platformService: 1,
           price: 1,
@@ -385,7 +386,7 @@ app.controller("transactions", function ($scope, $http, $timeout) {
     $scope.error = "";
     $timeout(() => {
       if ($scope.item?.service?.id) {
-        $scope.item.totalPrice = $scope.item.service.price * $scope.item.quantity;
+        $scope.item.price = $scope.item.service.price * $scope.item.quantity;
       }
     }, 500);
   };

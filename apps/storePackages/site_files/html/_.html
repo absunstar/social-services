@@ -3,6 +3,7 @@
     <div x-import="storePackages/modal.html"></div>
     <div x-import="storePackages/accountsManageModal.html"></div>
     <div x-import="storePackages/modalSearch.html"></div>
+    <div x-import="storePackages/buyModal.html"></div>
 
     <div class="top-actions">
       <i-button type="add" x-permissions="storePackagesAdd || storePackagesManage" label="##word.New##" ng-click="showAdd()"></i-button>
@@ -46,6 +47,7 @@
           </td>
 
           <td class="center not-print">
+            <i-button label="##word.Buy##" ng-click="showBuyModal(item)"></i-button>
             <i-button label="##word.Accounts Manage##" ng-click="getStoreAccounts(item)"></i-button>
             <i-button type="view" title="##word.View##" ng-click="showView(item)"></i-button>
 

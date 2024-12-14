@@ -5,6 +5,7 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
   $scope.modalSearchID = "#storePackagesSearchModal";
   $scope.setting = site.showObject(`##data.#setting##`);
   $scope.mode = "add";
+  $scope.buy = {};
   $scope._search = {};
   $scope.structure = {
     active: true,
@@ -375,6 +376,119 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
       }
     );
   };
+
+  $scope.showBuyModal = function (_item) {    
+    $scope.item = {};
+    $scope.view(_item);
+    site.showModal("#buyModal");
+  };
+
+  $scope.addBuyTransaction = function () {
+    $scope.error = "";
+    const v = site.validated("#buyModal");
+    if (!v.ok) {
+      $scope.error = v.messages[0].ar;
+      return;
+    }
+    let obj = {
+      user: $scope.buy.user,
+      transactionName: $scope.transactionNameList.find((itm) => itm.code == "buyPackage"),
+      paymentMethod: $scope.buy.paymentMethod,
+      type: $scope.transactionTypeList.find((itm) => itm.code == "review"),
+      price: $scope.item.price,
+      package: {
+        id: $scope.item.id,
+        title: $scope.item.title,
+        user: $scope.item.user,
+        storeType: $scope.item.storeType,
+        provider: $scope.item.provider,
+      },
+    };
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: `${$scope.baseURL}/api/transactions/add`,
+      data: obj,
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          site.hideModal("#buyModal");
+          site.resetValidated("#buyModal");
+          $scope.buy = {};
+        } else {
+          $scope.error = response.data.error;
+        }
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
+  };
+
+  $scope.getPaymentMethodList = function () {
+    $scope.busy = true;
+    $scope.paymentMethodList = [];
+    $http({
+      method: "POST",
+      url: "/api/paymentMethodList",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.paymentMethodList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.getTransactionNameList = function () {
+    $scope.busy = true;
+    $scope.transactionNameList = [];
+    $http({
+      method: "POST",
+      url: "/api/transactionNameList",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.transactionNameList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.getTransactionTypeList = function () {
+    $scope.busy = true;
+    $scope.transactionTypeList = [];
+    $http({
+      method: "POST",
+      url: "/api/transactionTypeList",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.transactionTypeList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.showSearch = function () {
     $scope.error = "";
     site.showModal($scope.modalSearchID);
@@ -390,4 +504,7 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
   $scope.getSocialPlatformList();
   $scope.getStoreTypeList();
   $scope.getProviderList();
+  $scope.getPaymentMethodList();
+  $scope.getTransactionNameList();
+  $scope.getTransactionTypeList();
 });

@@ -143,6 +143,7 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
+          
           $scope.item = response.data.doc;
           $scope.item.socialPlatform.$image = { url: "/images/" + $scope.item.socialPlatform.name + ".png" };
         } else {
@@ -330,6 +331,12 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.showBuyModal = function (_item) {    
+    $scope.item = {};
+    $scope.view(_item);
+    site.showModal("#buyModal");
+  };
+
   $scope.addBuyTransaction = function () {
     $scope.error = "";
     const v = site.validated("#buyModal");
@@ -344,6 +351,7 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
       type: $scope.transactionTypeList.find((itm) => itm.code == "review"),
       price: $scope.item.price,
       account: {
+        id: $scope.item.id,
         title: $scope.item.title,
         user: $scope.item.user,
         socialPlatform: $scope.item.socialPlatform,

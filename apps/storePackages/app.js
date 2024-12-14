@@ -340,15 +340,16 @@ module.exports = function init(site) {
   }
 
   site.updateUserInStorePackage = function (data) {
-    app.$collection.find({ id: data.id }, (err, doc) => {
-      if (!err && doc) {
-        doc.user = data.user;
-        app.update(doc, (err, result) => {
-          if (!err) {
-          }
-        });
+    app.$collection.edit(
+      {
+        where: {
+          'id': data.id,
+        },
+        set: {user : data.user},
+      },
+      (err, result) => {
       }
-    });
+    )
   };
 
   app.init();

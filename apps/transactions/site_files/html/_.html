@@ -11,9 +11,12 @@
     <fieldset ng-show="$showAdvancedSearch">
       <legend>##word.Advanced Search##</legend>
       <div class="row">
+        <i-list class="col4" label="##word.Transaction Name##" ng-model="search.transactionName" display="name" items="transactionNameList"></i-list>
+        <i-list class="col4" label="##word.Type##" ng-show="item.id" ng-model="search.type" display="name" items="transactionTypeList"></i-list>
+        <i-list class="col4" label="##word.Status##"  ng-model="search.status" display="name" items="transactionStatusList"></i-list>
+      </div>
+      <div class="row">
         <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
-        <i-list class="col4" label="##word.Type##" ng-model="search.type" display="name" items="serviceOrderStateList"></i-list>
-        <i-list class="col4" label="##word.Status##" ng-model="search.status" display="name" items="serviceOrderStatusList"></i-list>
       </div>
     </fieldset>
     <div class="row">
@@ -24,23 +27,19 @@
       <table class="table hover bold" id="t1">
         <tr>
           <th>##word.Name##</th>
-          <th>##word.Service##</th>
-          <th>##word.Qty.##</th>
-          <th>##word.Price##</th>
           <th>##word.Type##</th>
-          <th>##word.Status##</th>
+          <th>##word.paymentMethod##</th>
+          <th>##word.Price##</th>
           <th class="not-print">##word.Actions##</th>
         </tr>
         <tr ng-repeat="item in list | filter:$search">
           <td class="center">{{item.transactionName.name}}</td>
-          <td class="center">{{item.service.name}}</td>
-          <td class="center">{{item.quantity}}</td>
-          <td class="center">{{item.totalPrice}}</td>
           <td class="center">{{item.type.name}}</td>
-          <td class="center">{{item.status.name}}</td>
+          <td class="center">{{item.paymentMethod.name}}</td>
+          <td class="center">{{item.price}}</td>
           <td class="center not-print">
-            <i-button label="##word.Approved##" ng-show="item.type.code == 'view'" ng-click="updateSome(item,'type','approved')"></i-button>
-            <i-button label="##word.Rejected##" ng-show="item.type.code == 'view'" ng-click="updateSome(item,'type','rejected')"></i-button>
+            <i-button label="##word.Approved##" ng-show="item.type.code == 'review'" ng-click="updateSome(item,'type','approved')"></i-button>
+            <i-button label="##word.Rejected##" ng-show="item.type.code == 'review'" ng-click="updateSome(item,'type','rejected')"></i-button>
             <i-button label="##word.Running##" ng-show="item.type.code == 'approved' && item.status.code == 'pending'" ng-click="updateSome(item,'status','running')"></i-button>
             <i-button label="##word.Done##" ng-show="item.type.code == 'approved' && item.status.code == 'running'" ng-click="updateSome(item,'status','done')"></i-button>
 

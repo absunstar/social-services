@@ -33,6 +33,7 @@
           <th class="w150">##word.Logo##</th>
           <th x-data="setting.activeStudentBarcode" ng-show="'##query.type##' == 'student'">##word.Barcode##</th>
           <th>##word.Full Name##</th>
+          <th>##word.Balance##</th>
           <th>##word.Status##</th>
           <th class="not-print">##word.Actions##</th>
         </tr>
@@ -44,6 +45,7 @@
           <td class="center userPrint" x-data="setting.activeStudentBarcode" ng-show="'##query.type##' == 'student'">{{item.barcode}}</td>
           <td class="center">{{item.firstName}} {{item.lastName}}</td>
 
+          <td class="center">{{item.balance || 0}}</td>
           <td class="center">
             <span class="text-success" ng-show="item.active">##word.Active##</span>
             <span class="text-danger" ng-show="!item.active">##word.Not Active##</span>

@@ -377,6 +377,7 @@ module.exports = function init(site) {
           firstName: 1,
           email: 1,
           barcode: 1,
+          balance: 1,
         };
         if (search) {
           where.$or = [];
@@ -471,9 +472,10 @@ module.exports = function init(site) {
         if (!err && doc) {
           doc.balance = doc.balance || 0;
           if (data.type == "+") {
-            data.balance += data.price;
+            doc.balance += data.price;
           } else if (data.type == "-") {
-            data.balance -= data.price;
+            
+            doc.balance -= data.price;
           }
           site.security.updateUser(doc, (err) => {
             return true;

@@ -266,24 +266,26 @@ module.exports = function init(site) {
                   } else {
                     obj.type = "-";
                   }
-                  let done = await site.updateUserBalance(obj);
-                  if (done) {
-                    let _obj = {};
-                    if (result.doc.transactionName.code == "buyAccount") {
-                      _obj.userId = doc.account.user.id;
-                      _obj.price = doc.price;
-                      _obj.type = "+";
-                    site.updateUserInStoreAccount({id :doc.account.id,user :doc.account.user });
+                  await site.updateUserBalance(obj);
 
-                    } else if (result.doc.transactionName.code == "buyPackage") {
-                      _obj.userId = doc.package.user.id;
-                      _obj.price = doc.price;
-                      _obj.type = "+";
-                    site.updateUserInStorePackage({id :doc.package.id,user :doc.package.user });
-
-                    }
-                    site.updateUserBalance(_obj);
+                  let _obj = {};
+                  if (result.doc.transactionName.code == "buyAccount") {
+                    _obj.userId = doc.account.user.id;
+                    _obj.price = doc.price;
+                    _obj.type = "+";
+                    site.updateUserInStoreAccount({ id: doc.account.id, user: doc.user });
+                  } else if (result.doc.transactionName.code == "buyPackage") {
+                    _obj.userId = doc.package.user.id;
+                    _obj.price = doc.price;
+                    _obj.type = "+";
+                    site.updateUserInStorePackage({ id: doc.package.id, user: doc.user });
+                    site.updateUserInStoreAccountByPackage({ id: doc.package.id, user: doc.user });
+                  } else if (result.doc.transactionName.code == "buyService") {
+                    _obj.userId = doc.service.user.id;
+                    _obj.price = doc.price;
+                    _obj.type = "+";
                   }
+                  site.updateUserBalance(_obj);
                 }
                 response.doc = result.doc;
               } else {
@@ -304,7 +306,7 @@ module.exports = function init(site) {
         let where = req.body.where || {};
         let search = req.body.search || "";
         let limit = req.body.limit || 100;
-        let select = req.body.select || { id: 1, name: 1, user: 1, price: 1, transactionName: 1, type: 1, status: 1 };
+        let select = req.body.select || { id: 1, user: 1, price: 1, transactionName: 1, type: 1, paymentMethod: 1 };
 
         if (search) {
           where.$or = [];
