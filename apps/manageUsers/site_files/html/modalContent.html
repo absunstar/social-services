@@ -33,6 +33,24 @@
     <div class="tabs-content">
       <div id="generalInformations" class="tab-content">
         <fieldset>
+          <legend>##word.Balance##</legend>
+          <div class="row font-22 bold">
+
+            <div class="col3 center">
+              <p>##word.Balance##</p>
+              {{item.balance || 0}}
+            </div>
+            <div class="col3 center">
+              <p>##word.Balance2##</p>
+              {{item.balance2 || 0}}
+            </div>
+            <div class="col3 center">
+              <p>##word.Balance3##</p>
+              {{item.balance3 || 0}}
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
           <div class="row">
             <i-list
               class="col4"
@@ -46,7 +64,6 @@
             ></i-list>
             <i-list class="col4" v="r" label="##word.Gender##" ng-model="item.gender" display="name##session.lang##" items="genderList" ng-search="item.$genderList"></i-list>
           </div>
-      
         </fieldset>
         <fieldset>
           <legend>##word.Contact Informations##</legend>
@@ -81,7 +98,7 @@
             <i-control class="col6" label="Skype" ng-model="item.skypeAccouunt"> </i-control>
           </div>
         </fieldset>
-    
+
         <fieldset>
           <legend>##word.Address##</legend>
           <div class="row">

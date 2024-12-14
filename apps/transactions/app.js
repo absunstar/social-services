@@ -1,6 +1,6 @@
 module.exports = function init(site) {
   let app = {
-    name: "rechargeBalances",
+    name: "transactions",
     allowMemory: false,
     memoryList: [],
     allowCache: false,
@@ -144,7 +144,7 @@ module.exports = function init(site) {
           name: app.name,
         },
         (req, res) => {
-          res.render(app.name + "/index.html", { title: app.name, appName: req.word("Recharge Balances"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });
+          res.render(app.name + "/index.html", { title: app.name, appName: req.word("Transactions"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });
         }
       );
     }
@@ -180,6 +180,7 @@ module.exports = function init(site) {
 
         let _data = req.data;
         _data.editUserInfo = req.getUserFinger();
+
         app.update(_data, (err, result) => {
           if (!err) {
             response.done = true;
@@ -232,7 +233,7 @@ module.exports = function init(site) {
 
     site.post(
       {
-        name: `/api/${app.name}/updateType`,
+        name: `/api/${app.name}/updateSome`,
         require: { permissions: ["login"] },
       },
       (req, res) => {
@@ -242,16 +243,48 @@ module.exports = function init(site) {
 
         let id = req.data.id;
         let type = req.data.type;
+        let value = req.data.value;
 
         app.$collection.find({ id: id }, (err, doc) => {
-
           if (!err && doc) {
-            doc.type = {
-              name: type,
-            };
-            app.update(doc, (err, result) => {
+            if (type == "type") {
+              doc[type] = site.transactionTypeList.find((itm) => itm.code == value);
+            }
+            if (type == "status") {
+              doc[type] = site.transactionStatusList.find((itm) => itm.code == value);
+            }
+            app.update(doc, async (err, result) => {
               if (!err) {
                 response.done = true;
+                if (value == "approved") {
+                  let obj = {
+                    userId: doc.user.id,
+                    price: doc.price,
+                  };
+                  if (result.doc.transactionName.code == "rechargeBalance") {
+                    obj.type = "+";
+                  } else {
+                    obj.type = "-";
+                  }
+                  let done = await site.updateUserBalance(obj);
+                  if (done) {
+                    let _obj = {};
+                    if (result.doc.transactionName.code == "buyAccount") {
+                      _obj.userId = doc.account.user.id;
+                      _obj.price = doc.price;
+                      _obj.type = "+";
+                    site.updateUserInStoreAccount({id :doc.account.id,user :doc.account.user });
+
+                    } else if (result.doc.transactionName.code == "buyPackage") {
+                      _obj.userId = doc.package.user.id;
+                      _obj.price = doc.price;
+                      _obj.type = "+";
+                    site.updateUserInStorePackage({id :doc.package.id,user :doc.package.user });
+
+                    }
+                    site.updateUserBalance(_obj);
+                  }
+                }
                 response.doc = result.doc;
               } else {
                 response.error = err.message || req.word("Not Exists");
@@ -270,35 +303,54 @@ module.exports = function init(site) {
       site.post({ name: `/api/${app.name}/all`, public: true }, (req, res) => {
         let where = req.body.where || {};
         let search = req.body.search || "";
-        let limit = req.body.limit || 50;
-        let select = req.body.select || { id: 1, active: 1, name: 1, user: 1, type: 1, paymentMethod: 1, price: 1 };
-        let host = site.getHostFilter(req.host);
+        let limit = req.body.limit || 100;
+        let select = req.body.select || { id: 1, name: 1, user: 1, price: 1, transactionName: 1, type: 1, status: 1 };
 
         if (search) {
           where.$or = [];
-
           where.$or.push({
             id: site.get_RegExp(search, "i"),
           });
-
           where.$or.push({
-            name: site.get_RegExp(search, "i"),
+            "service.name": site.get_RegExp(search, "i"),
           });
         }
-        if (where["paymentMethod"]?.name) {
-          where["paymentMethod.name"] = where["paymentMethod"].name;
+
+        if (where["socialPlatform"]?.code) {
+          where["socialPlatform.code"] = where["socialPlatform"].code;
+          delete where["socialPlatform"];
+        }
+
+        if (where["transactionName"]?.code) {
+          where["transactionName.code"] = where["transactionName"].code;
+          delete where["transactionName"];
+        }
+
+        if (where["service"]?.code) {
+          where["service.code"] = where["service"].code;
+          delete where["service"];
+        }
+
+        if (where["type"]?.code) {
+          where["type.code"] = where["type"].code;
+          delete where["type"];
+        }
+
+        if (where["paymentMethod"]?.code) {
+          where["paymentMethod.code"] = where["paymentMethod"].code;
           delete where["paymentMethod"];
         }
 
-        if (where["type"]?.name) {
-          where["type.name"] = where["type"].name;
-          delete where["type"];
+        if (where["status"]?.code) {
+          where["status.code"] = where["status"].code;
+          delete where["status"];
         }
 
         if (where["user"]?.id) {
           where["user.id"] = where["user"].id;
           delete where["user"];
         }
+
         where["host"] = site.getHostFilter(req.host);
 
         app.all({ where, select, limit, sort: { id: -1 } }, (err, docs) => {

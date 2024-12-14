@@ -1,0 +1,7 @@
+[{
+    "moduleName" : "public" ,
+    "name": "transactionsAdmin",
+    "En": "Transactions Admin",
+    "Ar": "إدارة المعاملات",
+    "permissions": ["transactionsManage"]
+}]

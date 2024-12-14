@@ -1,6 +1,6 @@
 module.exports = function init(site) {
   let app = {
-    name: 'manageUsers',
+    name: "manageUsers",
     allowMemory: false,
     memoryList: [],
     newList: [],
@@ -17,7 +17,7 @@ module.exports = function init(site) {
   };
   site.userList = [];
 
-  app.$collection = site.connectCollection('users_info');
+  app.$collection = site.connectCollection("users_info");
 
   app.init = function () {
     app.$collection.findMany({ sort: { id: -1 } }, (err, docs) => {
@@ -144,23 +144,23 @@ module.exports = function init(site) {
           name: app.name,
         },
         (req, res) => {
-          let appName = req.word('Manage Users');
+          let appName = req.word("Manage Users");
           res.render(
-            app.name + '/index.html',
+            app.name + "/index.html",
             {
               title: app.name,
               appName: appName,
               setting: site.getSiteSetting(req.host),
               language: req.session.language,
             },
-            { parser: 'html css js', compres: true }
+            { parser: "html css js", compres: true }
           );
         }
       );
     }
 
     if (app.allowRouteAdd) {
-      site.post({ name: `/api/${app.name}/add`, require: { permissions: ['login'] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/add`, require: { permissions: ["login"] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -204,7 +204,7 @@ module.exports = function init(site) {
       site.post(
         {
           name: `/api/${app.name}/update`,
-          require: { permissions: ['login'] },
+          require: { permissions: ["login"] },
         },
         (req, res) => {
           let response = {
@@ -226,11 +226,11 @@ module.exports = function init(site) {
               response.done = true;
               response.result = result;
               if (result.doc) {
-                let listName = 'studentList';
-                if (result.doc.type == 'mama') {
-                  listName = 'mamaList';
-                } else if (result.doc.type == 'parent') {
-                  listName = 'parentList';
+                let listName = "studentList";
+                if (result.doc.type == "mama") {
+                  listName = "mamaList";
+                } else if (result.doc.type == "parent") {
+                  listName = "parentList";
                 }
                 let index = site.userList.findIndex((a) => a.id === result?.doc?.id);
                 if (index !== -1) {
@@ -267,7 +267,7 @@ module.exports = function init(site) {
       site.post(
         {
           name: `/api/${app.name}/updateStudentNotifications`,
-          require: { permissions: ['login'] },
+          require: { permissions: ["login"] },
         },
         (req, res) => {
           let response = {
@@ -280,11 +280,11 @@ module.exports = function init(site) {
               if (user) {
                 user.notificationsList = user.notificationsList || [];
 
-                if (_data.type == 'deleteAll') {
+                if (_data.type == "deleteAll") {
                   user.notificationsList = [];
-                } else if (_data.type == 'deleteOne') {
+                } else if (_data.type == "deleteOne") {
                   user.notificationsList = user.notificationsList.filter((_n) => _n.id != _data.id);
-                } else if (_data.type == 'showAll') {
+                } else if (_data.type == "showAll") {
                   for (let i = 0; i < user.notificationsList.length; i++) {
                     user.notificationsList[i].show = true;
                   }
@@ -317,7 +317,7 @@ module.exports = function init(site) {
       site.post(
         {
           name: `/api/${app.name}/delete`,
-          require: { permissions: ['login'] },
+          require: { permissions: ["login"] },
         },
         (req, res) => {
           let response = {
@@ -334,7 +334,7 @@ module.exports = function init(site) {
               }
               res.json(response);
             } else {
-              response.error = err?.message || 'Deleted Not Exists';
+              response.error = err?.message || "Deleted Not Exists";
               res.json(response);
             }
           });
@@ -354,7 +354,7 @@ module.exports = function init(site) {
             response.done = true;
             response.doc = doc;
           } else {
-            response.error = err?.message || 'Not Exists';
+            response.error = err?.message || "Not Exists";
           }
           res.json(response);
         });
@@ -365,7 +365,7 @@ module.exports = function init(site) {
       site.post({ name: `/api/${app.name}/all`, public: true }, (req, res) => {
         let setting = site.getSiteSetting(req.host);
         let where = req.body.where || {};
-        let search = req.body.search || '';
+        let search = req.body.search || "";
         let limit = req.body.limit || 100;
         let select = req.body.select || {
           id: 1,
@@ -382,29 +382,29 @@ module.exports = function init(site) {
           where.$or = [];
 
           where.$or.push({
-            id: site.get_RegExp(search, 'i'),
+            id: site.get_RegExp(search, "i"),
           });
 
           where.$or.push({
-            email: site.get_RegExp(search, 'i'),
+            email: site.get_RegExp(search, "i"),
           });
 
           where.$or.push({
-            firstName: site.get_RegExp(search, 'i'),
+            firstName: site.get_RegExp(search, "i"),
           });
 
           where.$or.push({
-            lastName: site.get_RegExp(search, 'i'),
+            lastName: site.get_RegExp(search, "i"),
           });
 
           where.$or.push({
-            idNumber: site.get_RegExp(search, 'i'),
+            idNumber: site.get_RegExp(search, "i"),
           });
           where.$or.push({
-            'gender.nameAr': search,
+            "gender.nameAr": search,
           });
           where.$or.push({
-            'gender.nameEn': search,
+            "gender.nameEn": search,
           });
           where.$or.push({
             phone: search,
@@ -416,28 +416,28 @@ module.exports = function init(site) {
             whatsapp: search,
           });
           where.$or.push({
-            socialEmail: site.get_RegExp(search, 'i'),
+            socialEmail: site.get_RegExp(search, "i"),
           });
           where.$or.push({
-            bio: site.get_RegExp(search, 'i'),
+            bio: site.get_RegExp(search, "i"),
           });
           where.$or.push({
-            title: site.get_RegExp(search, 'i'),
+            title: site.get_RegExp(search, "i"),
           });
           where.$or.push({
-            address: site.get_RegExp(search, 'i'),
+            address: site.get_RegExp(search, "i"),
           });
           where.$or.push({
-            'gov.name': site.get_RegExp(search, 'i'),
+            "gov.name": site.get_RegExp(search, "i"),
           });
           where.$or.push({
-            'city.name': site.get_RegExp(search, 'i'),
+            "city.name": site.get_RegExp(search, "i"),
           });
           where.$or.push({
-            'area.name': site.get_RegExp(search, 'i'),
+            "area.name": site.get_RegExp(search, "i"),
           });
         }
-        
+
         app.$collection.findMany({ where, select, limit, sort: { id: -1 } }, (err, users, count) => {
           res.json({
             done: true,
@@ -460,6 +460,29 @@ module.exports = function init(site) {
     }
 
     return docs.slice(0, data.limit || 10000);
+  };
+
+  site.updateUserBalance = async function (data) {
+    site.security.getUser(
+      {
+        id: data.userId,
+      },
+      (err, doc) => {
+        if (!err && doc) {
+          doc.balance = doc.balance || 0;
+          if (data.type == "+") {
+            data.balance += data.price;
+          } else if (data.type == "-") {
+            data.balance -= data.price;
+          }
+          site.security.updateUser(doc, (err) => {
+            return true;
+          });
+        } else {
+          return false;
+        }
+      }
+    );
   };
 
   app.init();

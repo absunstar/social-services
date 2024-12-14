@@ -1,11 +1,12 @@
-app.controller('storeAccounts', function ($scope, $http, $timeout) {
-  $scope.baseURL = '';
-  $scope.appName = 'storeAccounts';
-  $scope.modalID = '#storeAccountsManageModal';
-  $scope.modalSearchID = '#storeAccountsSearchModal';
+app.controller("storeAccounts", function ($scope, $http, $timeout) {
+  $scope.baseURL = "";
+  $scope.appName = "storeAccounts";
+  $scope.modalID = "#storeAccountsManageModal";
+  $scope.modalSearchID = "#storeAccountsSearchModal";
   $scope.setting = site.showObject(`##data.#setting##`);
-  $scope.mode = 'add';
+  $scope.mode = "add";
   $scope._search = {};
+  $scope.buy = {};
   $scope.structure = {
     active: true,
     standalone: true,
@@ -16,14 +17,14 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
   $scope.list = [];
 
   $scope.showAdd = function (_item) {
-    $scope.error = '';
-    $scope.mode = 'add';
+    $scope.error = "";
+    $scope.mode = "add";
     $scope.item = { ...$scope.structure };
     site.showModal($scope.modalID);
   };
 
   $scope.add = function (_item) {
-    $scope.error = '';
+    $scope.error = "";
     const v = site.validated($scope.modalID);
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
@@ -32,7 +33,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
 
     $scope.busy = true;
     $http({
-      method: 'POST',
+      method: "POST",
       url: `${$scope.baseURL}/api/${$scope.appName}/add`,
       data: $scope.item,
     }).then(
@@ -53,15 +54,15 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
   };
 
   $scope.showUpdate = function (_item) {
-    $scope.error = '';
-    $scope.mode = 'edit';
+    $scope.error = "";
+    $scope.mode = "edit";
     $scope.view(_item);
     $scope.item = {};
     site.showModal($scope.modalID);
   };
 
   $scope.update = function (_item) {
-    $scope.error = '';
+    $scope.error = "";
     const v = site.validated($scope.modalID);
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
@@ -69,7 +70,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
     }
     $scope.busy = true;
     $http({
-      method: 'POST',
+      method: "POST",
       url: `${$scope.baseURL}/api/${$scope.appName}/update`,
       data: _item,
     }).then(
@@ -81,7 +82,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
           let index = $scope.list.findIndex((itm) => itm.id == response.data.result.doc.id);
           if (index !== -1) {
             $scope.list[index] = response.data.result.doc;
-            $scope.list[index].socialPlatform.$image = { url: '/images/' + $scope.list[index].socialPlatform.name + '.png' };
+            $scope.list[index].socialPlatform.$image = { url: "/images/" + $scope.list[index].socialPlatform.name + ".png" };
           }
         } else {
           $scope.error = response.data.error;
@@ -94,10 +95,10 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
   };
 
   $scope.makeTrusted = function (_item) {
-    $scope.error = '';
+    $scope.error = "";
     $scope.busy = true;
     $http({
-      method: 'POST',
+      method: "POST",
       url: `${$scope.baseURL}/api/${$scope.appName}/updateTrusted`,
       data: { id: _item.id },
     }).then(
@@ -109,7 +110,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
           let index = $scope.list.findIndex((itm) => itm.id == response.data.doc.id);
           if (index !== -1) {
             $scope.list[index] = response.data.doc;
-            $scope.list[index].socialPlatform.$image = { url: '/images/' + $scope.list[index].socialPlatform.name + '.png' };
+            $scope.list[index].socialPlatform.$image = { url: "/images/" + $scope.list[index].socialPlatform.name + ".png" };
           }
         } else {
           $scope.error = response.data.error;
@@ -122,8 +123,8 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
   };
 
   $scope.showView = function (_item) {
-    $scope.error = '';
-    $scope.mode = 'view';
+    $scope.error = "";
+    $scope.mode = "view";
     $scope.item = {};
     $scope.view(_item);
     site.showModal($scope.modalID);
@@ -131,9 +132,9 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
 
   $scope.view = function (_item) {
     $scope.busy = true;
-    $scope.error = '';
+    $scope.error = "";
     $http({
-      method: 'POST',
+      method: "POST",
       url: `${$scope.baseURL}/api/${$scope.appName}/view`,
       data: {
         id: _item.id,
@@ -143,7 +144,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.done) {
           $scope.item = response.data.doc;
-          $scope.item.socialPlatform.$image = { url: '/images/' + $scope.item.socialPlatform.name + '.png' };
+          $scope.item.socialPlatform.$image = { url: "/images/" + $scope.item.socialPlatform.name + ".png" };
         } else {
           $scope.error = response.data.error;
         }
@@ -155,8 +156,8 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
   };
 
   $scope.showDelete = function (_item) {
-    $scope.error = '';
-    $scope.mode = 'delete';
+    $scope.error = "";
+    $scope.mode = "delete";
     $scope.item = {};
     $scope.view(_item);
     site.showModal($scope.modalID);
@@ -164,10 +165,10 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
 
   $scope.delete = function (_item) {
     $scope.busy = true;
-    $scope.error = '';
+    $scope.error = "";
 
     $http({
-      method: 'POST',
+      method: "POST",
       url: `${$scope.baseURL}/api/${$scope.appName}/delete`,
       data: {
         id: $scope.item.id,
@@ -195,7 +196,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: 'POST',
+      method: "POST",
       url: `${$scope.baseURL}/api/${$scope.appName}/all`,
       data: {
         where: where,
@@ -205,7 +206,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.done && response.data.list.length > 0) {
           response.data.list.forEach((s) => {
-            s.socialPlatform.$image = { url: '/images/' + s.socialPlatform.name + '.png' };
+            s.socialPlatform.$image = { url: "/images/" + s.socialPlatform.name + ".png" };
           });
           $scope.list = response.data.list;
           $scope.count = response.data.count;
@@ -223,8 +224,8 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.socialPlatformList = [];
     $http({
-      method: 'POST',
-      url: '/api/socialPlatformList',
+      method: "POST",
+      url: "/api/socialPlatformList",
       data: {},
     }).then(
       function (response) {
@@ -240,14 +241,12 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
     );
   };
 
-
-
   $scope.getStoreTypeList = function () {
     $scope.busy = true;
     $scope.storeTypeList = [];
     $http({
-      method: 'POST',
-      url: '/api/storeTypeList',
+      method: "POST",
+      url: "/api/storeTypeList",
       data: {},
     }).then(
       function (response) {
@@ -266,8 +265,8 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.providerList = [];
     $http({
-      method: 'POST',
-      url: '/api/providerList',
+      method: "POST",
+      url: "/api/providerList",
       data: {},
     }).then(
       function (response) {
@@ -283,14 +282,14 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
     );
   };
   $scope.getUsers = function (search) {
-    $scope.error = '';
+    $scope.error = "";
     if ($scope.busyAll) {
       return;
     }
     $scope.busyAll = true;
     $scope.usersList = [];
     $http({
-      method: 'POST',
+      method: "POST",
       url: `/api/manageUsers/all`,
       data: {
         search: search,
@@ -310,9 +309,117 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.getPaymentMethodList = function () {
+    $scope.busy = true;
+    $scope.paymentMethodList = [];
+    $http({
+      method: "POST",
+      url: "/api/paymentMethodList",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.paymentMethodList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.addBuyTransaction = function () {
+    $scope.error = "";
+    const v = site.validated("#buyModal");
+    if (!v.ok) {
+      $scope.error = v.messages[0].ar;
+      return;
+    }
+    let obj = {
+      user: $scope.buy.user,
+      transactionName: $scope.transactionNameList.find((itm) => itm.code == "buyAccount"),
+      paymentMethod: $scope.buy.paymentMethod,
+      type: $scope.transactionTypeList.find((itm) => itm.code == "review"),
+      price: $scope.item.price,
+      account: {
+        title: $scope.item.title,
+        user: $scope.item.user,
+        socialPlatform: $scope.item.socialPlatform,
+        storeType: $scope.item.storeType,
+        provider: $scope.item.provider,
+        email: $scope.item.email,
+        password: $scope.item.password,
+      },
+    };
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: `${$scope.baseURL}/api/transactions/add`,
+      data: obj,
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          site.hideModal("#buyModal");
+          site.resetValidated("#buyModal");
+          $scope.buy = {};
+        } else {
+          $scope.error = response.data.error;
+        }
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
+  };
+
+  $scope.getTransactionNameList = function () {
+    $scope.busy = true;
+    $scope.transactionNameList = [];
+    $http({
+      method: "POST",
+      url: "/api/transactionNameList",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.transactionNameList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.getTransactionTypeList = function () {
+    $scope.busy = true;
+    $scope.transactionTypeList = [];
+    $http({
+      method: "POST",
+      url: "/api/transactionTypeList",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.transactionTypeList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.login = function (account) {
     if (!window.SOCIALBROWSER) {
-      alert('Download Social Browser');
+      alert("Download Social Browser");
       return false;
     }
 
@@ -323,9 +430,9 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
 
     /*SOCIALBROWSER.addSession(account.email);*/
 
-    SOCIALBROWSER.ipc('[open new popup]', {
-      url: account.socialPlatform.url || 'https://www.google.com/',
-      partition: 'persist:' + SOCIALBROWSER.md5(account.email),
+    SOCIALBROWSER.ipc("[open new popup]", {
+      url: account.socialPlatform.url || "https://www.google.com/",
+      partition: "persist:" + SOCIALBROWSER.md5(account.email),
       show: true,
       vip: true,
       width: 800,
@@ -339,7 +446,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
   };
 
   $scope.showSearch = function () {
-    $scope.error = '';
+    $scope.error = "";
     site.showModal($scope.modalSearchID);
   };
   $scope.searchAll = function () {
@@ -352,4 +459,7 @@ app.controller('storeAccounts', function ($scope, $http, $timeout) {
   $scope.getSocialPlatformList();
   $scope.getStoreTypeList();
   $scope.getProviderList();
+  $scope.getPaymentMethodList();
+  $scope.getTransactionNameList();
+  $scope.getTransactionTypeList();
 });

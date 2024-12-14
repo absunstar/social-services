@@ -1,0 +1,11 @@
+[
+    { "moduleName": "public", "screenName": "transactions", "name": "transactionsManage", "En": "Manage", "Ar": "إدارة" },
+    { "moduleName": "public", "screenName": "transactions", "name": "transactionsAdd", "En": "Add", "Ar": "إضافة" },
+    { "moduleName": "public", "screenName": "transactions", "name": "transactionsUpdate", "En": "Edit", "Ar": "تعديل" },
+    { "moduleName": "public", "screenName": "transactions", "name": "transactionsDelete", "En": "Delete", "Ar": "حذف" },
+    { "moduleName": "public", "screenName": "transactions", "name": "transactionsView", "En": "View", "Ar": "عرض" },
+    { "moduleName": "public", "screenName": "transactions", "name": "transactionsSearch", "En": "Search", "Ar": "بحث" },
+    { "moduleName": "public", "screenName": "transactions", "name": "transactionsExport", "En": "Export", "Ar": "تصدير" },
+    { "moduleName": "public", "screenName": "transactions", "name": "transactionsPrint", "En": "Print", "Ar": "طباعة" },
+    { "moduleName": "public", "screenName": "transactions", "name": "transactionsUi", "En": "UI", "Ar": "الواجهة الرسومية" }
+]

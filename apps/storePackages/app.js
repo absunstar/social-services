@@ -289,7 +289,7 @@ module.exports = function init(site) {
           image: 1,
           price: 1,
           user: 1,
-          storeType : 1,
+          storeType: 1,
           title: 1,
           active: 1,
         };
@@ -313,9 +313,9 @@ module.exports = function init(site) {
           where["title"] = site.get_RegExp(where["title"], "i");
         }
 
-        if (where['provider']?.name) {
-          where['provider.name'] = where['provider'].name;
-          delete where['provider'];
+        if (where["provider"]?.name) {
+          where["provider.name"] = where["provider"].name;
+          delete where["provider"];
         }
 
         if (where["user"]?.id) {
@@ -338,6 +338,18 @@ module.exports = function init(site) {
       });
     }
   }
+
+  site.updateUserInStorePackage = function (data) {
+    app.$collection.find({ id: data.id }, (err, doc) => {
+      if (!err && doc) {
+        doc.user = data.user;
+        app.update(doc, (err, result) => {
+          if (!err) {
+          }
+        });
+      }
+    });
+  };
 
   app.init();
   site.addApp(app);

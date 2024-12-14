@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="row">
+    <fieldset>
+      <div class="row">
+        <i-list class="col4" ng-change="selectTransactionName()" label="##word.Transaction Name##" ng-model="item.transactionName" display="name" items="transactionNameList"></i-list>
+        <i-list class="col4" label="##word.Type##" ng-show="item.id" ng-model="item.type" display="name" items="transactionTypeList"></i-list>
+        <i-list class="col4" label="##word.Status##" ng-show="item.id && item.transactionName.code == 'buyService'" ng-model="item.status" display="name" items="transactionStatusList"></i-list>
+      </div>
+
+      <div class="row">
+        <i-list label="##word.User##" class="col6" ng-get="getUsers($search)" ng-model="item.user" items="usersList" display="firstName" ng-search="item.$user" v="r"> </i-list>
+        <i-list class="col4" v="r" label="##word.Payment Method##" ng-model="item.paymentMethod" primary="code" display="name" items="paymentMethodList"></i-list>
+      </div>
+      <div class="row" ng-show="item.transactionName.code == 'rechargeBalance'">
+        <i-control class="col2" type="number" ng-model="item.price" label="##word.Price##"></i-control>
+      </div>
+      <div class="row" ng-show="item.transactionName.code == 'buyService'">
+        <i-list  class="col6" label="##word.Service##" ng-change="calcTotalPrice()" ng-model="item.service" display="name" items="serviceList"></i-list>
+        <i-control class="col2" type="number" ng-change="calcTotalPrice()" ng-model="item.quantity" label="##word.Quantity##"></i-control>
+        <i-control class="col2" type="number" v="r" ng-model="item.price" label="##word.Total Price##"></i-control>
+      </div>
+    </fieldset>
+
+    <fieldset ng-show="item.transactionName.code == 'buyService'">
+      <div class="cart">
+        <div class="row">
+          <div class="col9">
+            <p class="bold"><span class="darkGray">##word.Service Name## : </span> {{item.service.name}} ( <span class="blue">{{item.service.price}}</span> )</p>
+            <div class="row">
+              <p class="bold col6"><span class="darkGray">##word.Platform## : </span> <span>{{item.service.socialPlatform.name}}</span></p>
+              <p class="bold col6"><span class="darkGray">##word.Platform Service## : </span> <span>{{item.service.platformService.name}}</span></p>
+            </div>
+          </div>
+          <div class="col3"></div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div ng-show="mode !== 'add' " class="row">
+  <table class="table hover border">
+    <tr>
+      <th>##word.Add User Info##</th>
+      <th>##word.Edit User Info##</th>
+    </tr>
+    <tr>
+      <td class="center">
+        <p class="blue">{{item.addUserInfo.name}}</p>
+        <small class="green"> {{item.addUserInfo.date |date:"hh:mm"}} </small>
+        <small> {{item.addUserInfo.date |date:"dd - MM - yyyy"}} </small>
+        <p class="bold">IP : {{item.addUserInfo.ip}}</p>
+      </td>
+
+      <td class="center">
+        <p class="blue">{{item.editUserInfo.name}}</p>
+        <small class="green"> {{item.editUserInfo.date |date:"hh:mm"}} </small>
+        <small> {{item.editUserInfo.date |date:"dd - MM - yyyy"}} </small>
+        <p class="bold">IP : {{item.editUserInfo.ip}}</p>
+      </td>
+    </tr>
+  </table>
+</div>

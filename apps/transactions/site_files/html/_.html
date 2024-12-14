@@ -1,10 +1,10 @@
-<div ng-controller="servicesOrders" class="loaded">
-  <div class="row" x-permissions="servicesOrdersUi || servicesOrdersManage">
-    <div x-import="servicesOrders/modal.html"></div>
-    <div x-import="servicesOrders/modalSearch.html"></div>
+<div ng-controller="transactions" class="loaded">
+  <div class="row" x-permissions="transactionsUi || transactionsManage">
+    <div x-import="transactions/modal.html"></div>
+    <div x-import="transactions/modalSearch.html"></div>
 
     <div class="top-actions">
-      <i-button type="add" x-permissions="servicesOrdersAdd || servicesOrdersManage" label="##word.New##" ng-click="showAdd()"></i-button>
+      <i-button type="add" x-permissions="transactionsAdd || transactionsManage" label="##word.New##" ng-click="showAdd()"></i-button>
       <i-button type="search" label="##word.Advanced Search##" ng-click="$showAdvancedSearch = !$showAdvancedSearch"></i-button>
     </div>
 
@@ -32,7 +32,6 @@
           <th class="not-print">##word.Actions##</th>
         </tr>
         <tr ng-repeat="item in list | filter:$search">
-        
           <td class="center">{{item.name}}</td>
           <td class="center">{{item.service.name}}</td>
           <td class="center">{{item.quantity}}</td>
@@ -40,19 +39,19 @@
           <td class="center">{{item.type.name}}</td>
           <td class="center">{{item.status.name}}</td>
           <td class="center not-print">
-            <i-button label="##word.Approved##" ng-show="item.type.name == 'view'" ng-click="updateSome(item,'type','approved')"></i-button>
-            <i-button label="##word.Rejected##" ng-show="item.type.name == 'view'" ng-click="updateSome(item,'type','rejected')"></i-button>
-            <i-button label="##word.Running##" ng-show="item.type.name == 'approved' && item.status.name == 'pending'" ng-click="updateSome(item,'status','running')"></i-button>
-            <i-button label="##word.Done##" ng-show="item.type.name == 'approved' && item.status.name == 'running'" ng-click="updateSome(item,'status','done')"></i-button>
+            <i-button label="##word.Approved##" ng-show="item.type.code == 'view'" ng-click="updateSome(item,'type','approved')"></i-button>
+            <i-button label="##word.Rejected##" ng-show="item.type.code == 'view'" ng-click="updateSome(item,'type','rejected')"></i-button>
+            <i-button label="##word.Running##" ng-show="item.type.code == 'approved' && item.status.code == 'pending'" ng-click="updateSome(item,'status','running')"></i-button>
+            <i-button label="##word.Done##" ng-show="item.type.code == 'approved' && item.status.code == 'running'" ng-click="updateSome(item,'status','done')"></i-button>
 
             <i-button type="view" title="##word.View##" ng-click="showView(item)"></i-button>
-            <i-button type="edit" x-permissions="servicesOrdersUpdate || servicesOrdersManage" title="##word.Edit##" ng-click="showUpdate(item)"></i-button>
-            <i-button type="delete" x-permissions="servicesOrdersDelete || servicesOrdersManage" title="##word.Delete##" ng-click="showDelete(item)"></i-button>
+            <i-button type="edit" x-permissions="transactionsUpdate || transactionsManage" title="##word.Edit##" ng-click="showUpdate(item)"></i-button>
+            <i-button type="delete" x-permissions="transactionsDelete || transactionsManage" title="##word.Delete##" ng-click="showDelete(item)"></i-button>
           </td>
         </tr>
       </table>
     </div>
-    <i-button x-permissions="servicesOrdersPrint || servicesOrdersManage" type="print" label="##word.Print##" onclick="site.print('#t1')"></i-button>
-    <i-button x-permissions="servicesOrdersExport || servicesOrdersManage" type="export" label="##word.Export to excel##" onclick="export_to_xlsx('t1' , 'report_value_added.xlsx')"> </i-button>
+    <i-button x-permissions="transactionsPrint || transactionsManage" type="print" label="##word.Print##" onclick="site.print('#t1')"></i-button>
+    <i-button x-permissions="transactionsExport || transactionsManage" type="export" label="##word.Export to excel##" onclick="export_to_xlsx('t1' , 'report_value_added.xlsx')"> </i-button>
   </div>
 </div>

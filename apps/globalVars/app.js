@@ -1,194 +1,231 @@
 module.exports = function init(site) {
-  site.rechargeBalanceTypeList = [
-    {
-      name: 'pending',
-    },
-    {
-      name: 'approved',
-    },
-    {
-      name: 'rejected',
-    },
-  ];
-  
   site.paymentMethodList = [
     {
-      name: 'paypal',
+      code: "paypal",
+      name: "Paypal",
     },
     {
-      name: 'WalletCash',
+      code: "walletCash",
+      name: "WalletCash",
     },
   ];
   site.providerList = [
     {
-      name: 'Site',
+      code: "site",
+      name: "Site",
     },
     {
-      name: 'User',
+      code: "user",
+      name: "User",
     },
   ];
   site.storeTypeList = [
     {
-      name: 'Private',
+      code: "private",
+      name: "Private",
     },
     {
-      name: 'Public',
+      code: "public",
+      name: "Public",
     },
     {
-      name: 'shared',
-    },
-  ];
-
-  site.serviceOrderStatusList = [
-    {
-      name: 'Pending',
-    },
-    {
-      name: 'Running',
-    },
-    {
-      name: 'Done',
+      code: "shared",
+      name: "Shared",
     },
   ];
 
-  site.serviceOrderStateList = [
+  site.transactionStatusList = [
     {
-      name: 'Review',
+      code: "pending",
+      name: "Pending",
     },
     {
-      name: 'Approved',
+      code: "running",
+      name: "Running",
     },
     {
-      name: 'Rejected',
+      code: "done",
+      name: "Done",
+    },
+  ];
+
+  site.transactionNameList = [
+    {
+      code : "rechargeBalance",
+      name: "Recharge Balance",
+    },
+    {
+      code: "buyAccount",
+      name: "Buy Account",
+    },
+    {
+      code: "buyPackage",
+      name: "Buy Package",
+    },
+    {
+      code: "buyService",
+      name: "Buy Service",
+    },
+  ];
+
+  site.transactionTypeList = [
+    {
+      code: "review",
+      name: "Review",
+    },
+    {
+      code: "approved",
+      name: "Approved",
+    },
+    {
+      code: "rejected",
+      name: "Rejected",
     },
   ];
 
   site.socialPlatformList = [
     {
-      name: 'Website',
+      code: "website",
+      name: "Website",
       serviceList: [
         {
-          name: 'View',
+          code: "view",
+          name: "View",
         },
       ],
     },
     {
-      name: 'Instagram',
+      code: "instagram",
+      name: "Instagram",
+      url: "https://www.instagram.com/",
       serviceList: [
         {
-          name: 'Like',
+          code: "like",
+          name: "Like",
         },
         {
-          name: 'Comment',
+          code: "comment",
+          name: "Comment",
         },
         {
-          name: 'Share',
+          code: "share",
+          name: "Share",
         },
         {
-          name: 'Follow User',
+          code: "followUser",
+          name: "Follow User",
         },
         {
-          name: 'Un-Follow User',
+          code: "unFollowUser",
+          name: "Un-Follow User",
         },
       ],
     },
     {
-      name: 'Youtube',
+      code: "youtube",
+      name: "Youtube",
+      url: "https://www.youtube.com/",
+
       serviceList: [
         {
-          name: 'Like',
+          code: "like",
+          name: "Like",
         },
         {
-          name: 'Comment',
+          code: "comment",
+          name: "Comment",
         },
         {
-          name: 'Share',
+          code: "share",
+          name: "Share",
         },
         {
-          name: 'Subscribe',
+          code: "subscribe",
+          name: "Subscribe",
         },
         {
-          name: 'View',
+          code: "view",
+          name: "View",
         },
       ],
     },
     {
-      name: 'Facebook',
-      url: 'https://www.facebook.com/',
+      code: "facebook",
+      name: "Facebook",
+      url: "https://www.facebook.com/",
       serviceList: [
         {
-          name: 'Like',
+          code: "like",
+          name: "Like",
         },
         {
-          name: 'Comment',
+          code: "comment",
+          name: "Comment",
         },
         {
-          name: 'Share',
+          code: "share",
+          name: "Share",
         },
         {
-          name: 'Follow',
+          code: "follow",
+          name: "Follow",
         },
       ],
     },
   ];
 
-  site.genderList = [
-    { id: 1, nameEn: 'Male', nameAr: 'ذكر' },
-    { id: 2, nameEn: 'Female', nameAr: 'أنثى' },
-  ];
+  site.genderList = [{ code : 'male', name: "Male" }, { code : 'female', name: "Female" }];
 
-  site.post('/api/rechargeBalanceTypeList', (req, res) => {
-    res.json({
-      done: true,
-      list: site.rechargeBalanceTypeList,
-    });
-  });
-
-  site.post('/api/paymentMethodList', (req, res) => {
+  site.post("/api/paymentMethodList", (req, res) => {
     res.json({
       done: true,
       list: site.paymentMethodList,
     });
   });
 
-
-  site.post('/api/providerList', (req, res) => {
+  site.post("/api/providerList", (req, res) => {
     res.json({
       done: true,
       list: site.providerList,
     });
   });
 
-
-  site.post('/api/serviceOrderStatusList', (req, res) => {
+  site.post("/api/transactionStatusList", (req, res) => {
     res.json({
       done: true,
-      list: site.serviceOrderStatusList,
+      list: site.transactionStatusList,
     });
   });
 
-  site.post('/api/serviceOrderStateList', (req, res) => {
+  site.post("/api/transactionTypeList", (req, res) => {
     res.json({
       done: true,
-      list: site.serviceOrderStateList,
+      list: site.transactionTypeList,
     });
   });
 
-  site.post('/api/storeTypeList', (req, res) => {
+  site.post("/api/transactionNameList", (req, res) => {
+    res.json({
+      done: true,
+      list: site.transactionNameList,
+    });
+  });
+
+  site.post("/api/storeTypeList", (req, res) => {
     res.json({
       done: true,
       list: site.storeTypeList,
     });
   });
 
-  site.post('/api/socialPlatformList', (req, res) => {
+  site.post("/api/socialPlatformList", (req, res) => {
     res.json({
       done: true,
       list: site.socialPlatformList,
     });
   });
 
-  site.post('/api/genderList', (req, res) => {
+  site.post("/api/genderList", (req, res) => {
     res.json({
       done: true,
       list: site.genderList,

@@ -1,21 +1,20 @@
-app.controller("rechargeBalances", function ($scope, $http, $timeout) {
+app.controller("transactions", function ($scope, $http, $timeout) {
   $scope.baseURL = "";
-  $scope.appName = "rechargeBalances";
-  $scope.modalID = "#rechargeBalancesManageModal";
-  $scope.modalSearchID = "#rechargeBalancesSearchModal";
+  $scope.appName = "transactions";
+  $scope.modalID = "#transactionsManageModal";
+  $scope.modalSearchID = "#transactionsSearchModal";
   $scope.setting = site.showObject(`##data.#setting##`);
   $scope.mode = "add";
   $scope._search = {};
-  $scope.structure = {
-    active: true,
-  };
+  $scope.structure = {};
   $scope.item = {};
   $scope.list = [];
 
   $scope.showAdd = function (_item) {
     $scope.error = "";
     $scope.mode = "add";
-    $scope.item = { ...$scope.structure, type: { ...$scope.rechargeBalanceTypeList[0] } };
+    $scope.item = { ...$scope.structure };
+    $scope.item.type = $scope.transactionTypeList.find((itm) => itm.code == "review");
     site.showModal($scope.modalID);
   };
 
@@ -92,16 +91,13 @@ app.controller("rechargeBalances", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.updateType = function (_itemId, type) {
+  $scope.updateSome = function (_item, type, value) {
     $scope.error = "";
     $scope.busy = true;
     $http({
       method: "POST",
-      url: `${$scope.baseURL}/api/${$scope.appName}/updateType`,
-      data: {
-        id: _itemId,
-        type: type,
-      },
+      url: `${$scope.baseURL}/api/${$scope.appName}/updateSome`,
+      data: { id: _item.id, type: type, value: value },
     }).then(
       function (response) {
         $scope.busy = false;
@@ -215,18 +211,18 @@ app.controller("rechargeBalances", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.getPaymentMethodList = function () {
+  $scope.getSocialPlatformList = function () {
     $scope.busy = true;
-    $scope.paymentMethodList = [];
+    $scope.socialPlatformList = [];
     $http({
       method: "POST",
-      url: "/api/paymentMethodList",
+      url: "/api/socialPlatformList",
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.paymentMethodList = response.data.list;
+          $scope.socialPlatformList = response.data.list;
         }
       },
       function (err) {
@@ -236,18 +232,18 @@ app.controller("rechargeBalances", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.getRechargeBalanceTypeList = function () {
+  $scope.getTransactionStatusList = function () {
     $scope.busy = true;
-    $scope.rechargeBalanceTypeList = [];
+    $scope.transactionStatusList = [];
     $http({
       method: "POST",
-      url: "/api/rechargeBalanceTypeList",
+      url: "/api/transactionStatusList",
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.rechargeBalanceTypeList = response.data.list;
+          $scope.transactionStatusList = response.data.list;
         }
       },
       function (err) {
@@ -257,18 +253,18 @@ app.controller("rechargeBalances", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.getProviderList = function () {
+  $scope.getTransactionTypeList = function () {
     $scope.busy = true;
-    $scope.providerList = [];
+    $scope.transactionTypeList = [];
     $http({
       method: "POST",
-      url: "/api/providerList",
+      url: "/api/transactionTypeList",
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.providerList = response.data.list;
+          $scope.transactionTypeList = response.data.list;
         }
       },
       function (err) {
@@ -277,6 +273,28 @@ app.controller("rechargeBalances", function ($scope, $http, $timeout) {
       }
     );
   };
+
+  $scope.getTransactionNameList = function () {
+    $scope.busy = true;
+    $scope.transactionNameList = [];
+    $http({
+      method: "POST",
+      url: "/api/transactionNameList",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.transactionNameList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.getUsers = function (search) {
     $scope.error = "";
     if ($scope.busyAll) {
@@ -305,6 +323,81 @@ app.controller("rechargeBalances", function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.getServicesList = function ($search) {
+    $scope.error = "";
+    if ($search && $search.length < 1) {
+      return;
+    }
+    $scope.busy = true;
+    $scope.serviceList = [];
+    $http({
+      method: "POST",
+      url: "/api/services/all",
+      data: {
+        where: {
+          active: true,
+        },
+        select: {
+          id: 1,
+          name: 1,
+          socialPlatform: 1,
+          platformService: 1,
+          price: 1,
+        },
+        search: $search,
+      },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done && response.data.list.length > 0) {
+          $scope.serviceList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.getPaymentMethodList = function () {
+    $scope.busy = true;
+    $scope.paymentMethodList = [];
+    $http({
+      method: "POST",
+      url: "/api/paymentMethodList",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.paymentMethodList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.calcTotalPrice = function () {
+    $scope.error = "";
+    $timeout(() => {
+      if ($scope.item?.service?.id) {
+        $scope.item.totalPrice = $scope.item.service.price * $scope.item.quantity;
+      }
+    }, 500);
+  };
+
+  $scope.selectTransactionName = function () {
+    $scope.error = "";
+    if ($scope.item.transactionName.code == "buyService") {
+      $scope.item.status = $scope.transactionStatusList.find((itm) => itm.name == "pending");
+      $scope.item.quantity = 1;
+    }
+  };
+
   $scope.showSearch = function () {
     $scope.error = "";
     site.showModal($scope.modalSearchID);
@@ -317,7 +410,10 @@ app.controller("rechargeBalances", function ($scope, $http, $timeout) {
   };
 
   $scope.getAll();
+  $scope.getSocialPlatformList();
+  $scope.getServicesList();
+  $scope.getTransactionTypeList();
+  $scope.getTransactionStatusList();
+  $scope.getTransactionNameList();
   $scope.getPaymentMethodList();
-  $scope.getRechargeBalanceTypeList();
-  $scope.getProviderList();
 });

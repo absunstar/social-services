@@ -1,0 +1,47 @@
+<div id="buyModal" class="modal">
+  <div class="col2"></div>
+  <div class="modal-content col8">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <p>##word.Buy## <i class="fa fa-search"></i></p>
+    </div>
+
+    <div class="modal-body">
+      <form class="form">
+        <fieldset>
+          <legend>##word.Account Details##</legend>
+          <div class="cart">
+            <div class="row">
+              <p class="bold"><span class="darkGray">##word.User## : </span> {{item.user.firstName}}</p>
+              <p class="bold"><span class="darkGray">##word.Account Title## : </span> {{item.title}} ( <span class="blue">{{item.price}}</span> )</p>
+              <div class="row">
+                <p class="bold col6"><span class="darkGray">##word.Email## : </span> <span>{{item.email}}</span></p>
+                <p class="bold col6"><span class="darkGray">##word.Password## : </span> <span>{{item.password}}</span></p>
+              </div>
+              <div class="row">
+                <p class="bold col4"><span class="darkGray">##word.Social Platform## : </span> <span>{{item.socialPlatform.name}}</span></p>
+                <p class="bold col4"><span class="darkGray">##word.Store Type## : </span> <span>{{item.storeType.name}}</span></p>
+                <p class="bold col4"><span class="darkGray">##word.Provider## : </span> <span>{{item.provider.name}}</span></p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>##word.Buy Details##</legend>
+          <i-list label="##word.User##" v="r" class="col4" ng-get="getUsers($search)" ng-model="buy.user" items="usersList" display="firstName" ng-search="buy.$user"> </i-list>
+          <i-list class="col4" v="r" label="##word.Payment Method##" ng-model="buy.paymentMethod" primary="code" display="name" items="paymentMethodList"></i-list>
+        </fieldset>
+      </form>
+    </div>
+
+    <p class="error">{{error}}</p>
+
+    <div class="modal-footer center">
+      <i-button type="search" label="##word.Add Buy##" ng-click="addBuyTransaction()"> </i-button>
+
+      <i-button type="close" label="##word.Close##" onclick="site.hideModal('#buyModal')"> </i-button>
+    </div>
+  </div>
+  <div class="col2"></div>
+</div>

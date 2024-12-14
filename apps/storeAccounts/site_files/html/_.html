@@ -2,6 +2,7 @@
   <div class="row" x-permissions="storeAccountsUi || storeAccountsManage">
     <div x-import="storeAccounts/modal.html"></div>
     <div x-import="storeAccounts/modalSearch.html"></div>
+    <div x-import="storeAccounts/buyModal.html"></div>
 
     <div class="top-actions">
       <i-button type="add" x-permissions="storeAccountsAdd || storeAccountsManage" label="##word.New##" ng-click="showAdd()"></i-button>
@@ -19,9 +20,9 @@
       <legend>##word.Advanced Search##</legend>
       <div class="row">
         <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
-        <i-list class="col4" label="##word.Provider##" ng-model="search.provider" primary="name" display="name" items="providerList"></i-list>
-        <i-list class="col4" label="##word.Social Platform##" ng-model="search.socialPlatform" primary="name" display="name" items="socialPlatformList"></i-list>
-        <i-list class="col4" label="##word.Store Type##" ng-model="search.storeType" primary="name" display="name" items="storeTypeList"></i-list>
+        <i-list class="col4" label="##word.Provider##" ng-model="search.provider" primary="code" display="name" items="providerList"></i-list>
+        <i-list class="col4" label="##word.Social Platform##" ng-model="search.socialPlatform" primary="code" display="name" items="socialPlatformList"></i-list>
+        <i-list class="col4" label="##word.Store Type##" ng-model="search.storeType" primary="code" display="name" items="storeTypeList"></i-list>
         <i-control class="col4" type="text" ng-model="search.title" label="##word.Title##"></i-control>
         <i-control class="col4" type="text" ng-model="search.email" label="##word.Email##"></i-control>
         <i-control class="col4" type="text" ng-model="search.password" label="##word.Password##"></i-control>

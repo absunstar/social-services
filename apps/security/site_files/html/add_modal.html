@@ -78,7 +78,7 @@
                     <i-checkbox label="##word.Check All##" ng-model="$publicRoles" ng-change="checkAll('publicRoles')"></i-checkbox>
                   </div>
 
-                  <i-checklist primary="name" label="" items="publicRoles" display="##session.lang##" ng-model="user.roles"></i-checklist>
+                  <i-checklist primary="code" label="" items="publicRoles" display="##session.lang##" ng-model="user.roles"></i-checklist>
                 </fieldset>
               </div>
 
@@ -88,7 +88,7 @@
                   <div class="row">
                     <i-checkbox label="##word.Check All##" ng-model="$customRoles" ng-change="checkAll('customRoles')"></i-checkbox>
                   </div>
-                  <i-checklist primary="name" label="" items="custom_roles" display="##session.lang##" ng-model="user.roles"></i-checklist>
+                  <i-checklist primary="code" label="" items="custom_roles" display="##session.lang##" ng-model="user.roles"></i-checklist>
                 </fieldset>
               </div>
             </div>
@@ -98,7 +98,7 @@
                 <div class="row padding">
                   <fieldset ng-repeat="screen in publicScreens">
                     <legend>{{screen.name}}</legend>
-                    <i-checklist primary="name" label="" items="screen.permissions" display="##session.lang##" ng-model="user.permissions"></i-checklist>
+                    <i-checklist primary="code" label="" items="screen.permissions" display="##session.lang##" ng-model="user.permissions"></i-checklist>
                   </fieldset>
                 </div>
               </div>

@@ -165,6 +165,7 @@ module.exports = function init(site) {
 
         let _data = req.data;
         _data.socialPlatform = {
+          code: _data.socialPlatform.code,
           name: _data.socialPlatform.name,
           url: _data.socialPlatform.url,
         };
@@ -197,6 +198,7 @@ module.exports = function init(site) {
           let _data = req.data;
           _data.editUserInfo = req.getUserFinger();
           _data.socialPlatform = {
+            code: _data.socialPlatform.code,
             name: _data.socialPlatform.name,
             url: _data.socialPlatform.url,
           };
@@ -464,6 +466,18 @@ module.exports = function init(site) {
           docs[i].standalone = false;
           app.update(docs[i]);
         }
+      }
+    });
+  };
+
+  site.updateUserInStoreAccount = function (data) {
+    app.$collection.find({ id: data.id }, (err, doc) => {
+      if (!err && doc) {
+        doc.user = data.user;
+        app.update(doc, (err, result) => {
+          if (!err) {
+          }
+        });
       }
     });
   };

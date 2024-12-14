@@ -160,6 +160,7 @@ module.exports = function init(site) {
         _data.addUserInfo = req.getUserFinger();
         _data.host = site.getHostFilter(req.host);
         _data.socialPlatform = {
+          code: _data.socialPlatform.code,
           name: _data.socialPlatform.name,
           url: _data.socialPlatform.url,
         };
@@ -184,6 +185,7 @@ module.exports = function init(site) {
         let _data = req.data;
         _data.editUserInfo = req.getUserFinger();
         _data.socialPlatform = {
+          code: _data.socialPlatform.code,
           name: _data.socialPlatform.name,
           url: _data.socialPlatform.url,
         };
