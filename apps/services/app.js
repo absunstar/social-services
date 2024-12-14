@@ -258,8 +258,8 @@ module.exports = function init(site) {
             name: site.get_RegExp(search, "i"),
           });
         }
-        if (where["provider"]?.name) {
-          where["provider.name"] = where["provider"].name;
+        if (where["provider"]?.code) {
+          where["provider.code"] = where["provider"].code;
           delete where["provider"];
         }
 

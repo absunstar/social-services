@@ -213,7 +213,7 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
           where: {
             email: search,
             "user.id": $scope.item.user.id,
-            "storeType.name": $scope.item.storeType.name,
+            "storeType.code": $scope.item.storeType.code,
           },
         },
       }).then(

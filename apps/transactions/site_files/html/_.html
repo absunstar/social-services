@@ -32,7 +32,7 @@
           <th class="not-print">##word.Actions##</th>
         </tr>
         <tr ng-repeat="item in list | filter:$search">
-          <td class="center">{{item.name}}</td>
+          <td class="center">{{item.transactionName.name}}</td>
           <td class="center">{{item.service.name}}</td>
           <td class="center">{{item.quantity}}</td>
           <td class="center">{{item.totalPrice}}</td>

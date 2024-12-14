@@ -313,8 +313,8 @@ module.exports = function init(site) {
           where["title"] = site.get_RegExp(where["title"], "i");
         }
 
-        if (where["provider"]?.name) {
-          where["provider.name"] = where["provider"].name;
+        if (where["provider"]?.code) {
+          where["provider.code"] = where["provider"].code;
           delete where["provider"];
         }
 
@@ -323,8 +323,8 @@ module.exports = function init(site) {
           delete where["user"];
         }
 
-        if (where["storeType"]?.name) {
-          where["storeType.name"] = where["storeType"].name;
+        if (where["storeType"]?.code) {
+          where["storeType.code"] = where["storeType"].code;
           delete where["storeType"];
         }
         where["host"] = site.getHostFilter(req.host);

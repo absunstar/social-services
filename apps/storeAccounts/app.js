@@ -406,18 +406,18 @@ module.exports = function init(site) {
           });
         }
 
-        if (where["socialPlatform"]?.name) {
-          where["socialPlatform.name"] = where["socialPlatform"].name;
+        if (where["socialPlatform"]?.code) {
+          where["socialPlatform.code"] = where["socialPlatform"].code;
           delete where["socialPlatform"];
         }
 
-        if (where["storeType"]?.name) {
-          where["storeType.name"] = where["storeType"].name;
+        if (where["storeType"]?.code) {
+          where["storeType.code"] = where["storeType"].code;
           delete where["storeType"];
         }
 
-        if (where["provider"]?.name) {
-          where["provider.name"] = where["provider"].name;
+        if (where["provider"]?.code) {
+          where["provider.code"] = where["provider"].code;
           delete where["provider"];
         }
 

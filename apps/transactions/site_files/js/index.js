@@ -393,7 +393,7 @@ app.controller("transactions", function ($scope, $http, $timeout) {
   $scope.selectTransactionName = function () {
     $scope.error = "";
     if ($scope.item.transactionName.code == "buyService") {
-      $scope.item.status = $scope.transactionStatusList.find((itm) => itm.name == "pending");
+      $scope.item.status = $scope.transactionStatusList.find((itm) => itm.code == "pending");
       $scope.item.quantity = 1;
     }
   };
