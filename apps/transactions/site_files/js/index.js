@@ -381,15 +381,6 @@ app.controller("transactions", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.calcTotalPrice = function () {
-    $scope.error = "";
-    $timeout(() => {
-      if ($scope.item?.service?.id) {
-        $scope.item.price = $scope.item.service.price * $scope.item.quantity;
-      }
-    }, 500);
-  };
-
   $scope.selectTransactionName = function () {
     $scope.error = "";
   /*   if ($scope.item.transactionName.code == "buyService") {
