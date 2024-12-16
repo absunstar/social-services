@@ -27,7 +27,8 @@
       <table class="table hover bold" id="t1">
         <tr>
           <th>##word.Name##</th>
-          <th>##word.Type##</th>
+          <th>##word.Approval##</th>
+          <th>##word.Status##</th>
           <th>##word.paymentMethod##</th>
           <th>##word.Price##</th>
           <th class="not-print">##word.Actions##</th>
@@ -35,6 +36,7 @@
         <tr ng-repeat="item in list | filter:$search">
           <td class="center">{{item.transactionName.name}}</td>
           <td class="center">{{item.type.name}}</td>
+          <td class="center">{{item.status.name}}</td>
           <td class="center">{{item.paymentMethod.name}}</td>
           <td class="center">{{item.price}}</td>
           <td class="center not-print">

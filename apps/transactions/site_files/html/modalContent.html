@@ -15,9 +15,12 @@
         <i-control class="col2" type="number" ng-model="item.price" label="##word.Price##"></i-control>
       </div>
       <div class="row" ng-show="item.transactionName.code == 'buyService'">
-        <i-list class="col6" label="##word.Service##" ng-change="calcTotalPrice()" ng-model="item.service" display="name" items="serviceList"></i-list>
-        <i-control class="col2" type="number" ng-change="calcTotalPrice()" ng-model="item.quantity" label="##word.Quantity##"></i-control>
-        <i-control class="col2" type="number" v="r" ng-model="item.price" label="##word.Total Price##"></i-control>
+        <i-list class="col6" label="##word.Service##"  ng-model="item.service" display="name" items="serviceList"></i-list>
+        <i-control class="col2" type="number"  ng-model="item.quantity" label="##word.Quantity##"></i-control>
+        <i-control class="col2" type="number" v="r" ng-model="item.price" label="##word.Price##"></i-control>
+      </div>
+      <div class="row">
+        <i-control type="text" v="r" ng-model="item.link" label="##word.Link##"></i-control>
       </div>
     </fieldset>
 

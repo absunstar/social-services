@@ -475,7 +475,9 @@ module.exports = function init(site) {
     app.$collection.find({ id: data.id }, (err, doc) => {
       if (!err && doc) {
         doc.user = data.user;
-        
+        doc.allowSale = false;
+        doc.storeType = site.storeTypeList.find((itm) => itm.code == "private");
+
         app.update(doc, (err, result) => {
           if (!err) {
           }

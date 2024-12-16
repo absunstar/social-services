@@ -159,6 +159,8 @@ module.exports = function init(site) {
 
         _data.addUserInfo = req.getUserFinger();
         _data.host = site.getHostFilter(req.host);
+        _data.type = site.transactionTypeList.find((itm) => itm.code == "review");
+        _data.status = site.transactionStatusList.find((itm) => itm.code == "pending");
 
         app.add(_data, (err, doc) => {
           if (!err && doc) {
@@ -247,52 +249,64 @@ module.exports = function init(site) {
 
         app.$collection.find({ id: id }, (err, doc) => {
           if (!err && doc) {
-            if (type == "type") {
-              doc[type] = site.transactionTypeList.find((itm) => itm.code == value);
-            }
-            if (type == "status") {
-              doc[type] = site.transactionStatusList.find((itm) => itm.code == value);
-            }
-            app.update(doc, async (err, result) => {
-              if (!err) {
-                response.done = true;
-                if (value == "approved") {
-                  let obj = {
-                    userId: doc.user.id,
-                    price: doc.price,
-                  };
-                  if (result.doc.transactionName.code == "rechargeBalance") {
-                    obj.type = "+";
-                  } else {
-                    obj.type = "-";
-                  }
-                  await site.updateUserBalance(obj);
-
-                  let _obj = {};
-                  if (result.doc.transactionName.code == "buyAccount") {
-                    _obj.userId = doc.account.user.id;
-                    _obj.price = doc.price;
-                    _obj.type = "+";
-                    site.updateUserInStoreAccount({ id: doc.account.id, user: doc.user });
-                  } else if (result.doc.transactionName.code == "buyPackage") {
-                    _obj.userId = doc.package.user.id;
-                    _obj.price = doc.price;
-                    _obj.type = "+";
-                    site.updateUserInStorePackage({ id: doc.package.id, user: doc.user });
-                    site.updateUserInStoreAccountByPackage({ id: doc.package.id, user: doc.user });
-                  } else if (result.doc.transactionName.code == "buyService") {
-                    _obj.userId = doc.service.user.id;
-                    _obj.price = doc.price;
-                    _obj.type = "+";
-                  }
-                  site.updateUserBalance(_obj);
+            site.security.getUser(
+              {
+                id: doc.user.id,
+              },
+              (err, user) => {
+                if (doc.transactionName.code != "rechargeBalance" && user.balance < doc.price) {
+                  response.error = req.word("User balance does not allow purchase");
+                  res.json(response);
+                  return;
                 }
-                response.doc = result.doc;
-              } else {
-                response.error = err.message || req.word("Not Exists");
+                if (type == "type") {
+                  doc[type] = site.transactionTypeList.find((itm) => itm.code == value);
+                }
+                if (type == "status") {
+                  doc[type] = site.transactionStatusList.find((itm) => itm.code == value);
+                }
+                app.update(doc, async (err, result) => {
+                  if (!err) {
+                    response.done = true;
+                    if (value == "approved") {
+                      let obj = {
+                        userId: doc.user.id,
+                        price: doc.price,
+                      };
+                      if (result.doc.transactionName.code == "rechargeBalance") {
+                        obj.type = "+";
+                      } else {
+                        obj.type = "-";
+                      }
+                      await site.updateUserBalance(obj);
+
+                      let _obj = {};
+                      if (result.doc.transactionName.code == "buyAccount") {
+                        _obj.userId = doc.account.user.id;
+                        _obj.price = doc.price;
+                        _obj.type = "+";
+                        site.updateUserInStoreAccount({ id: doc.account.id, user: doc.user });
+                      } else if (result.doc.transactionName.code == "buyPackage") {
+                        _obj.userId = doc.package.user.id;
+                        _obj.price = doc.price;
+                        _obj.type = "+";
+                        site.updateUserInStorePackage({ id: doc.package.id, user: doc.user });
+                        site.updateUserInStoreAccountByPackage({ id: doc.package.id, user: doc.user });
+                      } else if (result.doc.transactionName.code == "buyService") {
+                        _obj.userId = doc.service.user.id;
+                        _obj.price = doc.price;
+                        _obj.type = "+";
+                      }
+                      site.updateUserBalance(_obj);
+                    }
+                    response.doc = result.doc;
+                  } else {
+                    response.error = err.message || req.word("Not Exists");
+                  }
+                  res.json(response);
+                });
               }
-              res.json(response);
-            });
+            );
           } else {
             response.error = err?.message || req.word("Not Exists");
             res.json(response);
@@ -306,7 +320,7 @@ module.exports = function init(site) {
         let where = req.body.where || {};
         let search = req.body.search || "";
         let limit = req.body.limit || 100;
-        let select = req.body.select || { id: 1, user: 1, price: 1, transactionName: 1, type: 1, paymentMethod: 1 };
+        let select = req.body.select || { id: 1, user: 1, status: 1, price: 1, transactionName: 1, type: 1, paymentMethod: 1 };
 
         if (search) {
           where.$or = [];
