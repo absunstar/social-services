@@ -27,6 +27,7 @@
       <table class="table hover bold" id="StorePackage">
         <tr>
           <th>##word.Logo##</th>
+          <th>##word.Code##</th>
           <th>##word.Title##</th>
           <th>##word.User##</th>
           <th>##word.Package Price##</th>
@@ -37,6 +38,7 @@
           <td class="center">
             <i-image view class="logo center" ng-model="item.image"></i-image>
           </td>
+          <td class="center userPrint">{{item.code}}</td>
           <td class="center">{{item.title}}</td>
           <td class="center">{{item.user.firstName}}</td>
           <td class="center">{{item.price}}</td>

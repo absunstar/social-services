@@ -167,16 +167,23 @@ module.exports = function init(site) {
 
         _data.addUserInfo = req.getUserFinger();
         _data.host = site.getHostFilter(req.host);
-
         app.add(_data, (err, doc) => {
           if (!err && doc) {
-            response.done = true;
-            response.doc = doc;
-            site.storeAccountsReserved(doc.accountList);
+            doc.code = "PKG" + doc.id.toString() + Math.floor(Math.random() * 10000) + 9000;
+            app.update(_data, (err, result) => {
+              if (!err && result) {
+                response.done = true;
+                response.doc = result.doc;
+                site.storeAccountsReserved(doc.accountList);
+              } else {
+                response.error = err?.mesage || req.word("Can`t Set Code");
+              }
+              res.json(response);
+            });
           } else {
             response.error = err.mesage;
+            res.json(response);
           }
-          res.json(response);
         });
       });
     }
@@ -287,6 +294,7 @@ module.exports = function init(site) {
         let select = req.body.select || {
           id: 1,
           image: 1,
+          code: 1,
           price: 1,
           user: 1,
           storeType: 1,
@@ -343,13 +351,12 @@ module.exports = function init(site) {
     app.$collection.edit(
       {
         where: {
-          'id': data.id,
+          id: data.id,
         },
-        set: {user : data.user},
+        set: { user: data.user },
       },
-      (err, result) => {
-      }
-    )
+      (err, result) => {}
+    );
   };
 
   app.init();

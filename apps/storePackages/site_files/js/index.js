@@ -395,11 +395,11 @@ app.controller("storePackages", function ($scope, $http, $timeout) {
       transactionName: $scope.transactionNameList.find((itm) => itm.code == "buyPackage"),
       paymentMethod: $scope.buy.paymentMethod,
       type: $scope.transactionTypeList.find((itm) => itm.code == "review"),
+      userProvider : $scope.item.user,
       price: $scope.item.price,
       package: {
         id: $scope.item.id,
         title: $scope.item.title,
-        user: $scope.item.user,
         storeType: $scope.item.storeType,
         provider: $scope.item.provider,
       },

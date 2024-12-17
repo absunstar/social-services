@@ -38,6 +38,8 @@
         <tr>
           <th>##word.Logo##</th>
           <th>##word.Platform##</th>
+          <th>##word.Code##</th>
+          <th>##word.User##</th>
           <th>##word.Email##</th>
           <th>##word.Store Type##</th>
           <th>##word.Features##</th>
@@ -57,6 +59,8 @@
               <i-image view class="logo center" ng-model="item.socialPlatform.$image"></i-image>
             </div>
           </td>
+          <td class="center userPrint">{{item.code}}</td>
+          <td class="center userPrint">{{item.user.firstName}}</td>
           <td class="center userPrint">
             <p class="brown">{{item.title}}</p>
             <span class="bold">{{item.email}}</span>

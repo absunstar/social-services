@@ -13,10 +13,11 @@
       <div class="row">
         <i-list class="col4" label="##word.Transaction Name##" ng-model="search.transactionName" display="name" items="transactionNameList"></i-list>
         <i-list class="col4" label="##word.Type##" ng-show="item.id" ng-model="search.type" display="name" items="transactionTypeList"></i-list>
-        <i-list class="col4" label="##word.Status##"  ng-model="search.status" display="name" items="transactionStatusList"></i-list>
+        <i-list class="col4" label="##word.Status##" ng-model="search.status" display="name" items="transactionStatusList"></i-list>
       </div>
       <div class="row">
         <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
+        <i-list class="col4" label="##word.User Provider##" ng-get="getUsers($search)" ng-model="search.userProvider" items="usersList" display="firstName"> </i-list>
       </div>
     </fieldset>
     <div class="row">
@@ -26,16 +27,34 @@
     <div class="table-responsive">
       <table class="table hover bold" id="t1">
         <tr>
-          <th>##word.Name##</th>
+          <th>##word.Date##</th>
+          <th>##word.Trans. Name##</th>
+          <th>##word.User##</th>
+          <th>##word.User Provider##</th>
           <th>##word.Approval##</th>
           <th>##word.Status##</th>
-          <th>##word.paymentMethod##</th>
+          <th>##word.payment Method##</th>
           <th>##word.Price##</th>
           <th class="not-print">##word.Actions##</th>
         </tr>
         <tr ng-repeat="item in list | filter:$search">
-          <td class="center">{{item.transactionName.name}}</td>
-          <td class="center">{{item.type.name}}</td>
+          <td class="center">{{item.date | date:"dd/MM/yyyy"}}</td>
+          <td class="center">
+            {{item.transactionName.name}}
+            <span class="userPrint">{{item.code}}</span>
+          </td>
+          <td class="center">{{item.user.firstName}}</td>
+          <td class="center">{{item.userProvider.firstName}}</td>
+          <td class="center">
+            <p
+              ng-class="{
+             'red' :  item.type.code == 'rejected',
+             'green' :  item.type.code == 'approved',
+            }"
+            >
+              {{item.type.name}}
+            </p>
+          </td>
           <td class="center">{{item.status.name}}</td>
           <td class="center">{{item.paymentMethod.name}}</td>
           <td class="center">{{item.price}}</td>

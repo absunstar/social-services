@@ -174,12 +174,20 @@ module.exports = function init(site) {
 
         app.add(_data, (err, doc) => {
           if (!err && doc) {
-            response.done = true;
-            response.doc = doc;
+            doc.code = "ACC" + doc.id.toString() + Math.floor(Math.random() * 10000) + 9000;
+            app.update(_data, (err, result) => {
+              if (!err && result) {
+                response.done = true;
+                response.doc = result.doc;
+              } else {
+                response.error = err?.mesage || req.word("Can`t Set Code");
+              }
+              res.json(response);
+            });
           } else {
             response.error = err.mesage;
+            res.json(response);
           }
-          res.json(response);
         });
       });
     }

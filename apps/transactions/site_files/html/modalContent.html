@@ -16,8 +16,6 @@
       </div>
       <div class="row" ng-show="item.transactionName.code == 'buyService'">
         <i-list class="col6" label="##word.Service##"  ng-model="item.service" display="name" items="serviceList"></i-list>
-        <i-control class="col2" type="number"  ng-model="item.quantity" label="##word.Quantity##"></i-control>
-        <i-control class="col2" type="number" v="r" ng-model="item.price" label="##word.Price##"></i-control>
       </div>
       <div class="row">
         <i-control type="text" v="r" ng-model="item.link" label="##word.Link##"></i-control>
@@ -28,8 +26,11 @@
       <div class="cart">
         <div class="row">
           <div class="col9">
-            <p class="bold"><span class="darkGray">##word.Service Name## : </span> {{item.service.name}} ( <span class="blue">{{item.service.price}}</span> )</p>
-            <p class="bold"><span class="darkGray">##word.User## : </span> {{item.service.user.firstName}}</p>
+            <p class="bold"><span class="darkGray">##word.Service Name## : </span> {{item.service.name}} </p>
+            <div class="row">
+              <p class="bold col6"><span class="darkGray">##word.User## : </span> {{item.userProvider.firstName}}</p>
+              <p class="bold col6"><span class="darkGray">##word.Price## : </span> {{item.price}}</p>
+            </div>
             <div class="row">
               <p class="bold col6"><span class="darkGray">##word.Platform## : </span> <span>{{item.service.socialPlatform.name}}</span></p>
               <p class="bold col6"><span class="darkGray">##word.Platform Service## : </span> <span>{{item.service.platformService.name}}</span></p>
@@ -44,8 +45,11 @@
       <legend>##word.Account Details##</legend>
       <div class="cart">
         <div class="row">
-          <p class="bold"><span class="darkGray">##word.User## : </span> {{item.account.user.firstName}}</p>
-          <p class="bold"><span class="darkGray">##word.Account Title## : </span> {{item.account.title}} ( <span class="blue">{{item.price}}</span> )</p>
+          <p class="bold"><span class="darkGray">##word.Account Title## : </span> {{item.account.title}}</p>
+          <div class="row">
+            <p class="bold col6"><span class="darkGray">##word.User## : </span> {{item.userProvider.firstName}}</p>
+            <p class="bold col6"><span class="darkGray">##word.Price## : </span> {{item.price}}</p>
+          </div>
           <div class="row">
             <p class="bold col4"><span class="darkGray">##word.Email## : </span> <span>{{item.account.email}}</span></p>
             <p class="bold col4"><span class="darkGray">##word.Password## : </span> <span>{{item.account.password}}</span></p>
@@ -64,9 +68,11 @@
       <legend>##word.Package Details##</legend>
       <div class="cart">
         <div class="row">
-          <p class="bold"><span class="darkGray">##word.User## : </span> {{item.package.user.firstName}}</p>
           <p class="bold"><span class="darkGray">##word.Package Title## : </span> {{item.package.title}} ( <span class="blue">{{item.package.price}}</span> )</p>
-
+          <div class="row">
+            <p class="bold col6"><span class="darkGray">##word.User## : </span> {{item.userProvider.firstName}}</p>
+            <p class="bold col6"><span class="darkGray">##word.Price## : </span> {{item.price}}</p>
+          </div>
           <div class="row">
             <p class="bold col4"><span class="darkGray">##word.Store Type## : </span> <span>{{item.package.storeType.name}}</span></p>
             <p class="bold col4"><span class="darkGray">##word.Provider## : </span> <span>{{item.package.provider.name}}</span></p>

@@ -161,15 +161,23 @@ module.exports = function init(site) {
         _data.host = site.getHostFilter(req.host);
         _data.type = site.transactionTypeList.find((itm) => itm.code == "review");
         _data.status = site.transactionStatusList.find((itm) => itm.code == "pending");
-
+        _data.date = site.getDate();
         app.add(_data, (err, doc) => {
           if (!err && doc) {
-            response.done = true;
-            response.doc = doc;
+            doc.code = "ACC" + doc.id.toString() + Math.floor(Math.random() * 10000) + 9000;
+            app.update(_data, (err, result) => {
+              if (!err && result) {
+                response.done = true;
+                response.doc = result.doc;
+              } else {
+                response.error = err?.mesage || req.word("Can`t Set Code");
+              }
+              res.json(response);
+            });
           } else {
             response.error = err.mesage;
+            res.json(response);
           }
-          res.json(response);
         });
       });
     }
@@ -258,7 +266,10 @@ module.exports = function init(site) {
                   response.error = req.word("User balance does not allow purchase");
                   res.json(response);
                   return;
+                } else if (doc.transactionName.code != "buyService" && value == "approved") {
+                  doc.status = site.transactionStatusList.find((itm) => itm.code == "done");
                 }
+
                 if (type == "type") {
                   doc[type] = site.transactionTypeList.find((itm) => itm.code == value);
                 }
@@ -320,7 +331,7 @@ module.exports = function init(site) {
         let where = req.body.where || {};
         let search = req.body.search || "";
         let limit = req.body.limit || 100;
-        let select = req.body.select || { id: 1, user: 1, status: 1, price: 1, transactionName: 1, type: 1, paymentMethod: 1 };
+        let select = req.body.select || { id: 1, code: 1, user: 1, userProvider: 1, status: 1, price: 1, transactionName: 1, type: 1, status: 1, paymentMethod: 1 };
 
         if (search) {
           where.$or = [];
@@ -365,6 +376,11 @@ module.exports = function init(site) {
         if (where["user"]?.id) {
           where["user.id"] = where["user"].id;
           delete where["user"];
+        }
+
+        if (where["userProvider"]?.id) {
+          where["userProvider.id"] = where["userProvider"].id;
+          delete where["userProvider"];
         }
 
         where["host"] = site.getHostFilter(req.host);

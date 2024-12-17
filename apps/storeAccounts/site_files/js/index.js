@@ -350,10 +350,10 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
       paymentMethod: $scope.buy.paymentMethod,
       type: $scope.transactionTypeList.find((itm) => itm.code == "review"),
       price: $scope.item.price,
+      userProvider : $scope.item.user,
       account: {
         id: $scope.item.id,
         title: $scope.item.title,
-        user: $scope.item.user,
         socialPlatform: $scope.item.socialPlatform,
         storeType: $scope.item.storeType,
         provider: $scope.item.provider,

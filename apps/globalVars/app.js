@@ -6,7 +6,7 @@ module.exports = function init(site) {
     },
     {
       code: "walletCash",
-      name: "WalletCash",
+      name: "Wallet Cash",
     },
   ];
   site.providerList = [

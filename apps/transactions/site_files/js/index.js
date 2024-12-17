@@ -383,9 +383,16 @@ app.controller("transactions", function ($scope, $http, $timeout) {
 
   $scope.selectTransactionName = function () {
     $scope.error = "";
-  /*   if ($scope.item.transactionName.code == "buyService") {
-      $scope.item.quantity = 1;
-    } */
+    if ($scope.item.transactionName.code == "buyService") {
+      $scope.item.price = $scope.item.service.price;
+      $scope.item.userProvider = { ...$scope.item.service.user };
+      $scope.item.service = {
+        id: $scope.item.service.id,
+        name: $scope.item.service.name,
+        socialPlatform: $scope.item.service.socialPlatform,
+        platformService: $scope.item.service.platformService,
+      };
+    }
   };
 
   $scope.showSearch = function () {
