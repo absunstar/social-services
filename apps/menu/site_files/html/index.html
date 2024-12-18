@@ -12,15 +12,6 @@
       <span> ##word.Manage Users## </span>
     </a>
   </li>
-
-  <li class="menu-item" x-permissions="developer">
-    <a class="tab-link" href="/words">
-      <i class="fas fa-users"></i>
-      <span> ##word.Words Manage## </span>
-    </a>
-  </li>
-
-
   <li class="menu-item" x-permissions="securityManage">
     <a class="tab-link" href="/security/users">
       <i class="fas fa-users"></i>
@@ -28,16 +19,10 @@
     </a>
   </li>
 
-  <li class="menu-item" x-permissions="developer">
-    <a class="tab-link" href="/host-manager">
-      <i class="fas fa-users"></i>
-      <span> ##word.Host Manager## </span>
-    </a>
-  </li>
-  <li class="menu-item" x-permissions="pageImplementUi || pageImplementManage">
-    <a class="tab-link" href="/pages">
-      <i class="fas fa-users"></i>
-      <span> ##word.Pages## </span>
+  <li class="menu-item">
+    <a class="tab-link" href="/transactions" x-permissions="transactionsUi || transactionsManage">
+      <i class="fas fa-globe"></i>
+      <span> ##word.Transactions##</span>
     </a>
   </li>
 
@@ -45,13 +30,6 @@
     <a class="tab-link" href="/services" x-permissions="servicesUi || servicesManage">
       <i class="fas fa-globe"></i>
       <span> ##word.Services##</span>
-    </a>
-  </li>
-
-  <li class="menu-item">
-    <a class="tab-link" href="/transactions" x-permissions="transactionsUi || transactionsManage">
-      <i class="fas fa-globe"></i>
-      <span> ##word.Transactions##</span>
     </a>
   </li>
 
@@ -68,7 +46,6 @@
       <span> ##word.Store Packages##</span>
     </a>
   </li>
-
 
   <li class="menu-item">
     <a class="tab-link" href="/countries" x-permissions="countriesUi || countriesManage">
@@ -95,6 +72,24 @@
     <a class="tab-link" href="/areas" x-permissions="areasUi || areasManage">
       <i class="fas fa-vector-square"></i>
       <span> ##word.Areas## </span>
+    </a>
+  </li>
+  <li class="menu-item" x-permissions="developer">
+    <a class="tab-link" href="/words">
+      <i class="fas fa-users"></i>
+      <span> ##word.Words Manage## </span>
+    </a>
+  </li>
+  <li class="menu-item" x-permissions="developer">
+    <a class="tab-link" href="/host-manager">
+      <i class="fas fa-users"></i>
+      <span> ##word.Host Manager## </span>
+    </a>
+  </li>
+  <li class="menu-item" x-permissions="pageImplementUi || pageImplementManage">
+    <a class="tab-link" href="/pages">
+      <i class="fas fa-users"></i>
+      <span> ##word.Pages## </span>
     </a>
   </li>
 </ul>

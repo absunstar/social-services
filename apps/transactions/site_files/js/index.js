@@ -284,7 +284,8 @@ app.controller("transactions", function ($scope, $http, $timeout) {
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.transactionNameList = response.data.list;
+          $scope.transactionNameList = response.data.list.filter((t)=> t.code == 'rechargeBalance' || t.code == 'buyService');
+          $scope.searchTransactionNameList = response.data.list
         }
       },
       function (err) {
@@ -381,7 +382,7 @@ app.controller("transactions", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.selectTransactionName = function () {
+  $scope.selectService = function () {
     $scope.error = "";
     if ($scope.item.transactionName.code == "buyService") {
       $scope.item.price = $scope.item.service.price;

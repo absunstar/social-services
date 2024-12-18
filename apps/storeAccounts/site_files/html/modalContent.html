@@ -17,6 +17,7 @@
           <i-image class="img128 center" ng-model="item.image"></i-image>
         </div>
       </fieldset>
+
       <fieldset>
         <div class="row">
         <i-list class="col4" v="r" label="##word.Provider##" ng-model="item.provider" primary="code" display="name" items="providerList"></i-list>
@@ -27,6 +28,7 @@
           <i-list label="##word.User##" v="r" class="col4" ng-get="getUsers($search)" ng-model="item.user" items="usersList" display="firstName" ng-search="item.$user"> </i-list>
         </div>
       </fieldset>
+
       <fieldset>
         <div class="row">
           <i-control type="text" v="r" class="col5" ng-model="item.email" label="##word.Email##"></i-control>
@@ -45,7 +47,6 @@
         <i-content type="text" ng-model="item.description" label="##word.Description##"></i-content>
       </fieldset>
     </div>
-    <div class="row padding"></div>
   </div>
   <div ng-show="mode !== 'add' " class="row">
     <table class="table hover border">

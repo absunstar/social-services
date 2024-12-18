@@ -161,10 +161,16 @@ module.exports = function init(site) {
         _data.host = site.getHostFilter(req.host);
         _data.type = site.transactionTypeList.find((itm) => itm.code == "review");
         _data.status = site.transactionStatusList.find((itm) => itm.code == "pending");
+        if (_data.transactionName.code == "rechargeBalance") {
+          _data.userProvider = {
+            id: req.session.user.id,
+            firstName: req.session.user.firstName || req.session.user.name,
+          };
+        }
         _data.date = site.getDate();
         app.add(_data, (err, doc) => {
           if (!err && doc) {
-            doc.code = "ACC" + doc.id.toString() + Math.floor(Math.random() * 10000) + 9000;
+            doc.code = "TX" + doc.id.toString() + Math.floor(Math.random() * 10000) + 9000;
             app.update(_data, (err, result) => {
               if (!err && result) {
                 response.done = true;
@@ -262,12 +268,14 @@ module.exports = function init(site) {
                 id: doc.user.id,
               },
               (err, user) => {
-                if (doc.transactionName.code != "rechargeBalance" && user.balance < doc.price) {
-                  response.error = req.word("User balance does not allow purchase");
-                  res.json(response);
-                  return;
-                } else if (doc.transactionName.code != "buyService" && value == "approved") {
-                  doc.status = site.transactionStatusList.find((itm) => itm.code == "done");
+                if (value == "approved") {
+                  if (doc.transactionName.code != "rechargeBalance" && user.balance < doc.price) {
+                    response.error = req.word("User balance does not allow purchase");
+                    res.json(response);
+                    return;
+                  } else if (doc.transactionName.code != "buyService") {
+                    doc.status = site.transactionStatusList.find((itm) => itm.code == "done");
+                  }
                 }
 
                 if (type == "type") {
@@ -276,6 +284,7 @@ module.exports = function init(site) {
                 if (type == "status") {
                   doc[type] = site.transactionStatusList.find((itm) => itm.code == value);
                 }
+
                 app.update(doc, async (err, result) => {
                   if (!err) {
                     response.done = true;
@@ -293,18 +302,18 @@ module.exports = function init(site) {
 
                       let _obj = {};
                       if (result.doc.transactionName.code == "buyAccount") {
-                        _obj.userId = doc.account.user.id;
+                        _obj.userId = doc.userProvider.id;
                         _obj.price = doc.price;
                         _obj.type = "+";
                         site.updateUserInStoreAccount({ id: doc.account.id, user: doc.user });
                       } else if (result.doc.transactionName.code == "buyPackage") {
-                        _obj.userId = doc.package.user.id;
+                        _obj.userId = doc.userProvider.id;
                         _obj.price = doc.price;
                         _obj.type = "+";
                         site.updateUserInStorePackage({ id: doc.package.id, user: doc.user });
                         site.updateUserInStoreAccountByPackage({ id: doc.package.id, user: doc.user });
                       } else if (result.doc.transactionName.code == "buyService") {
-                        _obj.userId = doc.service.user.id;
+                        _obj.userId = doc.userProvider.id;
                         _obj.price = doc.price;
                         _obj.type = "+";
                       }
@@ -331,7 +340,7 @@ module.exports = function init(site) {
         let where = req.body.where || {};
         let search = req.body.search || "";
         let limit = req.body.limit || 100;
-        let select = req.body.select || { id: 1, code: 1, user: 1, userProvider: 1, status: 1, price: 1, transactionName: 1, type: 1, status: 1, paymentMethod: 1 };
+        let select = req.body.select || { id: 1, code: 1, date: 1, user: 1, userProvider: 1, status: 1, price: 1, transactionName: 1, type: 1, status: 1, paymentMethod: 1 };
 
         if (search) {
           where.$or = [];

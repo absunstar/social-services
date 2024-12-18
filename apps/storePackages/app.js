@@ -169,7 +169,7 @@ module.exports = function init(site) {
         _data.host = site.getHostFilter(req.host);
         app.add(_data, (err, doc) => {
           if (!err && doc) {
-            doc.code = "PKG" + doc.id.toString() + Math.floor(Math.random() * 10000) + 9000;
+            doc.code = "PKG" + doc.id.toString() + Math.floor(Math.random() * 1000) + 900;
             app.update(_data, (err, result) => {
               if (!err && result) {
                 response.done = true;

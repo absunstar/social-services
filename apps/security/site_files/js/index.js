@@ -215,6 +215,7 @@ app.controller("security", function ($scope, $http, $interval) {
 
   $scope.add = function () {
     $scope.busy = true;
+    $scope.user.type = 'admin'
     $scope.user.permissions.push({ name: "admin" }, { name: "mama" });
     $http({
       method: "POST",

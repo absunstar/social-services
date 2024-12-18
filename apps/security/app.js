@@ -86,7 +86,7 @@ module.exports = function init(site) {
     }
 
     let where = req.body.where || {};
-    let search = req.body.search || '';
+    let search = req.body.search || "";
 
     if (search) {
       where.$or = [];
@@ -123,7 +123,8 @@ module.exports = function init(site) {
     // } else {
     //   where["host"] = site.getHostFilter(req.host);
     // }
-
+    where["type"] = "admin";
+    where["host"] = site.getHostFilter(req.host);
 
     site.security.getUsers(
       {

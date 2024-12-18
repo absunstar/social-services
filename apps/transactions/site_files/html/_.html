@@ -11,9 +11,9 @@
     <fieldset ng-show="$showAdvancedSearch">
       <legend>##word.Advanced Search##</legend>
       <div class="row">
-        <i-list class="col4" label="##word.Transaction Name##" ng-model="search.transactionName" display="name" items="transactionNameList"></i-list>
-        <i-list class="col4" label="##word.Type##" ng-show="item.id" ng-model="search.type" display="name" items="transactionTypeList"></i-list>
-        <i-list class="col4" label="##word.Status##" ng-model="search.status" display="name" items="transactionStatusList"></i-list>
+        <i-list class="col3" label="##word.Transaction Name##" ng-model="search.transactionName" display="name" items="searchTransactionNameList"></i-list>
+        <i-list class="col3" label="##word.Type##" ng-model="search.type" display="name" items="transactionTypeList"></i-list>
+        <i-list class="col3" label="##word.Status##" ng-model="search.status" display="name" items="transactionStatusList"></i-list>
       </div>
       <div class="row">
         <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
@@ -24,6 +24,7 @@
       <i-control ng-model="$search" class="col8" label="##word.Search All##"></i-control>
       <i-button type="search" class="col2" label="##word.Search##" ng-click="getAll(search)"></i-button>
     </div>
+    <p class="error">{{error}}</p>
     <div class="table-responsive">
       <table class="table hover bold" id="t1">
         <tr>
@@ -40,7 +41,7 @@
         <tr ng-repeat="item in list | filter:$search">
           <td class="center">{{item.date | date:"dd/MM/yyyy"}}</td>
           <td class="center">
-            {{item.transactionName.name}}
+            <p>{{item.transactionName.name}}</p>
             <span class="userPrint">{{item.code}}</span>
           </td>
           <td class="center">{{item.user.firstName}}</td>
@@ -66,7 +67,7 @@
 
             <i-button type="view" title="##word.View##" ng-click="showView(item)"></i-button>
             <i-button type="edit" x-permissions="transactionsUpdate || transactionsManage" title="##word.Edit##" ng-click="showUpdate(item)"></i-button>
-            <i-button type="delete" x-permissions="transactionsDelete || transactionsManage" title="##word.Delete##" ng-click="showDelete(item)"></i-button>
+            <i-button type="delete" ng-show="item.type.code == 'pending'" x-permissions="transactionsDelete || transactionsManage" title="##word.Delete##" ng-click="showDelete(item)"></i-button>
           </td>
         </tr>
       </table>

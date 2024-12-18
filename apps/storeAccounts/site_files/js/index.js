@@ -344,6 +344,10 @@ app.controller("storeAccounts", function ($scope, $http, $timeout) {
       $scope.error = v.messages[0].ar;
       return;
     }
+    if(!$scope.item.standalone) {
+      $scope.error = '##word.This account is linked to a group and cannot be purchased individually##';
+      return;
+    }
     let obj = {
       user: $scope.buy.user,
       transactionName: $scope.transactionNameList.find((itm) => itm.code == "buyAccount"),
