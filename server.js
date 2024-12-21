@@ -1,5 +1,5 @@
 const site = require('../isite')({
-  port: [80, 60021],
+  port: [60021],
   lang: 'En',
   language: { id: 'En', dir: 'ltr', text: 'right' },
   version: new Date().getTime(),
