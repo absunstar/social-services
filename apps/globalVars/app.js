@@ -51,7 +51,7 @@ module.exports = function init(site) {
 
   site.transactionNameList = [
     {
-      code : "rechargeBalance",
+      code: "rechargeBalance",
       name: "Recharge Balance",
     },
     {
@@ -155,26 +155,73 @@ module.exports = function init(site) {
       url: "https://www.facebook.com/",
       serviceList: [
         {
-          code: "like",
-          name: "Like",
+          code: "likePage",
+          name: "Like Page",
+          script: `/*###social-tools/facebook-like-page.js*/`,
         },
         {
-          code: "comment",
-          name: "Comment",
+          code: "likePost",
+          name: "Like Post",
+          script: `/*###social-tools/facebook-like-post.js*/`,
         },
         {
-          code: "share",
-          name: "Share",
+          code: "joinGroup",
+          name: "Join Group",
+          script: `/*###social-tools/facebook-join-group.js*/`,
         },
         {
-          code: "follow",
-          name: "Follow",
+          code: "followUser",
+          name: "Follow User",
+          script: `/*###social-tools/facebook-follow-user.js*/`,
+        },
+        {
+          code: "getRequestFriend",
+          name: "Get Request Friend",
+          script: `/*###social-tools/facebook-request-friend.js*/`,
+        },
+        {
+          code: "removeBlockedUsers",
+          name: "Remove Blocked or [ check Point ] Users",
+          script: `/*###social-tools/facebook-remove-blocked-users.js*/`,
+        },
+        {
+          code: "createPost",
+          name: "Create Post",
+          script: `/*###social-tools/facebook-create-post.js*/`,
+        },
+        {
+          code: "createComment",
+          name: "Create Comment",
+          script: `/*###social-tools/facebook-create-comment.js*/`,
+        },
+        {
+          code: "createCommentAndLike",
+          name: "Create Comment And Like",
+          script: `/*###social-tools/facebook-create-comment-like.js*/`,
         },
       ],
     },
   ];
 
-  site.genderList = [{ code : 'male', name: "Male" }, { code : 'female', name: "Female" }];
+  site.selectedUserTypeList = [
+    {
+      code: "allUsers",
+      name: "All Users",
+    },
+    {
+      code: "limitedCount",
+      name: "Limited Users Count",
+    },
+    {
+      code: "selectedUsers",
+      name: "Selected Users",
+    },
+  ];
+
+  site.genderList = [
+    { code: "male", name: "Male" },
+    { code: "female", name: "Female" },
+  ];
 
   site.post("/api/paymentMethodList", (req, res) => {
     res.json({
@@ -222,6 +269,13 @@ module.exports = function init(site) {
     res.json({
       done: true,
       list: site.socialPlatformList,
+    });
+  });
+
+  site.post("/api/selectedUserTypeList", (req, res) => {
+    res.json({
+      done: true,
+      list: site.selectedUserTypeList,
     });
   });
 

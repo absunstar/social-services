@@ -1,0 +1,69 @@
+<div ng-controller="tasks" class="loaded">
+  <div class="row" x-permissions="tasksUi || tasksManage">
+    <div x-import="tasks/modal.html"></div>
+    <div x-import="tasks/modalSearch.html"></div>
+
+    <div class="top-actions">
+      <i-button type="add" x-permissions="tasksAdd || tasksManage" label="##word.New##" ng-click="showAdd()"></i-button>
+      <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Active##" ng-click="searchAll(search={active:true})"></i-button>
+      <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Not Active##" ng-click="searchAll(search={active:false})"></i-button>
+      <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Advanced Search##" ng-click="$showAdvancedSearch = !$showAdvancedSearch"></i-button>
+    </div>
+    <fieldset ng-show="$showAdvancedSearch">
+      <legend>##word.Advanced Search##</legend>
+      <div class="row">
+        <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
+        <i-list class="col4" label="##word.Provider##" ng-model="search.provider" primary="code" display="name" items="providerList"></i-list>
+      </div>
+    </fieldset>
+    <div class="row">
+      <i-control ng-model="$search" class="col8" label="##word.Search All##" x-permissions="tasksSearch || tasksManage"></i-control>
+      <i-button type="search" x-permissions="tasksSearch || tasksManage" class="col2" label="##word.Search##" ng-click="getAll(search)"></i-button>
+    </div>
+    <div class="table-responsive">
+      <table class="table hover bold" id="t1">
+        <tr>
+          <th>##word.S/N##</th>
+          <th>##word.Url##</th>
+          <th>##word.Time##</th>
+          <th>##word.View Count##</th>
+          <th>##word.Status##</th>
+          <th>##word.Actions##</th>
+        </tr>
+        <tr ng-repeat="site in list  | filter:{private : false} track by $index">
+          <td class="bold center">{{$index + 1}}</td>
+          <td>
+            <h2 class="bold green text-left">{{site.actionType.name}}</h2>
+            <span class="bold blue">{{site.url}}</span>
+            <i-button type="copy" ng-click="copy(site.url)"></i-button>
+          </td>
+          <td class="center bold red">
+            <p>Timeout : {{site.timeout}}s</p>
+            <p>Delay : {{site.delay}}s</p>
+          </td>
+          <td class="center">
+            <p>Count : {{site.count}}</p>
+            <p>Max Count : {{site.maxCount}}</p>
+          </td>
+
+          <td class="center">
+            <p class="bold black">{{site.status.name}}</p>
+            <p class="bold black">Windows {{site.currentWindowCount}} of {{site.windowsCount}}</p>
+            <i-button type="reset" ng-click="site.openedWindowCount = 0;site.closedWindowCount = 0;site.currentWindowCount=0;"></i-button>
+          </td>
+
+          <td>
+            <i-button type="play" ng-hide="site.status.id === 1" ng-click="runAction(site , true)" label="Run Action"> </i-button>
+            <i-button type="stop" ng-show="site.status.id === 1" ng-click="stop(site)" label="Stop"></i-button>
+            <i-button type="reset" ng-hide="site.status.id === 1" ng-click="reset(site)" label="Reset"></i-button>
+            <i-button type="copy" ng-hide="site.status.id === 1" ng-click="duplicate(site)" label="Duplicate"></i-button>
+            <i-button type="edit" ng-hide="site.status.id === 1" ng-click="editSite(site)" label="Edit"></i-button>
+            <i-button type="delete" ng-hide="site.status.id === 1" ng-click="delete(site , $index)" label="Delete"></i-button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <i-button x-permissions="tasksPrint || tasksManage" type="print" label="##word.Print##" onclick="site.print('#t1')"></i-button>
+    <i-button x-permissions="tasksExport || tasksManage" type="export" label="##word.Export to excel##" onclick="export_to_xlsx('t1' , 'report_value_added.xlsx')"> </i-button>
+  </div>
+</div>

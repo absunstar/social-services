@@ -1,0 +1,11 @@
+[
+    { "moduleName": "public", "screenName": "tasks", "name": "tasksManage", "En": "Manage", "Ar": "إدارة" },
+    { "moduleName": "public", "screenName": "tasks", "name": "tasksAdd", "En": "Add", "Ar": "إضافة" },
+    { "moduleName": "public", "screenName": "tasks", "name": "tasksUpdate", "En": "Edit", "Ar": "تعديل" },
+    { "moduleName": "public", "screenName": "tasks", "name": "tasksDelete", "En": "Delete", "Ar": "حذف" },
+    { "moduleName": "public", "screenName": "tasks", "name": "tasksView", "En": "View", "Ar": "عرض" },
+    { "moduleName": "public", "screenName": "tasks", "name": "tasksSearch", "En": "Search", "Ar": "بحث" },
+    { "moduleName": "public", "screenName": "tasks", "name": "tasksExport", "En": "Export", "Ar": "تصدير" },
+    { "moduleName": "public", "screenName": "tasks", "name": "tasksPrint", "En": "Print", "Ar": "طباعة" },
+    { "moduleName": "public", "screenName": "tasks", "name": "tasksUi", "En": "UI", "Ar": "الواجهة الرسومية" }
+]

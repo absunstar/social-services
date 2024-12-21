@@ -1,0 +1,7 @@
+[{
+    "moduleName" : "public" ,
+    "name": "tasksAdmin",
+    "En": "Tasks Admin",
+    "Ar": "إدارة المهام",
+    "permissions": ["tasksManage"]
+}]

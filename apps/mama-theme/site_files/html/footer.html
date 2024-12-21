@@ -5,14 +5,7 @@
     <img x-data="setting.nameNotBesidLogoShow" class="nameNotBesidLogoShow" ng-src="##data.site_footer_logo##" alt="" srcset="" />
   </div>
 
-  <div class="phone-call cbh-phone cbh-green cbh-show cbh-static" id="clbh_phone_div">
-    <a id="WhatsApp-button" x-data="setting.whatsapp" href="https://wa.me/##data.setting.whatsapp##" target="_blank" class="phoneJs" title="WhatsApp 360imagem">
-      <p>تواصل مع الدعم الفني</p>
-      <div class="cbh-ph-circle"></div>
-      <div class="cbh-ph-circle-fill"></div>
-      <div class="cbh-ph-img-circle1"><i class="fab fa-whatsapp whatsappContact"></i></div
-    ></a>
-  </div>
+  
   <div class="social-menu">
     <ul>
       <li x-data="setting.youtubeAccouunt">
@@ -48,8 +41,11 @@
   </div>
   <div class="row">
     <div class="col">
-      <a x-lang="Ar" ng-click="changeLang('En')" class="link left"> <i class="fa fa-globe"></i> ##word.English## </a>
-      <a x-lang="En" ng-click="changeLang('Ar')" class="link left"> <i class="fa fa-globe"></i> ##word.Arabic## </a>
+      <a  ng-click="changeLang('En')" class="link lang-btn left"> <i class="fa fa-globe"></i> ##word.English## </a>
+      <a  ng-click="changeLang('Ar')" class="link lang-btn left"> <i class="fa fa-globe"></i> ##word.Arabic## </a>
+      <a  ng-click="changeLang('Fa')" class="link lang-btn left"> <i class="fa fa-globe"></i> ##word.Persian## </a>
+      <a  ng-click="changeLang('Ru')" class="link lang-btn left"> <i class="fa fa-globe"></i> ##word.Russian## </a>
+      <a  ng-click="changeLang('Zh')" class="link lang-btn left"> <i class="fa fa-globe"></i> ##word.Chinese## </a>
     </div>
     <div class="col">
       <div class="copyright">
