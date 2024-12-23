@@ -157,15 +157,14 @@ module.exports = function init(site) {
 
         let _data = req.data;
 
-        if(_data.selectedUserType.code == '')
 
         _data.addUserInfo = req.getUserFinger();
         _data.host = site.getHostFilter(req.host);
-        _data.socialPlatform = {
-          code: _data.socialPlatform.code,
-          name: _data.socialPlatform.name,
-          url: _data.socialPlatform.url,
-        };
+        // _data.socialPlatform = {
+        //   code: _data.socialPlatform.code,
+        //   name: _data.socialPlatform.name,
+        //   url: _data.socialPlatform.url,
+        // };
         app.add(_data, (err, doc) => {
           if (!err && doc) {
             response.done = true;
@@ -186,11 +185,11 @@ module.exports = function init(site) {
 
         let _data = req.data;
         _data.editUserInfo = req.getUserFinger();
-        _data.socialPlatform = {
-          code: _data.socialPlatform.code,
-          name: _data.socialPlatform.name,
-          url: _data.socialPlatform.url,
-        };
+        // _data.socialPlatform = {
+        //   code: _data.socialPlatform.code,
+        //   name: _data.socialPlatform.name,
+        //   url: _data.socialPlatform.url,
+        // };
         app.update(_data, (err, result) => {
           if (!err) {
             response.done = true;
@@ -245,8 +244,8 @@ module.exports = function init(site) {
       site.post({ name: `/api/${app.name}/all`, public: true }, (req, res) => {
         let where = req.body.where || {};
         let search = req.body.search || "";
-        let limit = req.body.limit || 50;
-        let select = req.body.select || { id: 1, active: 1, name: 1, image: 1, user: 1, provider: 1, price: 1 };
+        let limit = req.body.limit || 100;
+        let select = req.body.select || { };
         let host = site.getHostFilter(req.host);
 
         if (search) {

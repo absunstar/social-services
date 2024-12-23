@@ -30,35 +30,35 @@
           <th>##word.Status##</th>
           <th>##word.Actions##</th>
         </tr>
-        <tr ng-repeat="site in list  | filter:{private : false} track by $index">
+        <tr ng-repeat="item in list  | filter:{private : false} track by $index">
           <td class="bold center">{{$index + 1}}</td>
           <td>
-            <h2 class="bold green text-left">{{site.actionType.name}}</h2>
-            <span class="bold blue">{{site.url}}</span>
-            <i-button type="copy" ng-click="copy(site.url)"></i-button>
+            <h2 class="bold green text-left">{{item.actionType.name}}</h2>
+            <span class="bold blue">{{item.url}}</span>
+            <i-button type="copy" ng-click="copy(item.url)"></i-button>
           </td>
           <td class="center bold red">
-            <p>Timeout : {{site.timeout}}s</p>
-            <p>Delay : {{site.delay}}s</p>
+            <p>Timeout : {{item.timeout}}s</p>
+            <p>Delay : {{item.delay}}s</p>
           </td>
           <td class="center">
-            <p>Count : {{site.count}}</p>
-            <p>Max Count : {{site.maxCount}}</p>
+            <p>Count : {{item.count}}</p>
+            <p>Max Count : {{item.maxCount}}</p>
           </td>
 
           <td class="center">
-            <p class="bold black">{{site.status.name}}</p>
-            <p class="bold black">Windows {{site.currentWindowCount}} of {{site.windowsCount}}</p>
-            <i-button type="reset" ng-click="site.openedWindowCount = 0;site.closedWindowCount = 0;site.currentWindowCount=0;"></i-button>
+            <p class="bold black">{{item.status.name}}</p>
+            <p class="bold black">Windows {{item.currentWindowCount}} of {{item.windowsCount}}</p>
+            <i-button type="reset" ng-click="item.openedWindowCount = 0;item.closedWindowCount = 0;item.currentWindowCount=0;"></i-button>
           </td>
 
           <td>
-            <i-button type="play" ng-hide="site.status.id === 1" ng-click="runAction(site , true)" label="Run Action"> </i-button>
-            <i-button type="stop" ng-show="site.status.id === 1" ng-click="stop(site)" label="Stop"></i-button>
-            <i-button type="reset" ng-hide="site.status.id === 1" ng-click="reset(site)" label="Reset"></i-button>
-            <i-button type="copy" ng-hide="site.status.id === 1" ng-click="duplicate(site)" label="Duplicate"></i-button>
-            <i-button type="edit" ng-hide="site.status.id === 1" ng-click="editSite(site)" label="Edit"></i-button>
-            <i-button type="delete" ng-hide="site.status.id === 1" ng-click="delete(site , $index)" label="Delete"></i-button>
+            <i-button type="play" ng-hide="item.status.code === 'running'" ng-click="runAction(item , true)" label="##word.Run Action##"> </i-button>
+            <i-button type="stop" ng-show="item.status.code === 'running'" ng-click="stop(item)" label="##word.Stop##"></i-button>
+            <i-button type="reset" ng-hide="item.status.code === 'running'" ng-click="reset(item)" label="##word.Reset##"></i-button>
+            <i-button type="copy" ng-hide="item.status.code === 'running'" ng-click="duplicate(item)" label="##word.Duplicate##"></i-button>
+            <i-button type="edit" ng-hide="item.status.code === 'running'" ng-click="showUpdate(item)" label="##word.Edit##"></i-button>
+            <i-button type="delete" ng-hide="item.status.code === 'running'" ng-click="showDelete(item)" label="##word.Delete##"></i-button>
           </td>
         </tr>
       </table>

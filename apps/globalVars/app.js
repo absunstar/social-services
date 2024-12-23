@@ -100,8 +100,8 @@ module.exports = function init(site) {
       url: "https://www.instagram.com/",
       serviceList: [
         {
-          code: "like",
-          name: "Like",
+          code: "likePost",
+          name: "Like Post",
         },
         {
           code: "comment",
@@ -157,53 +157,53 @@ module.exports = function init(site) {
         {
           code: "likePage",
           name: "Like Page",
-          script: `/*###social-tools/facebook-like-page.js*/`,
+          script: 'facebook-like-post',
         },
         {
           code: "likePost",
           name: "Like Post",
-          script: `/*###social-tools/facebook-like-post.js*/`,
+          script: `/*###tasks/facebook-like-post.js*/`,
         },
         {
           code: "joinGroup",
           name: "Join Group",
-          script: `/*###social-tools/facebook-join-group.js*/`,
+          script: `/*###tasks/facebook-join-group.js*/`,
         },
         {
           code: "followUser",
           name: "Follow User",
-          script: `/*###social-tools/facebook-follow-user.js*/`,
+          script: `/*###tasks/facebook-follow-user.js*/`,
         },
         {
           code: "getRequestFriend",
           name: "Get Request Friend",
-          script: `/*###social-tools/facebook-request-friend.js*/`,
+          script: `/*###tasks/facebook-request-friend.js*/`,
         },
         {
           code: "removeBlockedUsers",
           name: "Remove Blocked or [ check Point ] Users",
-          script: `/*###social-tools/facebook-remove-blocked-users.js*/`,
+          script: `/*###tasks/facebook-remove-blocked-users.js*/`,
         },
         {
           code: "createPost",
           name: "Create Post",
-          script: `/*###social-tools/facebook-create-post.js*/`,
+          script: `/*###tasks/facebook-create-post.js*/`,
         },
         {
           code: "createComment",
           name: "Create Comment",
-          script: `/*###social-tools/facebook-create-comment.js*/`,
+          script: `/*###tasks/facebook-create-comment.js*/`,
         },
         {
           code: "createCommentAndLike",
           name: "Create Comment And Like",
-          script: `/*###social-tools/facebook-create-comment-like.js*/`,
+          script: `/*###tasks/facebook-create-comment-like.js*/`,
         },
       ],
     },
   ];
 
-  site.selectedUserTypeList = [
+  site.selectedAccountsTypeList = [
     {
       code: "allUsers",
       name: "All Users",
@@ -272,10 +272,10 @@ module.exports = function init(site) {
     });
   });
 
-  site.post("/api/selectedUserTypeList", (req, res) => {
+  site.post("/api/selectedAccountsTypeList", (req, res) => {
     res.json({
       done: true,
-      list: site.selectedUserTypeList,
+      list: site.selectedAccountsTypeList,
     });
   });
 
