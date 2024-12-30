@@ -154,10 +154,9 @@ module.exports = function init(site) {
         let response = {
           done: false,
         };
-
         let _data = req.data;
 
-
+        _data.date = site.getDate();
         _data.addUserInfo = req.getUserFinger();
         _data.host = site.getHostFilter(req.host);
         // _data.socialPlatform = {
@@ -165,6 +164,11 @@ module.exports = function init(site) {
         //   name: _data.socialPlatform.name,
         //   url: _data.socialPlatform.url,
         // };
+        _data.taskList = [];
+        _data.taskList = _data.accountList.map((item) => {
+          return { user: { ...item }, isDone: false };
+        });
+
         app.add(_data, (err, doc) => {
           if (!err && doc) {
             response.done = true;
@@ -190,6 +194,30 @@ module.exports = function init(site) {
         //   name: _data.socialPlatform.name,
         //   url: _data.socialPlatform.url,
         // };
+        _data.taskList = [];
+        _data.taskList = _data.accountList.map((item) => {
+          return { user: { ...item }, isDone: false };
+        });
+
+        app.update(_data, (err, result) => {
+          if (!err) {
+            response.done = true;
+            response.result = result;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        });
+      });
+
+      site.post({ name: `/api/${app.name}/updateAction`, require: { permissions: ["login"] } }, (req, res) => {
+        let response = {
+          done: false,
+        };
+
+        let _data = req.data;
+        _data.editUserInfo = req.getUserFinger();
+
         app.update(_data, (err, result) => {
           if (!err) {
             response.done = true;
@@ -245,8 +273,7 @@ module.exports = function init(site) {
         let where = req.body.where || {};
         let search = req.body.search || "";
         let limit = req.body.limit || 100;
-        let select = req.body.select || { };
-        let host = site.getHostFilter(req.host);
+        let select = req.body.select || {};
 
         if (search) {
           where.$or = [];
@@ -269,7 +296,7 @@ module.exports = function init(site) {
           delete where["user"];
         }
         where["host"] = site.getHostFilter(req.host);
-
+        
         app.all({ where, select, limit, sort: { id: -1 } }, (err, docs) => {
           res.json({
             done: true,

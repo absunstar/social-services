@@ -104,17 +104,22 @@ module.exports = function init(site) {
           name: "Like Post",
         },
         {
-          code: "comment",
-          name: "Comment",
+          code: "createComment",
+          name: "Create Comment",
         },
         {
-          code: "share",
-          name: "Share",
+          code: "createCommentAndLike",
+          name: "Create Comment And Like",
         },
         {
           code: "followUser",
           name: "Follow User",
         },
+        {
+          code: "share",
+          name: "Share",
+        },
+       
         {
           code: "unFollowUser",
           name: "Un-Follow User",
@@ -157,47 +162,38 @@ module.exports = function init(site) {
         {
           code: "likePage",
           name: "Like Page",
-          script: 'facebook-like-post',
         },
         {
           code: "likePost",
           name: "Like Post",
-          script: `/*###tasks/facebook-like-post.js*/`,
         },
         {
           code: "joinGroup",
           name: "Join Group",
-          script: `/*###tasks/facebook-join-group.js*/`,
         },
         {
           code: "followUser",
           name: "Follow User",
-          script: `/*###tasks/facebook-follow-user.js*/`,
         },
         {
           code: "getRequestFriend",
           name: "Get Request Friend",
-          script: `/*###tasks/facebook-request-friend.js*/`,
         },
         {
           code: "removeBlockedUsers",
           name: "Remove Blocked or [ check Point ] Users",
-          script: `/*###tasks/facebook-remove-blocked-users.js*/`,
         },
         {
           code: "createPost",
           name: "Create Post",
-          script: `/*###tasks/facebook-create-post.js*/`,
         },
         {
           code: "createComment",
           name: "Create Comment",
-          script: `/*###tasks/facebook-create-comment.js*/`,
         },
         {
           code: "createCommentAndLike",
           name: "Create Comment And Like",
-          script: `/*###tasks/facebook-create-comment-like.js*/`,
         },
       ],
     },

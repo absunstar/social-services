@@ -1,6 +1,11 @@
 SOCIALBROWSER.onLoad(() => {
+  let actionDone = false;
   function likePost() {
-  /*   let likeButton = document.querySelector('span.xp7jhwk [role="button"] svg[aria-label="Like"]');
+    if (actionDone) {
+      window.close();
+      return;
+    }
+    /*   let likeButton = document.querySelector('span.xp7jhwk [role="button"] svg[aria-label="Like"]');
     let unlikeButton = document.querySelector('span.xp7jhwk [role="button"] svg[aria-label="Unlike"]');
     
     if (likeButton) {
@@ -9,19 +14,19 @@ SOCIALBROWSER.onLoad(() => {
     } else if (unlikeButton) {
       console.log("Unlike button found!");
       unlikeButton.closest('button').click();
-    } else {
+    } else {ZZAZ
       window.close();
     } */
     setTimeout(() => {
       let button = document.querySelector('span.xp7jhwk [role="button"]');
       if (button) {
         button.click();
+        actionDone = true;
       } else {
         window.close();
       }
-    }, 3000);
+    }, 1000 * 3);
 
-   
     setTimeout(() => {
       likePost();
     }, 1000 * 5);

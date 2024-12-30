@@ -2,6 +2,7 @@
   <div class="row" x-permissions="tasksUi || tasksManage">
     <div x-import="tasks/modal.html"></div>
     <div x-import="tasks/modalSearch.html"></div>
+    <div x-import="tasks/taskListhModal.html"></div>
 
     <div class="top-actions">
       <i-button type="add" x-permissions="tasksAdd || tasksManage" label="##word.New##" ng-click="showAdd()"></i-button>
@@ -25,40 +26,35 @@
         <tr>
           <th>##word.S/N##</th>
           <th>##word.Url##</th>
-          <th>##word.Time##</th>
-          <th>##word.View Count##</th>
+          <th>##word.User##</th>
           <th>##word.Status##</th>
           <th>##word.Actions##</th>
         </tr>
         <tr ng-repeat="item in list  | filter:{private : false} track by $index">
           <td class="bold center">{{$index + 1}}</td>
           <td>
-            <h2 class="bold green text-left">{{item.actionType.name}}</h2>
+            <h2 class="bold green text-left">{{item.platformService.name}}</h2>
             <span class="bold blue">{{item.url}}</span>
             <i-button type="copy" ng-click="copy(item.url)"></i-button>
           </td>
           <td class="center bold red">
-            <p>Timeout : {{item.timeout}}s</p>
-            <p>Delay : {{item.delay}}s</p>
+            <p>{{item.user.firstName}}</p>
+            <p>{{item.date | date:"dd / MM / yyyy"}}</p>
           </td>
           <td class="center">
-            <p>Count : {{item.count}}</p>
-            <p>Max Count : {{item.maxCount}}</p>
-          </td>
-
-          <td class="center">
-            <p class="bold black">{{item.status.name}}</p>
-            <p class="bold black">Windows {{item.currentWindowCount}} of {{item.windowsCount}}</p>
-            <i-button type="reset" ng-click="item.openedWindowCount = 0;item.closedWindowCount = 0;item.currentWindowCount=0;"></i-button>
+            <p>##word.Implemented## : (<span class="green">{{item.count}}</span>)</p>
+            <p>##word.Total## : (<span class="green">{{item.taskList.length || 0}}</span>)</p>
+            <p class="bold">{{item.status.name}}</p>
           </td>
 
           <td>
-            <i-button type="play" ng-hide="item.status.code === 'running'" ng-click="runAction(item , true)" label="##word.Run Action##"> </i-button>
+            <i-button type="play" ng-show="item.status.code === 'pending'" ng-click="runAction(item)" label="##word.Run Action##"> </i-button>
             <i-button type="stop" ng-show="item.status.code === 'running'" ng-click="stop(item)" label="##word.Stop##"></i-button>
             <i-button type="reset" ng-hide="item.status.code === 'running'" ng-click="reset(item)" label="##word.Reset##"></i-button>
             <i-button type="copy" ng-hide="item.status.code === 'running'" ng-click="duplicate(item)" label="##word.Duplicate##"></i-button>
             <i-button type="edit" ng-hide="item.status.code === 'running'" ng-click="showUpdate(item)" label="##word.Edit##"></i-button>
             <i-button type="delete" ng-hide="item.status.code === 'running'" ng-click="showDelete(item)" label="##word.Delete##"></i-button>
+            <i-button type="view" ng-click="showTasks(item)" label="##word.Tasks##"></i-button>
           </td>
         </tr>
       </table>

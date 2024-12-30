@@ -2,15 +2,15 @@
   <div class="row">
     <fieldset>
       <div class="row">
-        <i-list v="r" class="col6" label="##word.Social Platform##" ng-model="item.socialPlatform" display="name" items="socialPlatformList"></i-list>
-        <i-list v="r" class="col6" label="##word.Platform Service##" ng-model="item.platformService" display="name" items="item.socialPlatform.serviceList"></i-list>
+        <i-list v="r" class="col6" label="##word.Social Platform##" ng-model="item.socialPlatform" primary="code" display="name" items="socialPlatformList"></i-list>
+        <i-list v="r" class="col6" label="##word.Platform Service##" ng-model="item.platformService" primary="code" display="name" items="item.socialPlatform.serviceList"></i-list>
       </div>
       <div class="row">
         <i-list class="col4" v="r" label="##word.Provider##" ng-model="item.provider" primary="code" display="name" items="providerList"></i-list>
         <i-list label="##word.User##" v="r" class="col6" ng-get="getUsers($search)" ng-change="getAccountList()" ng-model="item.user" items="usersList" display="firstName" ng-search="item.$user">
         </i-list>
         <div class="col2">
-          <i-button label="Open" ng-click="openURL(item)"></i-button>
+          <i-button label="##word.Test Open##" ng-click="openURL(item)"></i-button>
         </div>
       </div>
     </fieldset>
@@ -63,13 +63,13 @@
         <i-control type="number" class="col3" ng-model="item.delay" label="##word.Check Tasks Every ( seconds )##"> </i-control>
       </div>
     </fieldset>
-    <fieldset>
+  <!--   <fieldset>
       <legend>Task Status</legend>
       <div class="row">
         <i-control type="number" class="col3" ng-model="item.currentWindowCount" label="##word.Current Window Count##"></i-control>
         <i-control type="number" class="col3" ng-model="item.count" label="##word.Current Task Count##"></i-control>
       </div>
-    </fieldset>
+    </fieldset> -->
   </div>
 </div>
 <div ng-show="mode !== 'add' " class="row">

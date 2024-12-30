@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة منصات التواصل الاجتماعي</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Tajawal", Arial, sans-serif;
+            background-color: #f9fafc;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #003d6b;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+
+        header nav a:hover {
+            background-color: #0056b3;
+        }
+
+        .main-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom right, #e8f7ff, #ffffff);
+            position: relative;
+        }
+
+        .main-section img {
+            max-width: 250px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .main-section h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #003d6b;
+        }
+
+        .main-section p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .main-section .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .main-section .buttons a {
+            text-decoration: none;
+            padding: 15px 35px;
+            font-size: 18px;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .main-section .buttons .primary {
+            background-color: #007bff;
+        }
+
+        .main-section .buttons .primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .main-section .buttons .secondary {
+            background-color: #28a745;
+        }
+
+        .main-section .buttons .secondary:hover {
+            background-color: #1e7e34;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #003d6b;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #ffdd57;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div><strong>أدوات ماما</strong></div>
+        <nav>
+            <a href="#">باقات الاشتراك</a>
+            <a href="#">نظام العمولة</a>
+            <a href="#">مقالات</a>
+            <a href="#">تواصل معنا</a>
+        </nav>
+    </header>
+
+    <section class="main-section">
+        <img src="placeholder.png" alt="هاتف">
+        <h1>نحن نساعدك في إدارة منصات التواصل الاجتماعي</h1>
+        <p>نساعدك في إدارة منصات التواصل الاجتماعي الشاملة والتحكم في شبكات التواصل الاجتماعي الخاصة بك بمهارة والاستفادة منها لأغراض التسويق.</p>
+        <div class="buttons">
+            <a href="#" class="primary">تصفح الأدوات</a>
+            <a href="#" class="secondary">اعرف المزيد</a>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2024 جميع الحقوق محفوظة. تم الإنشاء بواسطة <a href="#">ماما سيرفس</a>
+    </footer>
+</body>
+</html>

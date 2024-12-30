@@ -83,6 +83,37 @@ app.controller("tasks", function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.duplicate = function (_item) {
+    $scope.error = "";
+    let item = { ..._item };
+    $scope.busy = true;
+    item.taskList.forEach((_t) => {
+      delete _t.date;
+      _t.isDone = false;
+    });
+    delete item.id;
+    delete item._id;
+    item.count = 0;
+    item.status = $scope.transactionStatusList[0];
+    $http({
+      method: "POST",
+      url: `${$scope.baseURL}/api/${$scope.appName}/add`,
+      data: item,
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.list.unshift(response.data.doc);
+        } else {
+          $scope.error = response.data.error;
+        }
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
+  };
+
   $scope.showUpdate = function (_item) {
     $scope.error = "";
     $scope.mode = "edit";
@@ -137,6 +168,13 @@ app.controller("tasks", function ($scope, $http, $timeout) {
     $scope.item = {};
     $scope.view(_item);
     site.showModal($scope.modalID);
+  };
+
+  $scope.showTasks = function (_item) {
+    $scope.error = "";
+    $scope.item = {};
+    $scope.view(_item);
+    site.showModal("#taskListhModal");
   };
 
   $scope.view = function (_item) {
@@ -203,6 +241,8 @@ app.controller("tasks", function ($scope, $http, $timeout) {
   $scope.getAll = function (where) {
     $scope.busy = true;
     $scope.list = [];
+    where = where || {};
+    where["socialPlatform.code"] = "##query.type##";
     $http({
       method: "POST",
       url: `${$scope.baseURL}/api/${$scope.appName}/all`,
@@ -214,6 +254,7 @@ app.controller("tasks", function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.done && response.data.list.length > 0) {
           $scope.list = response.data.list;
+
           $scope.count = response.data.count;
           site.hideModal($scope.modalSearchID);
           $scope.search = {};
@@ -368,49 +409,63 @@ app.controller("tasks", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.runAction = function (item, forceRun = false) {
-    console.log("Run Action ....", item);
-    item.currentWindowCount = item.openedWindowCount - item.closedWindowCount;
-    if (!forceRun && item.status.id == 0) {
-      return false;
-    }
-    item.status = $scope.transactionStatusList[1];
-    
-    if (item.count < item.maxCount) {
-      if (item.currentWindowCount < item.windowsCount) {
-        $scope.createActionWindow({ ...item, user: item.accountList[item.count] });
-        item.count++;
-        item.openedWindowCount = item.openedWindowCount || 0;
-        item.openedWindowCount++;
-        item.currentWindowCount = item.openedWindowCount - item.closedWindowCount;
-
-        if (!item.interval) {
-          item.interval = setInterval(() => {
-            $scope.runAction(item);
-          }, 1000 * item.delay);
-        }
-      }
+  $scope.runAction = function (item) {
+    let userIndex = item.taskList.findIndex((u) => u.isDone == false);
+    if (userIndex != -1) {
+      item.status = $scope.transactionStatusList[1];
+      $scope.createActionWindow({ ...item, $user: item.taskList[userIndex].user });
+      item.count += 1;
+      item.taskList[userIndex].isDone = true;
+      item.taskList[userIndex].date = site.getDate();
+      $scope.updateAction(item, "run");
     } else {
-      clearInterval(item.interval);
-      item.interval = null;
       item.status = $scope.transactionStatusList[2];
-      console.log("Done By Max Count...");
+
+      $scope.updateAction(item, "stop");
     }
   };
 
-  $scope.stop = function (site) {
-    clearInterval(site.interval);
-    site.interval = null;
-    site.status = $scope.transactionStatusList[0];
+  $scope.updateAction = function (item, type) {
+    $http({
+      method: "POST",
+      url: `${$scope.baseURL}/api/${$scope.appName}/updateAction`,
+      data: item,
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          let index = $scope.list.findIndex((itm) => itm.id == response.data.result.doc.id);
+          if (index !== -1) {
+            $scope.list[index] = response.data.result.doc;
+            if (type == "run") {
+              $timeout(() => {
+                $scope.runAction($scope.list[index]);
+              }, 1000 * $scope.list[index].delay);
+            }
+          }
+        } else {
+          $scope.error = response.data.error;
+        }
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
   };
 
-  $scope.reset = function (site) {
-    clearInterval(site.interval);
-    site.interval = null;
-    site.status = $scope.transactionStatusList[0];
-    site.count = 0;
-    site.openedWindowCount = 0;
-    site.closedWindowCount = 0;
+  $scope.stop = function (item) {
+    item.status = $scope.transactionStatusList[0];
+    $scope.updateAction(item);
+  };
+
+  $scope.reset = function (item) {
+    item.status = $scope.transactionStatusList[0];
+    item.count = 0;
+    item.taskList.forEach((_t) => {
+      _t.isDone = false;
+      delete _t.date;
+    });
+    $scope.updateAction(item);
   };
 
   $scope.scripts = {
@@ -461,25 +516,41 @@ app.controller("tasks", function ($scope, $http, $timeout) {
         script: SOCIALBROWSER.from123(`/*###tasks/facebook-create-comment-like.js*/`),
       },
     ],
-    instagram : [
+    instagram: [
       {
         code: "likePost",
         name: "Like Post",
         script: SOCIALBROWSER.from123(`/*###tasks/instagram-like-post.js*/`),
       },
-    ]
+      {
+        code: "followUser",
+        name: "Follow User",
+        script: SOCIALBROWSER.from123(`/*###tasks/instagram-follow-user.js*/`),
+      },
+      {
+        code: "createComment",
+        name: "Create Comment",
+        script: SOCIALBROWSER.from123(`/*###tasks/instagram-create-comment.js*/`),
+      },
+      {
+        code: "createCommentAndLike",
+        name: "Create Comment And Like",
+        script: SOCIALBROWSER.from123(`/*###tasks/instagram-create-comment-like.js*/`),
+      },
+    ],
   };
+
   $scope.createActionWindow = function (site) {
     site.message = "Facebook Manager Ready ...";
     site._time = new Date().getTime();
     let code = `SOCIALBROWSER.fakeview123 = '${SOCIALBROWSER.to123(site)}';`;
-    let code_injected = code + $scope.scripts['##query.type##'].find((s) => s.code == site.platformService.code).script;
+    let code_injected = code + $scope.scripts["##query.type##"].find((s) => s.code == site.platformService.code).script;
 
     let isTest = SOCIALBROWSER.var.core.id.like("*test*");
     SOCIALBROWSER.ipc("[open new popup]", {
       trackingID: site.trackingID,
       vip: true,
-      partition: "persist:" + SOCIALBROWSER.md5(site.user.email),
+      partition: "persist:" + SOCIALBROWSER.md5(site.$user?.email),
       url: site.url,
       show: true,
       center: !site.screenX && !site.screenY,
