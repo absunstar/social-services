@@ -1,0 +1,7 @@
+[{
+    "moduleName" : "public" ,
+    "name": "ordersAdmin",
+    "En": "Orders Admin",
+    "Ar": "إدارة الطلبات",
+    "permissions": ["ordersManage"]
+}]

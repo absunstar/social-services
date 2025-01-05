@@ -1,0 +1,65 @@
+<div ng-controller="orders" class="loaded">
+  <div class="row" x-permissions="ordersUi || ordersManage">
+    <div x-import="orders/modal.html"></div>
+    <div x-import="orders/modalSearch.html"></div>
+    <div x-import="orders/taskListhModal.html"></div>
+    <h2 class="center bold">{{title}}</h2>
+    <div class="top-actions">
+      <i-button type="add" x-permissions="ordersAdd || ordersManage" label="##word.New##" ng-click="showAdd()"></i-button>
+      <i-button type="search" x-permissions="ordersSearch || ordersManage" label="##word.Active##" ng-click="searchAll(search={active:true})"></i-button>
+      <i-button type="search" x-permissions="ordersSearch || ordersManage" label="##word.Not Active##" ng-click="searchAll(search={active:false})"></i-button>
+      <i-button type="search" x-permissions="ordersSearch || ordersManage" label="##word.Advanced Search##" ng-click="$showAdvancedSearch = !$showAdvancedSearch"></i-button>
+    </div>
+    <fieldset ng-show="$showAdvancedSearch">
+      <legend>##word.Advanced Search##</legend>
+      <div class="row">
+        <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
+        <i-list class="col4" label="##word.Provider##" ng-model="search.provider" primary="code" display="name" items="providerList"></i-list>
+      </div>
+    </fieldset>
+    <div class="row">
+      <i-control ng-model="$search" class="col8" label="##word.Search All##" x-permissions="ordersSearch || ordersManage"></i-control>
+      <i-button type="search" x-permissions="ordersSearch || ordersManage" class="col2" label="##word.Search##" ng-click="getAll(search)"></i-button>
+    </div>
+    <div class="table-responsive">
+      <table class="table hover bold" id="t1">
+        <tr>
+          <th>##word.S/N##</th>
+          <th>##word.Url##</th>
+          <th>##word.User##</th>
+          <th>##word.Status##</th>
+          <th>##word.Actions##</th>
+        </tr>
+        <tr ng-repeat="item in list  | filter:{private : false} track by $index">
+          <td class="bold center">{{$index + 1}}</td>
+          <td>
+            <h4 class="bold green text-left">{{item.platformService.name}}</h4>
+            <span class="bold blue">{{item.url}}</span>
+            <i-button type="copy" ng-click="copy(item.url)"></i-button>
+          </td>
+          <td class="center bold red">
+            <p>{{item.user.firstName}}</p>
+            <p>{{item.date | date:"dd / MM / yyyy"}}</p>
+          </td>
+          <td class="center">
+            <span class="red">{{item.accountList.length || 0}}</span> / <span class="green">{{item.actionCount}}</span>
+            <p class="bold">{{item.status.name}}</p>
+          </td>
+
+          <td>
+            <i-button type="play" ng-show="item.status.code === 'pending' && item.isTargets" ng-click="runAction(item)" title="##word.Run Action##"> </i-button>
+            <i-button ng-show="!item.isTargets" ng-click="postingTasks(item.id,true)" label="##word.Post##"> </i-button>
+            <i-button ng-show="item.isTargets" ng-click="postingTasks(item.id,false)" label="##word.UnPost##"> </i-button>
+            <i-button type="stop" ng-show="item.status.code === 'running'  && item.isTargets" ng-click="stop(item)" title="##word.Stop##"></i-button>
+            <i-button type="copy" ng-hide="item.status.code === 'running'" ng-click="duplicate(item)" title="##word.Duplicate##"></i-button>
+            <i-button type="edit" ng-hide="item.isTargets || item.status.code === 'running'" ng-click="showUpdate(item)" title="##word.Edit##"></i-button>
+            <i-button type="delete" ng-hide="item.isTargets || item.status.code === 'running'" ng-click="showDelete(item)" title="##word.Delete##"></i-button>
+            <i-button type="view" ng-show="item.isTargets" ng-click="showTasks(item)" label="##word.Tasks##"></i-button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <i-button x-permissions="ordersPrint || ordersManage" type="print" label="##word.Print##" onclick="site.print('#t1')"></i-button>
+    <i-button x-permissions="ordersExport || ordersManage" type="export" label="##word.Export to excel##" onclick="export_to_xlsx('t1' , 'report_value_added.xlsx')"> </i-button>
+  </div>
+</div>

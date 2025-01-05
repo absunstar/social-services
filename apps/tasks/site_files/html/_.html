@@ -2,13 +2,15 @@
   <div class="row" x-permissions="tasksUi || tasksManage">
     <div x-import="tasks/modal.html"></div>
     <div x-import="tasks/modalSearch.html"></div>
-    <div x-import="tasks/taskListhModal.html"></div>
 
     <div class="top-actions">
       <i-button type="add" x-permissions="tasksAdd || tasksManage" label="##word.New##" ng-click="showAdd()"></i-button>
       <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Active##" ng-click="searchAll(search={active:true})"></i-button>
       <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Not Active##" ng-click="searchAll(search={active:false})"></i-button>
       <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Advanced Search##" ng-click="$showAdvancedSearch = !$showAdvancedSearch"></i-button>
+      <i-button type="stop" ng-show="runInterval" class="right" ng-click="stopActions()" label="##word.Stop Actions##"> </i-button>
+      <i-button type="play" ng-show="!runInterval" class="right" ng-click="runActions()" label="##word.Run Actions##"> </i-button>
+  
     </div>
     <fieldset ng-show="$showAdvancedSearch">
       <legend>##word.Advanced Search##</legend>
@@ -27,34 +29,34 @@
           <th>##word.S/N##</th>
           <th>##word.Url##</th>
           <th>##word.User##</th>
+          <th>##word.Date##</th>
           <th>##word.Status##</th>
           <th>##word.Actions##</th>
         </tr>
-        <tr ng-repeat="item in list  | filter:{private : false} track by $index">
+        <tr ng-repeat="item in list">
           <td class="bold center">{{$index + 1}}</td>
           <td>
-            <h2 class="bold green text-left">{{item.platformService.name}}</h2>
+            <h4 class="bold green text-left">{{item.platformService.name}}</h4>
             <span class="bold blue">{{item.url}}</span>
             <i-button type="copy" ng-click="copy(item.url)"></i-button>
           </td>
           <td class="center bold red">
             <p>{{item.user.firstName}}</p>
+            <p class="userPrint">{{item.account.email}}</p>
+          </td>
+          <td>
             <p>{{item.date | date:"dd / MM / yyyy"}}</p>
+            <p class="red">{{item.actionDate | date:"dd / MM / yyyy"}}</p>
           </td>
           <td class="center">
-            <p>##word.Implemented## : (<span class="green">{{item.count}}</span>)</p>
-            <p>##word.Total## : (<span class="green">{{item.taskList.length || 0}}</span>)</p>
-            <p class="bold">{{item.status.name}}</p>
+            <p class="green" ng-show="item.isDone">##word.Done##</p>
+            <p class="red" ng-show="!item.isDone">##word.Not Done##</p>
           </td>
 
           <td>
-            <i-button type="play" ng-show="item.status.code === 'pending'" ng-click="runAction(item)" label="##word.Run Action##"> </i-button>
-            <i-button type="stop" ng-show="item.status.code === 'running'" ng-click="stop(item)" label="##word.Stop##"></i-button>
-            <i-button type="reset" ng-hide="item.status.code === 'running'" ng-click="reset(item)" label="##word.Reset##"></i-button>
-            <i-button type="copy" ng-hide="item.status.code === 'running'" ng-click="duplicate(item)" label="##word.Duplicate##"></i-button>
-            <i-button type="edit" ng-hide="item.status.code === 'running'" ng-click="showUpdate(item)" label="##word.Edit##"></i-button>
-            <i-button type="delete" ng-hide="item.status.code === 'running'" ng-click="showDelete(item)" label="##word.Delete##"></i-button>
-            <i-button type="view" ng-click="showTasks(item)" label="##word.Tasks##"></i-button>
+            <i-button type="play" ng-show="!item.isDone" ng-click="runAction(item)" label="##word.Run Action##"> </i-button>
+          <!--   <i-button type="edit" ng-hide="item.status.code === 'running'" ng-click="showUpdate(item)" label="##word.Edit##"></i-button>
+            <i-button type="delete" ng-hide="item.status.code === 'running'" ng-click="showDelete(item)" label="##word.Delete##"></i-button> -->
           </td>
         </tr>
       </table>

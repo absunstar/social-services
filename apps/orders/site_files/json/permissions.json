@@ -1,0 +1,11 @@
+[
+    { "moduleName": "public", "screenName": "orders", "name": "ordersManage", "En": "Manage", "Ar": "إدارة" },
+    { "moduleName": "public", "screenName": "orders", "name": "ordersAdd", "En": "Add", "Ar": "إضافة" },
+    { "moduleName": "public", "screenName": "orders", "name": "ordersUpdate", "En": "Edit", "Ar": "تعديل" },
+    { "moduleName": "public", "screenName": "orders", "name": "ordersDelete", "En": "Delete", "Ar": "حذف" },
+    { "moduleName": "public", "screenName": "orders", "name": "ordersView", "En": "View", "Ar": "عرض" },
+    { "moduleName": "public", "screenName": "orders", "name": "ordersSearch", "En": "Search", "Ar": "بحث" },
+    { "moduleName": "public", "screenName": "orders", "name": "ordersExport", "En": "Export", "Ar": "تصدير" },
+    { "moduleName": "public", "screenName": "orders", "name": "ordersPrint", "En": "Print", "Ar": "طباعة" },
+    { "moduleName": "public", "screenName": "orders", "name": "ordersUi", "En": "UI", "Ar": "الواجهة الرسومية" }
+]

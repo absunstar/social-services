@@ -1,16 +1,16 @@
-app.controller("tasks", function ($scope, $http, $timeout) {
+app.controller("orders", function ($scope, $http, $timeout) {
   $scope.baseURL = "";
-  $scope.appName = "tasks";
-  $scope.modalID = "#tasksManageModal";
-  $scope.modalSearchID = "#tasksSearchModal";
+  $scope.appName = "orders";
+  $scope.modalID = "#ordersManageModal";
+  $scope.modalSearchID = "#ordersSearchModal";
   $scope.setting = site.showObject(`##data.#setting##`);
   $scope.mode = "add";
   $scope._search = {};
   $scope.structure = {};
   $scope.item = {};
   $scope.list = [];
-  
-  $scope.runInterval = false;
+  $scope.title = "##query.type##";
+  $scope.title = $scope.title[0].toUpperCase() + $scope.title.slice(1);
   $scope.showAdd = function (_item) {
     $scope.error = "";
     $scope.mode = "add";
@@ -20,7 +20,7 @@ app.controller("tasks", function ($scope, $http, $timeout) {
       socialPlatform: $scope.socialPlatformList.find((itm) => itm.code == "##query.type##"),
       accountsType: $scope.selectedAccountsTypeList[1],
       status: $scope.transactionStatusList[0],
-      count: 0,
+      actionCount: 0,
       fromUser: 1,
       toUser: 10,
       windowsCount: 10,
@@ -57,7 +57,6 @@ app.controller("tasks", function ($scope, $http, $timeout) {
     } else if ($scope.item.accountsType.code == "limitedCount") {
       $scope.item.accountList = $scope.accountList.slice($scope.item.fromUser - 1, $scope.item.toUser).map((s) => ({ name: s.name, display: s.display }));
     }
-    $scope.item.maxCount = $scope.item.accountList.length;
 
     $scope.busy = true;
     $http({
@@ -94,7 +93,7 @@ app.controller("tasks", function ($scope, $http, $timeout) {
     });
     delete item.id;
     delete item._id;
-    item.count = 0;
+    item.actionCount = 0;
     item.status = $scope.transactionStatusList[0];
     $http({
       method: "POST",
@@ -137,7 +136,6 @@ app.controller("tasks", function ($scope, $http, $timeout) {
       $scope.item.accountList = $scope.accountList.slice($scope.item.fromUser - 1, $scope.item.toUser).map((s) => ({ name: s.name, display: s.display }));
     }
 
-    $scope.item.maxCount = $scope.item.accountList.length;
     $scope.busy = true;
     $http({
       method: "POST",
@@ -163,6 +161,32 @@ app.controller("tasks", function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.postingTasks = function (itemId, type) {
+    $scope.error = "";
+
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: `${$scope.baseURL}/api/${$scope.appName}/postingTasks`,
+      data: { id: itemId, isTargets: type },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          let index = $scope.list.findIndex((itm) => itm.id == response.data.doc.id);
+          if (index !== -1) {
+            $scope.list[index] = response.data.doc;
+          }
+        } else {
+          $scope.error = response.data.error;
+        }
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
+  };
+
   $scope.showView = function (_item) {
     $scope.error = "";
     $scope.mode = "view";
@@ -173,9 +197,12 @@ app.controller("tasks", function ($scope, $http, $timeout) {
 
   $scope.showTasks = function (_item) {
     $scope.error = "";
-    $scope.item = {};
-    $scope.view(_item);
-    site.showModal("#taskListhModal");
+    $scope.item = _item;
+    $scope.getTasks({ orderId: _item.id }, (tasks) => {
+      if (tasks && tasks.length > 0) {
+        site.showModal("#taskListhModal");
+      }
+    });
   };
 
   $scope.view = function (_item) {
@@ -243,8 +270,7 @@ app.controller("tasks", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     where = where || {};
-
-    /* where["socialPlatform.code"] = "##query.type##"; */
+    where["socialPlatform.code"] = "##query.type##";
     $http({
       method: "POST",
       url: `${$scope.baseURL}/api/${$scope.appName}/all`,
@@ -411,52 +437,61 @@ app.controller("tasks", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.runActions = function () {
-    let index = $scope.list.findIndex((u) => u.isDone == false);
-    if (index != -1) {
-      $scope.runInterval = true;
-
-      $scope.createActionWindow({ ...$scope.list[index] });
-      $scope.updateAction({ ...$scope.list[index] }, "sum");
-      $timeout(() => {
-        $scope.runActions();
-      }, 1000 * 15);
-    } else {
-      $scope.runInterval = false;
-    }
-  };
-
-  $scope.stopActions = function () {
-    $scope.runInterval = false;
+  $scope.getTasks = function (where, callback) {
+    $scope.error = "";
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/tasks/all",
+      data: {
+        where: where,
+      },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done && response.data.list) {
+          callback(response.data.list);
+        } else {
+          callback(null);
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+        callback(null);
+      }
+    );
   };
 
   $scope.runAction = function (item) {
-    if (!item.isDone) {
-      $scope.createActionWindow({ ...item });
-      $scope.updateAction(item, "sum");
-    }
+    $scope.getTasks({ orderId: item.id, isDone: false }, (tasks) => {
+      let accountIndex = tasks.findIndex((u) => u.isDone == false);
+      if (accountIndex != -1) {
+        $scope.createActionWindow({ ...item, $email: tasks[accountIndex].account.email });
+        $scope.updateAction({ orderId: item.id, taskId: tasks[accountIndex].id, type: "run" });
+      } else {
+        $scope.updateAction({ orderId: item.id, type: "finish" });
+      }
+    });
   };
 
-  $scope.updateAction = function (item, type) {
+  $scope.updateAction = function (item) {
     $http({
       method: "POST",
       url: `${$scope.baseURL}/api/${$scope.appName}/updateAction`,
-      data: { id: item.id, orderId: item.orderId, type: type },
+      data: item,
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          let index = $scope.list.findIndex((itm) => itm.id == response.data.doc.id);
+          let index = $scope.list.findIndex((itm) => itm.id == response.data.result.doc.id);
           if (index !== -1) {
-            $scope.list[index].isDone = response.data.doc.isDone;
-            $scope.list[index].actionDate = response.data.doc.actionDate;
-
-            $scope.$applyAsync();
-            // if (type == "run") {
-            //   $timeout(() => {
-            //     $scope.runAction($scope.list[index]);
-            //   }, 1000 * $scope.list[index].delay);
-            // }
+            $scope.list[index] = response.data.result.doc;
+            if (item.type == "run") {
+              $timeout(() => {
+                $scope.runAction($scope.list[index]);
+              }, 1000 * $scope.list[index].delay);
+            }
           }
         } else {
           $scope.error = response.data.error;
@@ -469,18 +504,7 @@ app.controller("tasks", function ($scope, $http, $timeout) {
   };
 
   $scope.stop = function (item) {
-    item.status = $scope.transactionStatusList[0];
-    $scope.updateAction(item);
-  };
-
-  $scope.reset = function (item) {
-    item.status = $scope.transactionStatusList[0];
-    item.count = 0;
-    item.taskList.forEach((_t) => {
-      _t.isDone = false;
-      delete _t.date;
-    });
-    $scope.updateAction(item);
+    $scope.updateAction({ orderId: item.id, type: "stop" });
   };
 
   $scope.scripts = {
@@ -559,14 +583,13 @@ app.controller("tasks", function ($scope, $http, $timeout) {
     site.message = "Facebook Manager Ready ...";
     site._time = new Date().getTime();
     let code = `SOCIALBROWSER.fakeview123 = '${SOCIALBROWSER.to123(site)}';`;
-
-    let code_injected = code + $scope.scripts[site.socialPlatform.code].find((s) => s.code == site.platformService.code).script;
+    let code_injected = code + $scope.scripts["##query.type##"].find((s) => s.code == site.platformService.code).script;
 
     let isTest = SOCIALBROWSER.var.core.id.like("*test*");
     SOCIALBROWSER.ipc("[open new popup]", {
       trackingID: site.trackingID,
       vip: true,
-      partition: "persist:" + SOCIALBROWSER.md5(site.account?.email),
+      partition: "persist:" + SOCIALBROWSER.md5(site.$email),
       url: site.url,
       show: true,
       center: !site.screenX && !site.screenY,
@@ -589,29 +612,30 @@ app.controller("tasks", function ($scope, $http, $timeout) {
   };
 
   $scope.openURL = function (site) {
-    let code = `SOCIALBROWSER.fakeview123 = '${SOCIALBROWSER.to123(site)}';`;
-    let facebookScript = SOCIALBROWSER.from123(`/*###tasks/facebook.js*/`);
-    let code_injected = code + facebookScript;
+    if (site.$testAccount?.email) {
+      let code = `SOCIALBROWSER.fakeview123 = '${SOCIALBROWSER.to123(site)}';`;
+      let code_injected = code + $scope.scripts["##query.type##"].find((s) => s.code == site.platformService.code).script;
 
-    let isTest = SOCIALBROWSER.var.core.id.like("*test*");
-    SOCIALBROWSER.ipc("[open new popup]", {
-      trackingID: site.trackingID,
-      vip: true,
-      partition: "persist:" + SOCIALBROWSER.md5(site.user.email),
-      url: site.url,
-      show: true,
-      center: true,
-      allowAudio: false,
-      allowDevTools: isTest,
-      allowDownload: false,
-      allowAds: false,
-      allowNewWindows: false,
-      allowSaveUserData: false,
-      allowSaveUrls: false,
-      eval: code_injected,
-      alwaysOnTop: true,
-      site: site,
-    });
+      let isTest = SOCIALBROWSER.var.core.id.like("*test*");
+      SOCIALBROWSER.ipc("[open new popup]", {
+        trackingID: site.trackingID,
+        vip: true,
+        partition: "persist:" + SOCIALBROWSER.md5(site.$testAccount.email),
+        url: site.url,
+        show: true,
+        center: true,
+        allowAudio: false,
+        allowDevTools: isTest,
+        allowDownload: false,
+        allowAds: false,
+        allowNewWindows: false,
+        allowSaveUserData: false,
+        allowSaveUrls: false,
+        eval: code_injected,
+        alwaysOnTop: true,
+        site: site,
+      });
+    }
   };
   $scope.addToCommentList = function (site) {
     site.commentList = site.commentList || [];

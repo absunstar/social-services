@@ -1,6 +1,6 @@
 module.exports = function init(site) {
   let app = {
-    name: "tasks",
+    name: "orders",
     allowMemory: false,
     memoryList: [],
     allowCache: false,
@@ -143,7 +143,7 @@ module.exports = function init(site) {
           name: app.name,
         },
         (req, res) => {
-          res.render(app.name + "/index.html", { title: app.name, appName: req.word("Tasks"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });
+          res.render(app.name + "/index.html", { title: app.name, appName: req.word("Orders"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });
         }
       );
     }
@@ -193,10 +193,10 @@ module.exports = function init(site) {
         //   name: _data.socialPlatform.name,
         //   url: _data.socialPlatform.url,
         // };
-        _data.taskList = [];
-        _data.taskList = _data.accountList.map((item) => {
-          return { user: { ...item }, isDone: false };
-        });
+        // _data.taskList = [];
+        // _data.taskList = _data.accountList.map((item) => {
+        //   return { user: { ...item }, isDone: false };
+        // });
 
         app.update(_data, (err, result) => {
           if (!err) {
@@ -215,24 +215,33 @@ module.exports = function init(site) {
         };
 
         let _data = req.data;
-        app.$collection.edit(
-          {
-            where: {
-              id: _data.id,
-            },
-            set: {id : _data.id, isDone: true, actionDate: site.getDate(),editUserInfo :  req.getUserFinger()},
-          },
-          (err, result) => {
-            if (!err) {
-              response.done = true;
-              response.doc = result.doc;
-              site.updateCountOrder(_data.orderId, _data.type);
-            } else {
-              response.error = err.message;
+        app.view({ id: _data.orderId }, (err, doc) => {
+          if (doc) {
+            if (_data.type == "run") {
+              doc.actionCount += 1;
+              doc.status = site.transactionStatusList[1];
+            } else if (_data.type == "stop") {
+              doc.status = site.transactionStatusList[0];
+            } else if (_data.type == "finish") {
+              doc.status = site.transactionStatusList[2];
             }
+
+            app.update(doc, (err, result) => {
+              if (!err) {
+                response.done = true;
+                response.result = result;
+                if (_data.type == "run") {
+                  site.taskIsDone(_data.taskId);
+                }
+              } else {
+                response.error = err.message;
+              }
+              res.json(response);
+            });
+          } else {
             res.json(response);
           }
-        );
+        });
       });
     }
 
@@ -274,6 +283,65 @@ module.exports = function init(site) {
       });
     }
 
+    site.post({ name: `/api/${app.name}/postingTasks`, public: true }, (req, res) => {
+      let response = {
+        done: false,
+      };
+
+      let _data = req.data;
+      app.view({ id: _data.id }, (err, doc) => {
+        if (!err && doc) {
+          doc.editUserInfo = req.getUserFinger();
+
+          doc.isTargets = _data.isTargets;
+          doc.status = site.transactionStatusList[0];
+          doc.actionCount = 0;
+          app.update(doc, (err, result) => {
+            if (!err) {
+              response.done = true;
+              response.doc = result.doc;
+              if (_data.isTargets) {
+                let taskList = result.doc.accountList.map((item) => {
+                  return {
+                    account: { ...item },
+                    isDone: false,
+                    user: result.doc.user,
+                    url: result.doc.url,
+                    socialPlatform: result.doc.socialPlatform,
+                    status: result.doc.status,
+                    commentList: result.doc.commentList,
+                    platformService: result.doc.platformService,
+                    date: site.getDate(),
+                    host: result.doc.host,
+                    screenWidth: result.doc.screenWidth,
+                    screenHeight: result.doc.screenHeight,
+                    screenX: result.doc.screenX,
+                    screenY: result.doc.screenY,
+                    windowsCount: result.doc.windowsCount,
+                    timeout: result.doc.timeout,
+                    delay: result.doc.delay,
+                    host: result.doc.host,
+                    orderId: result.doc.id,
+                    addUserInfo: result.doc.editUserInfo,
+                  };
+                });
+
+                site.addTasks(taskList);
+              } else {
+                site.deleteTasks(result.doc.id);
+              }
+            } else {
+              response.error = err.message;
+            }
+            res.json(response);
+          });
+        } else {
+          response.error = err?.message || req.word("Not Exists");
+          res.json(response);
+        }
+      });
+    });
+
     if (app.allowRouteAll) {
       site.post({ name: `/api/${app.name}/all`, public: true }, (req, res) => {
         let where = req.body.where || {};
@@ -312,30 +380,24 @@ module.exports = function init(site) {
       });
     }
   }
-  site.addTasks = function (list) {
-    app.$collection.insertMany(list, (err, docs) => {});
+  site.updateCountOrder = function (id, type) {
+
+    app.view({ id: id }, (err, doc) => {
+      if (type == "sum") {
+        doc.actionCount += 1;
+      } else if (type == "minus") {
+        doc.actionCount -= 1;
+      }
+      if (doc.actionCount == doc.accountList.length) {
+        doc.status = site.transactionStatusList[2];
+      } else {
+        doc.status = site.transactionStatusList[0];
+      }
+      
+      app.$collection.updateOne(doc, (err, result) => {});
+    });
   };
 
-  site.deleteTasks = function (id) {
-    app.$collection.deleteMany(
-      {
-        orderId: id,
-      },
-      (err, result) => {}
-    );
-  };
-
-  site.taskIsDone = function (id) {
-    app.$collection.edit(
-      {
-        where: {
-          id: id,
-        },
-        set: { isDone: true, actionDate: site.getDate() },
-      },
-      (err, result) => {}
-    );
-  };
   app.init();
   site.addApp(app);
 };
