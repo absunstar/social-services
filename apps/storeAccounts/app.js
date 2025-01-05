@@ -419,6 +419,11 @@ module.exports = function init(site) {
           delete where["socialPlatform"];
         }
 
+        if (where["platformService"]?.code) {
+          where["platformService.code"] = where["platformService"].code;
+          delete where["platformService"];
+        }
+
         if (where["storeType"]?.code) {
           where["storeType.code"] = where["storeType"].code;
           delete where["storeType"];

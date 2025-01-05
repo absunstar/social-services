@@ -8,6 +8,8 @@
       <i-button type="add" x-permissions="ordersAdd || ordersManage" label="##word.New##" ng-click="showAdd()"></i-button>
       <i-button type="search" x-permissions="ordersSearch || ordersManage" label="##word.Active##" ng-click="searchAll(search={active:true})"></i-button>
       <i-button type="search" x-permissions="ordersSearch || ordersManage" label="##word.Not Active##" ng-click="searchAll(search={active:false})"></i-button>
+      <i-button type="search" x-permissions="ordersSearch || ordersManage" label="##word.Post##" ng-click="searchAll(search={isTargets:true})"></i-button>
+      <i-button type="search" x-permissions="ordersSearch || ordersManage" label="##word.Not Post##" ng-click="searchAll(search={isTargets:false})"></i-button>
       <i-button type="search" x-permissions="ordersSearch || ordersManage" label="##word.Advanced Search##" ng-click="$showAdvancedSearch = !$showAdvancedSearch"></i-button>
     </div>
     <fieldset ng-show="$showAdvancedSearch">
@@ -15,6 +17,8 @@
       <div class="row">
         <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
         <i-list class="col4" label="##word.Provider##" ng-model="search.provider" primary="code" display="name" items="providerList"></i-list>
+        <i-list class="col4" label="##word.Platform Service##" ng-model="search.platformService" primary="code" display="name" items="socialPlatform.serviceList"></i-list>
+   
       </div>
     </fieldset>
     <div class="row">

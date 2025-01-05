@@ -365,6 +365,11 @@ module.exports = function init(site) {
           delete where["provider"];
         }
 
+        if (where["platformService"]?.code) {
+          where["platformService.code"] = where["platformService"].code;
+          delete where["platformService"];
+        }
+
         if (where["user"]?.id) {
           where["user.id"] = where["user"].id;
           delete where["user"];

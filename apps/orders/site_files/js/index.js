@@ -87,13 +87,10 @@ app.controller("orders", function ($scope, $http, $timeout) {
     $scope.error = "";
     let item = { ..._item };
     $scope.busy = true;
-    item.taskList.forEach((_t) => {
-      delete _t.date;
-      _t.isDone = false;
-    });
     delete item.id;
     delete item._id;
     item.actionCount = 0;
+    item.isTargets = false;
     item.status = $scope.transactionStatusList[0];
     $http({
       method: "POST",
@@ -307,6 +304,7 @@ app.controller("orders", function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.done) {
           $scope.socialPlatformList = response.data.list;
+          $scope.socialPlatform = $scope.socialPlatformList.find((s) => s.code == '##query.type##')
         }
       },
       function (err) {

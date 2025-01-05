@@ -9,7 +9,7 @@ app.controller("tasks", function ($scope, $http, $timeout) {
   $scope.structure = {};
   $scope.item = {};
   $scope.list = [];
-  
+
   $scope.runInterval = false;
   $scope.showAdd = function (_item) {
     $scope.error = "";
@@ -419,7 +419,9 @@ app.controller("tasks", function ($scope, $http, $timeout) {
       $scope.createActionWindow({ ...$scope.list[index] });
       $scope.updateAction({ ...$scope.list[index] }, "sum");
       $timeout(() => {
-        $scope.runActions();
+        if ($scope.runInterval) {
+          $scope.runActions();
+        }
       }, 1000 * 15);
     } else {
       $scope.runInterval = false;

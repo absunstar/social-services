@@ -4,9 +4,11 @@
     <div x-import="tasks/modalSearch.html"></div>
 
     <div class="top-actions">
-      <i-button type="add" x-permissions="tasksAdd || tasksManage" label="##word.New##" ng-click="showAdd()"></i-button>
+      <!-- <i-button type="add" x-permissions="tasksAdd || tasksManage" label="##word.New##" ng-click="showAdd()"></i-button> -->
       <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Active##" ng-click="searchAll(search={active:true})"></i-button>
       <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Not Active##" ng-click="searchAll(search={active:false})"></i-button>
+      <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Done##" ng-click="searchAll(search={done:true})"></i-button>
+      <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Not Done##" ng-click="searchAll(search={done:false})"></i-button>
       <i-button type="search" x-permissions="tasksSearch || tasksManage" label="##word.Advanced Search##" ng-click="$showAdvancedSearch = !$showAdvancedSearch"></i-button>
       <i-button type="stop" ng-show="runInterval" class="right" ng-click="stopActions()" label="##word.Stop Actions##"> </i-button>
       <i-button type="play" ng-show="!runInterval" class="right" ng-click="runActions()" label="##word.Run Actions##"> </i-button>
@@ -17,6 +19,8 @@
       <div class="row">
         <i-list class="col4" label="##word.User##" ng-get="getUsers($search)" ng-model="search.user" items="usersList" display="firstName"> </i-list>
         <i-list class="col4" label="##word.Provider##" ng-model="search.provider" primary="code" display="name" items="providerList"></i-list>
+        <i-list class="col4" label="##word.Social Platform##" ng-model="search.socialPlatform" primary="code" display="name" items="socialPlatformList"></i-list>
+        <i-list class="col4" label="##word.Platform Service##" ng-model="search.platformService" primary="code" display="name" items="search.socialPlatform.serviceList"></i-list>
       </div>
     </fieldset>
     <div class="row">
@@ -36,7 +40,7 @@
         <tr ng-repeat="item in list">
           <td class="bold center">{{$index + 1}}</td>
           <td>
-            <h4 class="bold green text-left">{{item.platformService.name}}</h4>
+            <h4 class="bold green text-left">{{item.socialPlatform.name}} - {{item.platformService.name}}</h4>
             <span class="bold blue">{{item.url}}</span>
             <i-button type="copy" ng-click="copy(item.url)"></i-button>
           </td>
