@@ -52,7 +52,7 @@ module.exports = function init(site) {
 
   site.get(
     {
-      name: ["/", "/@*"],
+      name: ["/xxxx", "/@xxxx*"],
     },
     (req, res) => {
 

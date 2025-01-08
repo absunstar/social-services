@@ -1,0 +1,18 @@
+*{
+    --primary-color: rgba(20, 115, 230, 1);
+    --secondary-color: rgb(255, 255, 255);
+    --text-color: rgb(255, 255, 255);
+    --red-color: rgb(118,0,2);
+    --green-color: rgb(0,71,50);
+    --yellow-color: rgb(99,81,9);
+    /*icon color*/
+    --backgroud-icon-color: rgba(44, 44, 44, 1);
+    --icon-color: rgb(255, 255, 255);
+    --hover-icon-color: rgba(215, 55, 63, 1);
+
+    /* image color */
+    --placeholder-image-color:rgb(211, 211, 211);
+    
+    
+}
+

@@ -36,7 +36,7 @@ a {
   color: var(--color1);
 }
 a:hover {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 p {
   font-family: Arabic !important;
@@ -484,11 +484,6 @@ figure {
   border-radius: 10px;
 }
 
-
-
-
-
-
 .nft {
   display: inline-block;
   user-select: none;
@@ -516,7 +511,7 @@ figure {
     overflow: hidden;
     height: 32px;
     text-align: center;
-    font-family: "Font Awesome 5 Free";
+    font-family: 'Font Awesome 5 Free';
     color: white;
     font-size: 1.6rem;
   }
@@ -574,7 +569,7 @@ figure {
   }
   ::before {
     position: fixed;
-    content: "";
+    content: '';
     box-shadow: 0 0 100px 40px #ffffff08;
     top: -10%;
     left: -100%;
