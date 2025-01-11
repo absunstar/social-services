@@ -11,6 +11,10 @@ a {
   text-decoration: none;
 }
 
+main {
+  border-top: 10px solid var(--primary-color);
+}
+
 footer {
   background-color: #196cdf;
 }
@@ -27,12 +31,12 @@ ul li a:hover {
 
 .heroBannerBg {
   width: 2900px;
-  height: 93.1vh;
+  height: 80vh;
 }
 
 .heroBannerImg {
   width: 700px !important;
-  height: 700px !important;
+  height: 80vh !important;
 }
 
 .heroBannerText {
