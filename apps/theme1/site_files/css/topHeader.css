@@ -1,5 +1,3 @@
-
-
 /* start top header */
 
 .topHeader {
@@ -11,7 +9,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: solid 1px var(--primary-color) !important;
+  border-bottom: 4px solid var(--primary-color) !important;
   background-color: var(--secondary-color);
   color: var(--text-color);
 }
@@ -57,11 +55,11 @@
   font-weight: medium;
 }
 
-.newsText>ul>li>a {
+.newsText > ul > li > a {
   color: var(--text-color);
 }
 
-.newsText>ul>li>a>p {
+.newsText > ul > li > a > p {
   margin-bottom: 0px !important;
 }
 
@@ -71,7 +69,7 @@
   }
 
   .navbar-expand-lg .navbar-nav .dropdown-menu {
-    position: sticky ! important;
+    position: sticky !important;
   }
 
   .mega-menu-item ul {
