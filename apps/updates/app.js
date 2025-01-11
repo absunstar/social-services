@@ -19,41 +19,7 @@ module.exports = function init(site) {
     compress: true,
   });
 
-  site.onGET("/siteUpdate/:url", (req, res) => {
-    let exists = false;
-    let setting = site.getSiteSetting(req.host);
-    setting.description = setting.description || "";
-    setting.keyWordsList = setting.keyWordsList || [];
-    let data = {
-      setting: setting,
-      guid: "",
-      isMama: req.session.selectedMamaId ? true : false,
-      filter: site.getHostFilter(req.host),
-      site_logo: setting.logo?.url || "/images/logo.png",
-      site_footer_logo: setting.footerLogo?.url || "/images/logo.png",
-      page_image: setting.logo?.url || "/images/logo.png",
-      powerdByLogo: setting.powerdByLogo?.url || "/images/logo.png",
-      user_image: req.session?.user?.image?.url || "/images/logo.png",
-      site_name: setting.siteName,
-      page_lang: setting.id,
-      page_type: "website",
-      page_title: setting.siteName + " " + setting.titleSeparator + " " + setting.siteSlogan,
-      page_description: setting.description.substr(0, 200),
-      page_keywords: setting.keyWordsList.join(","),
-    };
-    if (req.hasFeature("host.com")) {
-      data.site_logo = "https://" + req.host + data.site_logo;
-      data.site_footer_logo = "//" + req.host + data.site_footer_logo;
-      data.page_image = "https://" + req.host + data.page_image;
-      data.user_image = "https://" + req.host + data.user_image;
-      data.powerdByLogo = "https://" + req.host + data.powerdByLogo;
-    }
-    let page = site.siteUpdateList.find((itm) => itm.url == req.params.url && itm.host == site.getHostFilter(req.host));
-
-    data.page = page;
-
-    res.render("updates/page.html", data);
-  });
+ 
 
   site.post("/api/updates/add", (req, res) => {
     let response = {

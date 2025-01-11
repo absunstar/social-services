@@ -130,6 +130,30 @@ app.controller('mainController', function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.changeLang = function (language) {
+    if (typeof language == "string") {
+      language = { id: language, dir: "rtl", text: "right" };
+      if (!language.id.like("*ar*")) {
+        language.dir = "ltr";
+        language.text = "left";
+      }
+    }
+    $http({
+      method: "POST",
+      url: "/x-language/change",
+      data: language,
+    }).then(function (response) {
+      if (response.data.done) {
+        window.location.reload(!0);
+      }
+    });
+  };
+
+  $scope.goToRegister = function (params) {
+    window.location.href = '/user-register';
+    
+  };
+
   $scope.getGenderList = function () {
     $scope.busy = true;
     $scope.genderList = [];
