@@ -1,7 +1,7 @@
 const site = require('../isite')({
   port: [60021],
-  lang: 'En',
-  language: { id: 'En', dir: 'ltr', text: 'right' },
+  lang: 'Ar',
+  language: { id: 'Ar', dir: 'rtl', text: 'right' },
   version: new Date().getTime(),
   name: 'Mama-Services',
   savingTime: 1,
