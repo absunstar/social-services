@@ -22,14 +22,16 @@ dropdowns.addEventListener('click', (e) => {
 
 const profileMenu = document.querySelector('.profileContainer .dropdown-item');
 
-profileMenu.addEventListener('click', (e) => {
-  e.currentTarget.parentElement.classList.toggle('show');
-  document.querySelectorAll('.show').forEach((el) => {
-    if (el !== e.currentTarget.parentElement) {
-      el.classList.remove('show');
-    }
+if (profileMenu) {
+  profileMenu.addEventListener('click', (e) => {
+    e.currentTarget.parentElement.classList.toggle('show');
+    document.querySelectorAll('.show').forEach((el) => {
+      if (el !== e.currentTarget.parentElement) {
+        el.classList.remove('show');
+      }
+    });
   });
-});
+}
 
 const langMenu = document.querySelector('.langMenu .nav-link');
 

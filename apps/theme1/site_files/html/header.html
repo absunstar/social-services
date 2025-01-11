@@ -17,7 +17,7 @@
 </div>
 <nav class="navbar navbar-expand-lg shadow-sm py-4">
   <div class="container-fluid">
-    <a href="#">
+    <a href="/">
       <img src="##data.site_logo##" alt="Mama AI Services Logo" width="100" height="50" />
     </a>
     <div class="d-none d-lg-flex ms-3 ms-md-auto" id="navbarSupportedContent">
@@ -36,7 +36,7 @@
                 <li><a href="#">تصور المنتجات</a></li>
                 <li><a href="#">ترجمة الفيديو</a></li>
                 <li><a href="#">إعادة إنشاء الصوت</a></li>
-                <li><a href="https://facecheck.id/" target="_blank">التعرف على الوجوه</a></li>
+                <li><a ng-click="showTool('https://facecheck.id')">التعرف على الوجوه</a></li>
                 <li><a href="#">تجربة الملابس الأفتراضية</a></li>
               </ul>
             </li>
@@ -100,8 +100,8 @@
         </li>
         <li class="nav-item" x-permission="!login">
           <div class="d-flex d-md-none justify-content-end">
-            <a class="dropdown-item register-btn-main" href="/register1">تسجيل</a>
-            <a class="dropdown-item login-btn-main" href="/login1">دخول</a>
+            <a class="dropdown-item register-btn-main" href="/user-register">##word.Register##</a>
+            <a class="dropdown-item login-btn-main" href="/user-login">##word.Login##</a>
           </div>
         </li>
       </ul>
@@ -145,8 +145,8 @@
     </div>
     <div class="d-none d-lg-flex align-items-center gap-4" x-permission="!login">
       <div class="d-flex justify-content-end">
-        <a class="dropdown-item ps-2 register-btn-main" href="/register1">تسجيل</a>
-        <a class="dropdown-item ps-2 login-btn-main" href="/login1">دخول</a>
+        <a class="dropdown-item register-btn-main" href="/user-register">##word.Register##</a>
+        <a class="dropdown-item login-btn-main" href="/user-login">##word.Login##</a>
       </div>
     </div>
     <div class="d-flex gap-4 align-items-center">
@@ -164,19 +164,19 @@
           </a>
           <ul class="dropdown-menu d-flex flex-column flex-wrap justify-content-between">
             <li class="mega-menu-item" ng-click="changeLang('En')">
-              <a > <img src="/theme1/images/usa-flag.png"  width="24px" alt="USA Flag" /> En </a>
+              <a> <img src="/theme1/images/usa-flag.png" width="24px" alt="USA Flag" /> En </a>
             </li>
             <li class="mega-menu-item" ng-click="changeLang('Ar')">
-              <a> <img src="/theme1/images/arabic-flag.png"  width="24px" alt="arab Flag" /> Ar </a>
+              <a> <img src="/theme1/images/arabic-flag.png" width="24px" alt="arab Flag" /> Ar </a>
             </li>
-            <li class="mega-menu-item"  ng-click="changeLang('Fa')">
+            <li class="mega-menu-item" ng-click="changeLang('Fa')">
               <a> <img src="/theme1/images/persian-flag.png" width="24px" alt="persian Flag" /> Fa </a>
             </li>
             <li class="mega-menu-item" ng-click="changeLang('Ru')">
-              <a> <img src="/theme1/images/russian-flag.png"  width="24px" alt="russian Flag" /> Ru </a>
+              <a> <img src="/theme1/images/russian-flag.png" width="24px" alt="russian Flag" /> Ru </a>
             </li>
             <li class="mega-menu-item" ng-click="changeLang('Zh')">
-              <a> <img src="/theme1/images/chinese-flag.png"  width="24px" alt="chinese Flag" /> Zh </a>
+              <a> <img src="/theme1/images/chinese-flag.png" width="24px" alt="chinese Flag" /> Zh </a>
             </li>
           </ul>
         </li>
@@ -248,9 +248,8 @@
                 <li><a href="#">تصور المنتجات</a></li>
                 <li><a href="#">ترجمة الفيديو</a></li>
                 <li><a href="#">إعادة إنشاء الصوت</a></li>
-                <li><a href="https://facecheck.id/" target="_blank">التعرف على الوجوه</a></li>
+                <li><a ng-click="showTool('https://facecheck.id')">التعرف على الوجوه</a></li>
                 <li><a href="#">تجربة الملابس الأفتراضية</a></li>
-
               </ul>
             </li>
             <li class="burgerServices-menu-item">
@@ -313,8 +312,8 @@
         </li>
         <li class="nav-item" x-permission="!login">
           <div class="d-flex d-md-none justify-content-end">
-            <a class="dropdown-item register-btn-main" href="/register1">تسجيل</a>
-            <a class="dropdown-item login-btn-main" href="/login1">دخول</a>
+            <a class="dropdown-item register-btn-main" href="/user-register">##word.Register##</a>
+            <a class="dropdown-item login-btn-main" href="/user-login">##word.Login##</a>
           </div>
         </li>
       </ul>

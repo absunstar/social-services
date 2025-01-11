@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="##session.language.id##" dir="##session.language.dir##" class="##session.language.dir##" ng-app="myApp">
   <head x-import="theme1/head.html"></head>
 
-  <body>
+  <body ng-controller="mainController">
     <header x-import="theme1/header.html"></header>
     <main x-import="theme1/home.html"></main>
     <footer class="py-4" x-import="theme1/footer.html"></footer>
 
-    <script src="/js/theme1.js?version=##site.options.version##"></script>
+    <div x-import="theme1/scripts.html"></div>
   </body>
 </html>

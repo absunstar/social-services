@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar"  ng-app="myApp">
+<html lang="##session.language.id##" dir="##session.language.dir##" class="##session.language.dir##" ng-app="myApp">
   <head x-import="theme1/head.html">
     <style>
       .alert-msg {
@@ -89,72 +89,57 @@
     </style>
   </head>
 
-  <body ng-controller="register">
+  <body ng-controller="mainController">
     <header x-import="theme1/header.html"></header>
     <main>
       <div class="row">
-        <h1 class="bold text-center color2">##word.Register##</h1>
-      </div>
-  
-      <div class="form" id="register">
-        <div class="tabs">
-          <div class="row" id="emailData">
-            <div class="register-content">
+        <div class="col3"></div>
+        <div class="col6">
+          <div class="row">
+            <fieldset>
+              <legend>##word.Login Information##</legend>
               <div class="row">
-                <div class="col6">
+                <i-control v="r" label="##word.Login E-mail Or Mobile##" ng-model="user.email"> </i-control>
+                <i-control v="r" class="password" label="##word.Password##" type="password" ng-model="user.password"> </i-control>
+                <i-control v="r" class="password" label="##word.Retype Password##" type="password" ng-model="user.rePassword"> </i-control>
+                <i-checkbox class="right" label="##word.Show Password##" ng-change="showPassword()" ng-model="show_password"> </i-checkbox>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>##word.Personal Data##</legend>
+              <div class="row">
+                <div class="col3"><i-image v="r" class="img128" ng-model="user.image"></i-image></div>
+                <div class="col9">
                   <i-control v="r" class="input-style" label="##word.Full name##" ng-model="user.firstName"> </i-control>
                   <i-control v="r" class="input-style" label="##word.Mobile Number##" type="tel" ng-model="user.mobile"> </i-control>
-               
                   <i-list label="##word.Gender##" v="r" ng-model="user.gender" display="name" items="genderList"></i-list>
-                  <i-list v="r" class="input-style" label="##word.Country##" ng-model="user.country" ng-change="getGovesList(user.country)" items="countriesList" display="name"></i-list>
-                  <i-list v="r" label="##word.Governorate##" ng-change="getCitiesList(user.gov)" ng-model="user.gov" display="name" items="govesList"></i-list>
-                  <i-list x-data="setting.citiesAndAreasShow" label="##word.City##" ng-model="user.city" ng-change="getAreasList(user.city)" items="citiesList" display="name"> </i-list>
-                  <i-list x-data="setting.citiesAndAreasShow" label="##word.Area##" ng-model="user.area" items="areasList" display="name"> </i-list>
-                  <i-control v="r" class="input-style" label="##word.Address##" ng-model="user.address"> </i-control>
-               
-                </div>
-                <div class="col1"></div>
-                <div class="col5">
-                  <div class="row">
-                    <p class="right-content label-color"><span class="red bold"> * </span> ##word.Profile Image##</p>
-                    <i-image v="r" class="img256" ng-model="user.image"></i-image>
-                  </div>
-                  <br />
-                  <i-control v="r" class="input-style" label="##word.Login E-mail Or Mobile##" ng-model="user.email"> </i-control>
-                  <i-control v="r" class="pass input-style" label="##word.Password##" type="password" ng-model="user.password"> </i-control>
-                  <i-control v="r" class="pass input-style" label="##word.Retype Password##" type="password" ng-model="user.rePassword"> </i-control>
-                  <i-checkbox class="right" label="##word.Show Password##" ng-change="showPassword()" ng-model="show_password"> </i-checkbox>
                 </div>
               </div>
-  
-              <p class="font-18">
-                <a href="/login" class="hover-a mainColor"> ##word.Existing User## ##word.Login Now##</a>
-              </p>
-              <p class="alert-msg">##data.setting.registerAlert##</p>
-              <button ng-click="register(user)" class="register-btn">##word.Create your Account## <i class="fa fa-user-plus"></i></button>
-            </div>
+            </fieldset>
           </div>
-  
-          <h2 class="bold center red">{{error}}</h2>
-  
-          <div id="main-layout" class="container">
-            <div class="row" id="registersouqModal"></div>
+
+          <div class="row center">
+            <i-button type="new" ng-click="register(user)" label="##word.Create your Account## "></i-button>
           </div>
-          <div id="alert" class="modal alert small" fixed>
-            <div class="modal-content">
-              <div class="modal-body">
-                <h1 class="blue center">##word.The account is not activated, please contact support##</h1>
-              </div>
-            </div>
+          <div class="row">
+            <i-button type="login" ng-click="gotoLogin()" label="##word.Existing User## ##word.Login Now##"></i-button>
           </div>
-          <div x-replace="mama-theme/footer.html"></div>
-          <div x-import="mama-theme/scripts.html"></div>
-          <script x-import="register/index.js"></script>
+        </div>
+        <div class="col3"></div>
+      </div>
+
+      <h2 class="bold center red">{{error}}</h2>
+
+      <div id="alert" class="modal alert small" fixed>
+        <div class="modal-content">
+          <div class="modal-body">
+            <h1 class="blue center">##word.The account is not activated, please contact support##</h1>
+          </div>
         </div>
       </div>
+      
     </main>
     <footer class="py-4" x-import="theme1/footer.html"></footer>
     <div x-import="theme1/scripts.html"></div>
-    <script x-import="theme1/register.js"></script>
   </body>
 </html>

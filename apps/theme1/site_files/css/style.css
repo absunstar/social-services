@@ -19,6 +19,12 @@ ul li a:hover {
   text-decoration: underline;
 }
 
+#socialRequired a {
+  font-size: 30px;
+  text-align: center !important;
+  text-decoration: underline;
+}
+
 .heroBannerBg {
   width: 2900px;
   height: 93.1vh;
@@ -75,15 +81,14 @@ ul li a:hover {
 .login-btn-main {
   background: #1473e6;
   color: white;
-  padding: 5px;
-  border-radius: 20px;
+  padding: 5px 9px;
+  border-radius: 10px;
   border: 1px solid #0000003b;
-
 }
 
 .register-btn-main {
   border: 1px solid #0000003b;
   margin-left: 5px;
-  padding: 5px;
-  border-radius: 20px;
+  padding: 5px 9px;
+  border-radius: 10px;
 }
