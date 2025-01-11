@@ -99,9 +99,9 @@
             <fieldset>
               <legend>##word.Login Information##</legend>
               <div class="row">
-                <i-control v="r" label="##word.Login E-mail Or Mobile##" ng-model="user.email"> </i-control>
+                <i-control v="r" label="##word.Email##" ng-model="user.email"> </i-control>
                 <i-control v="r" class="password" label="##word.Password##" type="password" ng-model="user.password"> </i-control>
-                <i-control v="r" class="password" label="##word.Retype Password##" type="password" ng-model="user.rePassword"> </i-control>
+                <i-control v="r" class="password" label="##word.Re-Password##" type="password" ng-model="user.rePassword"> </i-control>
                 <i-checkbox class="right" label="##word.Show Password##" ng-change="showPassword()" ng-model="show_password"> </i-checkbox>
               </div>
             </fieldset>
@@ -110,9 +110,8 @@
               <div class="row">
                 <div class="col3"><i-image v="r" class="img128" ng-model="user.image"></i-image></div>
                 <div class="col9">
-                  <i-control v="r" class="input-style" label="##word.Full name##" ng-model="user.firstName"> </i-control>
-                  <i-control v="r" class="input-style" label="##word.Mobile Number##" type="tel" ng-model="user.mobile"> </i-control>
-                  <i-list label="##word.Gender##" v="r" ng-model="user.gender" display="name" items="genderList"></i-list>
+                  <i-control v="r" label="##word.Full name##" ng-model="user.firstName"> </i-control>
+                  <i-control v="r" label="##word.Mobile Number##" type="tel" ng-model="user.mobile"> </i-control>
                 </div>
               </div>
             </fieldset>
@@ -137,7 +136,6 @@
           </div>
         </div>
       </div>
-      
     </main>
     <footer class="py-4" x-import="theme1/footer.html"></footer>
     <div x-import="theme1/scripts.html"></div>
