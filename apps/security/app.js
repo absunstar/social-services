@@ -163,7 +163,7 @@ module.exports = function init(site) {
     user.$req = req;
     user.$res = res;
     user.host = site.getHostFilter(req.host);
-
+    user.balance = 0;
     site.security.addUser(user, (err, _id) => {
       if (!err) {
         response.done = true;

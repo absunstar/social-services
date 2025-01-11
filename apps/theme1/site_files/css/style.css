@@ -15,7 +15,7 @@ footer {
   background-color: #196cdf;
 }
 
-ul li a:hover{
+ul li a:hover {
   text-decoration: underline;
 }
 
@@ -70,4 +70,20 @@ ul li a:hover{
   .heroBannerBg {
     height: 110vh;
   }
+}
+
+.login-btn-main {
+  background: #1473e6;
+  color: white;
+  padding: 5px;
+  border-radius: 20px;
+  border: 1px solid #0000003b;
+
+}
+
+.register-btn-main {
+  border: 1px solid #0000003b;
+  margin-left: 5px;
+  padding: 5px;
+  border-radius: 20px;
 }

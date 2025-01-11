@@ -316,6 +316,7 @@ module.exports = function init(site) {
       address: req.body.user.address,
       type: 'client',
       ip: req.ip,
+      balance : 0,
       roles: [{ name: 'client' }],
       permissions: [{ name: 'client' }],
       createdDate: site.getDate(),

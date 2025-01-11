@@ -1,0 +1,7 @@
+[{
+    "module_name" : "public" ,
+    "name": "updateImplementAdmin",
+    "en": "Updates Implement Admin",
+    "ar": "إدارة تنفيذ التحديثات",
+    "permissions": ["updateImplementManage"]
+}]
