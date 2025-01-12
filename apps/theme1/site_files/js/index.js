@@ -175,7 +175,7 @@ app.controller('mainController', function ($scope, $http, $timeout) {
 
   $scope.showPassword = function () {
     $timeout(() => {
-      document.querySelectorAll('.password').forEach((ele) => {
+      document.querySelectorAll('.password input').forEach((ele) => {
         ele.setAttribute('type', $scope.show_password ? 'text' : 'password');
       });
     }, 100);
