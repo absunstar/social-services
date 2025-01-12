@@ -1,6 +1,5 @@
 app.controller('mainController', function ($scope, $http, $timeout) {
   $scope.user = {};
-  $scope.show_password = false;
   $scope.setting = site.showObject(`##data.#setting##`);
   $scope.codeInject = site.from123('/*###theme1/code-inject.js*/');
   $scope.showTool = function (url) {
@@ -131,16 +130,16 @@ app.controller('mainController', function ($scope, $http, $timeout) {
   };
 
   $scope.changeLang = function (language) {
-    if (typeof language == "string") {
-      language = { id: language, dir: "rtl", text: "right" };
-      if (!language.id.like("*ar*")) {
-        language.dir = "ltr";
-        language.text = "left";
+    if (typeof language == 'string') {
+      language = { id: language, dir: 'rtl', text: 'right' };
+      if (!language.id.like('*ar*')) {
+        language.dir = 'ltr';
+        language.text = 'left';
       }
     }
     $http({
-      method: "POST",
-      url: "/x-language/change",
+      method: 'POST',
+      url: '/x-language/change',
       data: language,
     }).then(function (response) {
       if (response.data.done) {
@@ -151,7 +150,6 @@ app.controller('mainController', function ($scope, $http, $timeout) {
 
   $scope.goToRegister = function (params) {
     window.location.href = '/user-register';
-    
   };
 
   $scope.getGenderList = function () {
@@ -177,8 +175,8 @@ app.controller('mainController', function ($scope, $http, $timeout) {
 
   $scope.showPassword = function () {
     $timeout(() => {
-      document.querySelectorAll('.password').forEach((p) => {
-        p.setAttribute('type', $scope.show_password ? 'text' : 'password');
+      document.querySelectorAll('.password').forEach((ele) => {
+        ele.setAttribute('type', $scope.show_password ? 'text' : 'password');
       });
     }, 100);
   };
