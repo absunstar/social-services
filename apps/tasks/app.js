@@ -1,6 +1,6 @@
 module.exports = function init(site) {
   let app = {
-    name: "tasks",
+    name: 'tasks',
     allowMemory: false,
     memoryList: [],
     allowCache: false,
@@ -141,15 +141,16 @@ module.exports = function init(site) {
       site.get(
         {
           name: app.name,
+          require: { features: ['browser.social'] },
         },
         (req, res) => {
-          res.render(app.name + "/index.html", { title: app.name, appName: req.word("Tasks"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });
+          res.render(app.name + '/index.html', { title: app.name, appName: req.word('Tasks'), setting: site.getSiteSetting(req.host) }, { parser: 'html css js', compres: true });
         }
       );
     }
 
     if (app.allowRouteAdd) {
-      site.post({ name: `/api/${app.name}/add`, require: { permissions: ["login"] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/add`, require: { permissions: ['login'] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -181,7 +182,7 @@ module.exports = function init(site) {
     }
 
     if (app.allowRouteUpdate) {
-      site.post({ name: `/api/${app.name}/update`, require: { permissions: ["login"] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/update`, require: { permissions: ['login'] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -209,7 +210,7 @@ module.exports = function init(site) {
         });
       });
 
-      site.post({ name: `/api/${app.name}/updateAction`, require: { permissions: ["login"] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/updateAction`, require: { permissions: ['login'] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -220,7 +221,7 @@ module.exports = function init(site) {
             where: {
               id: _data.id,
             },
-            set: {id : _data.id, isDone: true, actionDate: site.getDate(),editUserInfo :  req.getUserFinger()},
+            set: { id: _data.id, isDone: true, actionDate: site.getDate(), editUserInfo: req.getUserFinger() },
           },
           (err, result) => {
             if (!err) {
@@ -237,7 +238,7 @@ module.exports = function init(site) {
     }
 
     if (app.allowRouteDelete) {
-      site.post({ name: `/api/${app.name}/delete`, require: { permissions: ["login"] } }, (req, res) => {
+      site.post({ name: `/api/${app.name}/delete`, require: { permissions: ['login'] } }, (req, res) => {
         let response = {
           done: false,
         };
@@ -248,7 +249,7 @@ module.exports = function init(site) {
             response.done = true;
             response.result = result;
           } else {
-            response.error = err?.message || "Deleted Not Exists";
+            response.error = err?.message || 'Deleted Not Exists';
           }
           res.json(response);
         });
@@ -267,7 +268,7 @@ module.exports = function init(site) {
             response.done = true;
             response.doc = doc;
           } else {
-            response.error = err?.message || req.word("Not Exists");
+            response.error = err?.message || req.word('Not Exists');
           }
           res.json(response);
         });
@@ -277,7 +278,7 @@ module.exports = function init(site) {
     if (app.allowRouteAll) {
       site.post({ name: `/api/${app.name}/all`, public: true }, (req, res) => {
         let where = req.body.where || {};
-        let search = req.body.search || "";
+        let search = req.body.search || '';
         let limit = req.body.limit || 100;
         let select = req.body.select || {};
 
@@ -285,33 +286,33 @@ module.exports = function init(site) {
           where.$or = [];
 
           where.$or.push({
-            id: site.get_RegExp(search, "i"),
+            id: site.get_RegExp(search, 'i'),
           });
 
           where.$or.push({
-            name: site.get_RegExp(search, "i"),
+            name: site.get_RegExp(search, 'i'),
           });
         }
-        if (where["provider"]?.code) {
-          where["provider.code"] = where["provider"].code;
-          delete where["provider"];
+        if (where['provider']?.code) {
+          where['provider.code'] = where['provider'].code;
+          delete where['provider'];
         }
 
-        if (where["socialPlatform"]?.code) {
-          where["socialPlatform.code"] = where["socialPlatform"].code;
-          delete where["socialPlatform"];
+        if (where['socialPlatform']?.code) {
+          where['socialPlatform.code'] = where['socialPlatform'].code;
+          delete where['socialPlatform'];
         }
 
-        if (where["platformService"]?.code) {
-          where["platformService.code"] = where["platformService"].code;
-          delete where["platformService"];
+        if (where['platformService']?.code) {
+          where['platformService.code'] = where['platformService'].code;
+          delete where['platformService'];
         }
 
-        if (where["user"]?.id) {
-          where["user.id"] = where["user"].id;
-          delete where["user"];
+        if (where['user']?.id) {
+          where['user.id'] = where['user'].id;
+          delete where['user'];
         }
-        where["host"] = site.getHostFilter(req.host);
+        where['host'] = site.getHostFilter(req.host);
 
         app.all({ where, select, limit, sort: { id: -1 } }, (err, docs) => {
           res.json({

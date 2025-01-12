@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="##session.language.id##" dir="##session.language.dir##" class="##session.language.dir##" ng-app="myApp">
-  <head x-import="mama-theme/head-dashboard.html"></head>
+  <head x-import="mama-theme/head-dashboard.html">
     <style>
       i-image.photo img {
         width: 128px;
@@ -28,17 +28,9 @@
   </head>
 
   <body class="##session.lang## loaded">
-    <nav
-    x-import="mama-theme/sitebar.html"
-    class="sitebar"
-    data-ng-controller="sitebar"
-  ></nav>
+    <nav x-import="mama-theme/sitebar.html" class="sitebar" data-ng-controller="sitebar"></nav>
 
-  <nav
-    class="sitebottom"
-    x-import="mama-theme/sitebottom.html"
-    ng-controller="sitebottom"
-  ></nav>
+    <nav class="sitebottom" x-import="mama-theme/sitebottom.html" ng-controller="sitebottom"></nav>
 
     <div id="main-layout" class="container">
       <div class="row">
@@ -47,7 +39,7 @@
           <div x-import="security/view_modal.html"></div>
           <div x-permissions="securityManage " class="top-actions">
             <i-button type="btn add bg-white black" ng-click="newuser()" label="##word.New User##"></i-button>
-           <!--  <i-button type="bg-white black" label="##word.Roles##" ng-click="gotoRoles()"></i-button> -->
+            <!--  <i-button type="bg-white black" label="##word.Roles##" ng-click="gotoRoles()"></i-button> -->
 
             <span ng-show="busy">
               <i class="fa fa-spinner white fa-pulse fa-3x fa-fw"></i>

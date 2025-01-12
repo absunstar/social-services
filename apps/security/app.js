@@ -105,26 +105,10 @@ module.exports = function init(site) {
 
       delete where["search"];
     }
-    // where["id"] = { $ne: 1 };
-
-    // where.$and = [
-    //   {
-    //    type :  {$ne: "student"},
-    //   },
-    //   {
-    //     type :  {$ne: "mama"},
-    //   },
-    //   {
-    //     type :  {$ne: "parent"},
-    //   },
-    // ];
-    // if ((mamaId = site.getMamaSetting(req))) {
-    //   where["mamaId"] = mamaId;
-    // } else {
-    //   where["host"] = site.getHostFilter(req.host);
-    // }
+  
+   
     where["type"] = "admin";
-    where["host"] = site.getHostFilter(req.host);
+   // where["host"] = site.getHostFilter(req.host);
 
     site.security.getUsers(
       {

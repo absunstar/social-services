@@ -24,11 +24,28 @@ ul li a:hover {
 }
 
 #socialRequired a {
+  width: 80%;
   font-size: 30px;
   text-align: center !important;
-  text-decoration: underline;
+  background: #198754;
+  color: #ffffff;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+  filter: drop-shadow(2px 4px 6px black);
 }
-
+#socialRequired a:hover {
+  transform: scale(1.1);
+}
+#socialRequired a img {
+  width: 48px;
+  margin: 5px;
+  border-radius: 10px;
+}
+#socialRequired p {
+  margin: 20px 20px 40px 20px;
+  font-size: 20px;
+  color: #0d6efd;
+}
 .heroBannerBg {
   width: 2900px;
   height: 80vh;
@@ -53,7 +70,7 @@ ul li a:hover {
   .heroBannerText {
     width: 70% !important;
     position: absolute;
-    top: 50%;
+    top: 40%;
   }
   .heroBannerText p {
     width: 80% !important;

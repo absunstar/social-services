@@ -142,6 +142,7 @@ module.exports = function init(site) {
       site.get(
         {
           name: app.name,
+          require: { features: ['browser.social'] },
         },
         (req, res) => {
           res.render(app.name + "/index.html", { title: app.name, appName: req.word("Transactions"), setting: site.getSiteSetting(req.host) }, { parser: "html", compres: true });

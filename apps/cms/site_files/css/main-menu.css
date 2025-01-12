@@ -3,7 +3,7 @@
   position: fixed;
   display: block;
   z-index: 999999999;
-  width: 270px;
+  width: var(--menu-width);
   right: 0px;
   top: 45px;
   bottom: 24px;
