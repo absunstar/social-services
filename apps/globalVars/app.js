@@ -9,6 +9,16 @@ module.exports = function init(site) {
       name: "Wallet Cash",
     },
   ];
+  site.runTypeList = [
+    {
+      code: "immediate",
+      name: "Immediate",
+    },
+    {
+      code: "specificDate",
+      name: "Specific Date",
+    },
+  ];
   site.providerList = [
     {
       code: "site",
@@ -230,6 +240,13 @@ module.exports = function init(site) {
     res.json({
       done: true,
       list: site.providerList,
+    });
+  });
+
+  site.post("/api/runTypeList", (req, res) => {
+    res.json({
+      done: true,
+      list: site.runTypeList,
     });
   });
 

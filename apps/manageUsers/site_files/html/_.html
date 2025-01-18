@@ -3,23 +3,14 @@
     <div x-import="manageUsers/modal.html"></div>
 
     <div class="top-actions">
-   
-      <i-button
-        type="add"
-        x-permissions="manageUsersAdd || manageUsersManage"
-        label="##word.Add New User##"
-        ng-click="showAdd()"
-      ></i-button>
+      <i-button type="add" x-permissions="manageUsersAdd || manageUsersManage" label="##word.Add New Client##" ng-click="showAdd('client')"></i-button>
+      <i-button type="add" x-permissions="manageUsersAdd || manageUsersManage" label="##word.Add New Admin##" ng-click="showAdd('admin')"></i-button>
+      <i-button type="search" x-permissions="manageUsersSearch || manageUsersManage" label="##word.Admin##" ng-click="getAll(search={type:'admin'})"></i-button>
+      <i-button type="search" x-permissions="manageUsersSearch || manageUsersManage" label="##word.Client##" ng-click="getAll(search={type:'client'})"></i-button>
       <i-button type="search" x-permissions="manageUsersSearch || manageUsersManage" label="##word.Active##" ng-click="getAll(search={active:true})"></i-button>
-      <i-button
-        type="search"
-        x-permissions="manageUsersSearch || manageUsersManage"
-        label="##word.Not Active##"
-        ng-click="getAll(search={active:false})"
-      ></i-button>
-     
+      <i-button type="search" x-permissions="manageUsersSearch || manageUsersManage" label="##word.Not Active##" ng-click="getAll(search={active:false})"></i-button>
     </div>
-   
+
     <div class="row">
       <i-control ng-model="$search" label="##word.Search All##" ng-keydown="searchGetAll($event,$search)" class="col8"></i-control>
       <i-button type="search" class="col2" label="##word.Search##" ng-click="getAll(search,$search)"></i-button>
@@ -62,12 +53,6 @@
       </table>
     </div>
     <i-button x-permissions="manageUsersPrint || manageUsersManage" type="print" label="##word.Print##" onclick="site.print('#t1')"></i-button>
-    <i-button
-      x-permissions="manageUsersExport || manageUsersManage"
-      type="export"
-      label="##word.Export to excel##"
-      onclick="export_to_xlsx('t1' , 'report_value_added.xlsx')"
-    >
-    </i-button>
+    <i-button x-permissions="manageUsersExport || manageUsersManage" type="export" label="##word.Export to excel##" onclick="export_to_xlsx('t1' , 'report_value_added.xlsx')"> </i-button>
   </div>
 </div>

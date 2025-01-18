@@ -1,6 +1,7 @@
 <div class="row">
   <div class="row">
     <fieldset>
+    
       <div class="row">
         <i-list v="r" class="col6" label="##word.Social Platform##" ng-model="item.socialPlatform" primary="code" display="name" items="socialPlatformList"></i-list>
         <i-list v="r" class="col6" label="##word.Platform Service##" ng-model="item.platformService" primary="code" display="name" items="item.socialPlatform.serviceList"></i-list>
@@ -15,6 +16,14 @@
         <div class="col2">
           <i-button label="##word.Test Url##" ng-click="openURL(item)"></i-button>
         </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="row">
+        <i-list v="r" class="col4" ng-change="selectRunType()" label="##word.Run Type##" ng-model="item.runType" primary="code" display="name" items="runTypeList"></i-list>
+        <i-date ng-show="item.runType.code == 'specificDate'" class="col4" ng-model="item.startDate" label="##word.Start Date##"></i-date>
+        <i-control ng-show="item.runType.code == 'specificDate'" class="input-style col4" label="##word.Start Time##" type="time" ng-model="item.startTime"> </i-control>
+
       </div>
     </fieldset>
     <fieldset>

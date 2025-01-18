@@ -335,6 +335,27 @@ app.controller("orders", function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.getRunTypeList = function () {
+    $scope.busy = true;
+    $scope.runTypeList = [];
+    $http({
+      method: "POST",
+      url: "/api/runTypeList",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.runTypeList = response.data.list;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.getTransactionStatusList = function () {
     $scope.busy = true;
     $scope.transactionStatusList = [];
@@ -642,6 +663,13 @@ app.controller("orders", function ($scope, $http, $timeout) {
     $scope.$applyAsync();
   };
 
+  $scope.selectRunType = function () {
+    $scope.error = "";
+    $scope.item.startDate = site.getDate();
+    $scope.item.startTime = new Date();
+  };
+
+
   $scope.showSearch = function () {
     $scope.error = "";
     site.showModal($scope.modalSearchID);
@@ -658,4 +686,5 @@ app.controller("orders", function ($scope, $http, $timeout) {
   $scope.getProviderList();
   $scope.getselectedAccountsTypeList();
   $scope.getTransactionStatusList();
+  $scope.getRunTypeList();
 });

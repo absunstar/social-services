@@ -107,7 +107,7 @@ module.exports = function init(site) {
     }
   
    
-    where["type"] = "admin";
+    // where["type"] = "admin";
    // where["host"] = site.getHostFilter(req.host);
 
     site.security.getUsers(
@@ -119,10 +119,10 @@ module.exports = function init(site) {
         if (!err) {
           response.done = true;
 
-          for (let i = 0; i < docs.length; i++) {
-            let u = docs[i];
-            u.image = u.image || "/images/user.png";
-          }
+          // for (let i = 0; i < docs.length; i++) {
+          //   let u = docs[i];
+          //   u.image = u.image || "/images/user.png";
+          // }
 
           response.users = docs;
           response.count = count;

@@ -11,16 +11,14 @@ app.controller("manageUsers", function ($scope, $http, $timeout) {
     active: true,
   };
 
-  $scope.employee = {};
   $scope.item = {};
   $scope.list = [];
 
-  $scope.showAdd = function () {
+  $scope.showAdd = function (type) {
     $scope.error = "";
     $scope.mode = "add";
-    $scope.item = { ...$scope.structure };
+    $scope.item = { ...$scope.structure, type: type };
     site.showModal($scope.modalID);
-
     document.querySelector(`${$scope.modalID} .tab-link`).click();
   };
 
@@ -30,6 +28,11 @@ app.controller("manageUsers", function ($scope, $http, $timeout) {
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
+    }
+
+    _item.permissions.push({ name: "client" });
+    if (_item.type == "admin") {
+      _item.permissions.push({ name: "admin" });
     }
 
     $scope.busy = true;
@@ -118,7 +121,6 @@ app.controller("manageUsers", function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.done) {
           $scope.item = response.data.doc;
-       
         } else {
           $scope.error = response.data.error;
         }
@@ -172,7 +174,6 @@ app.controller("manageUsers", function ($scope, $http, $timeout) {
     $scope.getAll({}, search);
   };
 
-  
   $scope.getAll = function (where, search) {
     $scope.error = "";
     if ($scope.busyAll) {
@@ -225,7 +226,6 @@ app.controller("manageUsers", function ($scope, $http, $timeout) {
     });
   };
 
- 
   $scope.getCountriesList = function ($search) {
     $scope.error = "";
     if ($search && $search.length < 1) {
@@ -355,7 +355,6 @@ app.controller("manageUsers", function ($scope, $http, $timeout) {
     );
   };
 
-
   $scope.getGenderList = function () {
     $scope.error = "";
     $scope.busy = true;
@@ -378,7 +377,66 @@ app.controller("manageUsers", function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.loadRoles = function () {
+    $http({
+      method: "POST",
+      url: "/api/security/roles",
+      data: {},
+    }).then(
+      function (response) {
+        if (response.data.done) {
+          $scope.roles = response.data.roles;
+          $scope.publicRoles = $scope.roles.filter((s) => s.moduleName == "public");
+          $scope.reportRoles = $scope.roles.filter((s) => s.moduleName == "report");
+        }
+      },
+      function (err) {
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.loadPermissions = function () {
+    $http({
+      method: "POST",
+      url: "/api/security/permissions",
+      data: {},
+    }).then(
+      function (response) {
+        $scope.screens = [];
+        if (response.data.done) {
+          response.data.permissions.forEach((p) => {
+            let exist = false;
+
+            $scope.screens.forEach((s) => {
+              if (s.name == p.screenName) {
+                exist = true;
+                s.permissions.push(p);
+              }
+            });
+
+            if (!exist && p.screenName) {
+              $scope.screens.push({
+                name: p.screenName,
+                moduleName: p.moduleName,
+                permissions: [p],
+              });
+            }
+          });
+
+          $scope.publicScreens = $scope.screens.filter((s) => s.moduleName == "public");
+          $scope.permissions = response.data.permissions;
+        }
+      },
+      function (err) {
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.getAll();
   $scope.getCountriesList();
   $scope.getGenderList();
+  $scope.loadPermissions();
+  $scope.loadRoles();
 });

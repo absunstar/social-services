@@ -1,181 +1,91 @@
 <div class="row">
-  <fieldset>
-    <legend>##word.Personal Informations##</legend>
-    <div class="row padding">
-      <div class="col9">
-        <div class="row">
-          <div class="col4">
-            <i-checkbox ng-model="item.active" label="##word.Active##"></i-checkbox>
-          </div>
-          <i-control type="text" v="r" ng-model="item.firstName" label="##word.Full Name##"></i-control>
-          <i-control class="input-style" label="##word.User Name##" ng-model="item.username"> </i-control>
-          <i-control label="##word.BrowserId##" ng-show="item.type == 'student'" ng-model="item.socialBrowserID"> </i-control>
-          <i-control label="##word.Title##" ng-model="item.title"> </i-control>
-          <i-control label="##word.Bio##" ng-model="item.bio"> </i-control>
-        </div>
-      </div>
-      <div class="col3">
-        <div class="row center-content">
-          <p class="">##word.Profile Image##</p>
-          <i-image class="img256" ng-model="item.image"></i-image>
-        </div>
-      </div>
+<div class="form">
+  <div class="row">
+    <div class="row">
+      <i-checkbox label="##word.Active##" class="col2" ng-model="item.active"></i-checkbox>
     </div>
-  </fieldset>
-</div>
-<fieldset>
+
+    <div class="row">
+      <i-control v="r" class="col6" label="##word.Email##" ng-model="item.email"></i-control>
+      <i-control v="r" class="col6" label="##word.Password##" ng-model="item.password"></i-control>
+    </div>
+  </div>
   <div class="tabs">
     <div class="tabs-header full">
-      <a class="tab-link" onclick="site.showTabContent(event, '#generalInformations')"> <span>##word.General Informatins## </span></a>
-      <a class="tab-link" onclick="site.showTabContent(event, '#files')"> <span>##word.Documents## </span></a>
+      <a class="tab-link" onclick="site.showTabContent(event, '#basicInformation')"> ##word.Basic Information## </a>
+      <a ng-show="item.type == 'admin'" class="tab-link" onclick="site.showTabContent(event, '#securityRoles')"> ##word.Roles## </a>
+      <a ng-show="item.type == 'admin'" class="tab-link" onclick="site.showTabContent(event, '#securityPublicPermissions')"> ##word.Public Permissions## </a>
     </div>
 
     <div class="tabs-content">
-      <div id="generalInformations" class="tab-content">
-        <fieldset>
-          <legend>##word.Balance##</legend>
-          <div class="row font-22 bold">
+      <div id="basicInformation" class="tab-content">
+        <div class="row">
+          <div class="col10">
+            <form class="form">
+              <div class="row">
+                <i-control v="r" class="col6" label="##word.First Name##" ng-model="item.firstName"></i-control>
+                <i-control v="r" class="col6" label="##word.Last Name##" ng-model="item.lastName"></i-control>
+              </div>
 
-            <div class="col3 center">
-              <p>##word.Balance##</p>
-              {{item.balance || 0}}
+              <div class="row">
+                <i-control v="r" class="col6" label="##word.Mobile##" ng-model="item.mobile"></i-control>
+              </div>
+              <fieldset>
+                <legend>##word.Balance##</legend>
+                <div class="row font-22 bold">
+                  <div class="col3 center">
+                    <p>##word.Balance##</p>
+                    {{item.balance || 0}}
+                  </div>
+                  <div class="col3 center">
+                    <p>##word.Balance2##</p>
+                    {{item.balance2 || 0}}
+                  </div>
+                  <div class="col3 center">
+                    <p>##word.Balance3##</p>
+                    {{item.balance3 || 0}}
+                  </div>
+                </div>
+              </fieldset>
+
+              <i-textarea ng-model="item.notes" label="##word.Notes##"></i-textarea>
+            </form>
+          </div>
+          <div class="col2">
+            <div class="row center-content">
+              <p class="">##word.Profile Image##</p>
+              <i-image class="img128" ng-model="item.image"></i-image>
             </div>
-            <div class="col3 center">
-              <p>##word.Balance2##</p>
-              {{item.balance2 || 0}}
-            </div>
-            <div class="col3 center">
-              <p>##word.Balance3##</p>
-              {{item.balance3 || 0}}
-            </div>
           </div>
-        </fieldset>
-        <fieldset>
-          <div class="row">
-            <i-list
-              class="col4"
-              ng-show="item.placeType == 'offline'"
-              class="center input-style"
-              label="##word.Center Name##"
-              ng-model="item.center"
-              items="centersList"
-              display="name"
-              ng-search="item.$center"
-            ></i-list>
-            <i-list class="col4" v="r" label="##word.Gender##" ng-model="item.gender" display="name" items="genderList" ng-search="item.$genderList"></i-list>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>##word.Contact Informations##</legend>
-          <div class="row">
-            <i-control class="col3" label="##word.Phone##" ng-model="item.phone"></i-control>
-
-            <i-control class="col3" label="##word.Mobile##" ng-model="item.mobile"></i-control>
-
-            <i-control help-id="" class="col3" label="##word.Whatsapp##" ng-model="item.whatsapp"> </i-control>
-          </div>
-        </fieldset>
-
-        <fieldset ng-show="item.type == 'mama'">
-          <legend>##word.Social Accounts##</legend>
-          <div class="row">
-            <i-control class="col6" label="##word.Facebook Account##" ng-model="item.facebookAccount"> </i-control>
-            <i-control class="col6" label="##word.Instagram Accouunt##" ng-model="item.instagramAccouunt"> </i-control>
-          </div>
-
-          <div class="row">
-            <i-control class="col6" label="##word.Youtube Accouunt##" ng-model="item.youtubeAccouunt"> </i-control>
-            <i-control class="col6" label="##word.Twitter Accouunt##" ng-model="item.twitterAccouunt"> </i-control>
-          </div>
-
-          <div class="row">
-            <i-control class="col6" label="Snapchat" ng-model="item.snapAccouunt"> </i-control>
-            <i-control class="col6" label="Linkedin" ng-model="item.linkedinAccouunt"> </i-control>
-          </div>
-
-          <div class="row">
-            <i-control class="col6" label="Telegram" ng-model="item.telegramAccouunt"> </i-control>
-            <i-control class="col6" label="Skype" ng-model="item.skypeAccouunt"> </i-control>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>##word.Address##</legend>
-          <div class="row">
-            <i-list
-              class="col3"
-              label="##word.Country##"
-              ng-change="getGovesList(item.country)"
-              ng-model="item.country"
-              display="name"
-              items="countriesList"
-              display2="callingCode"
-              ng-get="getCountriesList($search)"
-            ></i-list>
-            <i-list help-id="" class="col3" label="##word.Governorate##" ng-change="getCitiesList(item.gov)" ng-model="item.gov" display="name" items="govesList" ng-search="item.$gov"></i-list>
-            <i-list
-              class="col3"
-              x-data="setting.citiesAndAreasShow"
-              label="##word.City##"
-              ng-model="item.city"
-              ng-change="getAreasList(item.city)"
-              items="citiesList"
-              display="name"
-              ng-search="item.$area"
-            >
-            </i-list>
-            <i-list class="col3" x-data="setting.citiesAndAreasShow" label="##word.Area##" ng-model="item.area" items="areasList" display="name" ng-search="item.$area"> </i-list>
-          </div>
-          <div class="row">
-            <i-control label="##word.Address##" ng-model="item.address"> </i-control>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <div class="row">
-            <i-control class="col6" label="##word.Login E-mail##" ng-model="item.email"> </i-control>
-            <i-control class="col6" label="##word.Password##" ng-model="item.password"> </i-control>
-          </div>
-        </fieldset>
+        </div>
       </div>
 
-      <div id="files" class="tab-content">
-        <fieldset>
-          <legend>
-            <i-button type="push" ng-click="addFiles()"></i-button>
-            ##word.Documents##
-          </legend>
+      <div id="securityRoles" class="tab-content">
+        <div class="row padding">
+          <fieldset>
+            <legend>##word.Public Roles##</legend>
+         <!--    <div class="row">
+              <i-checkbox label="##word.Check All##" ng-model="$publicRoles" ng-change="checkAll('publicRoles')"></i-checkbox>
+            </div> -->
 
-          <div class="row" ng-repeat="f in item.filesList">
-            <div class="row">
-              <div class="col10">
-                <div class="row">
-                  <i-list class="col4" label="##word.Document Type##" ng-model="f.fileType" items="documentsTypesList" display="name##session.lang##" ng-search="item.$fileType"> </i-list>
+            <i-checklist primary="code" label="" items="publicRoles" display="##session.lang##" ng-model="item.roles"></i-checklist>
+          </fieldset>
+        </div>
+      </div>
 
-                  <i-control class="col3" label="##word.File Name##" ng-model="f.fileName"> </i-control>
-
-                  <i-date class="col4" ng-model="f.fileDate" label="##word.File Date##"></i-date>
-
-                  <i-file ng-model="f.file"></i-file>
-                </div>
-              </div>
-              <div class="col2 center">
-                <br />
-                <br />
-                <i-button type="delete" title="##word.Delete##" ng-click="item.filesList.splice($index,1)"> </i-button>
-              </div>
-            </div>
-            <br />
-            <br />
-            <hr style="height: 5px; color: grey; background-color: rgb(0, 0, 199)" />
-            <br />
-            <br />
+      <div id="securityPublicPermissions" class="tab-content">
+        <div class="row">
+          <div class="row padding">
+            <fieldset ng-repeat="screen in publicScreens">
+              <legend>{{screen.name}}</legend>
+              <i-checklist primary="code" label="" items="screen.permissions" display="##session.lang##" ng-model="item.permissions"></i-checklist>
+            </fieldset>
           </div>
-        </fieldset>
+        </div>
       </div>
     </div>
   </div>
-</fieldset>
+</div>
 
 <div ng-show="mode !== 'add' " class="row">
   <table class="table hover border">

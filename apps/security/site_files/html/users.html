@@ -38,7 +38,8 @@
           <div x-import="security/add_modal.html"></div>
           <div x-import="security/view_modal.html"></div>
           <div x-permissions="securityManage " class="top-actions">
-            <i-button type="btn add bg-white black" ng-click="newuser()" label="##word.New User##"></i-button>
+            <i-button type="btn add bg-white black" ng-click="newuser('admin')" label="##word.New Admin##"></i-button>
+            <i-button type="btn add bg-white black" ng-click="newuser('client')" label="##word.New Client##"></i-button>
             <!--  <i-button type="bg-white black" label="##word.Roles##" ng-click="gotoRoles()"></i-button> -->
 
             <span ng-show="busy">
