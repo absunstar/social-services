@@ -3,7 +3,7 @@ module.exports = function init(site) {
 
   site.get(
     {
-      name: "words",
+      name: "/admin/" + "words",
     },
     (req, res) => {
       res.render(

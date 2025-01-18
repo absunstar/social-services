@@ -145,7 +145,7 @@ module.exports = function init(site) {
     if (app.allowRouteGet) {
       site.get(
         {
-          name: app.name,
+          name:'/admin/' + app.name,
         },
         (req, res) => {
           res.render(

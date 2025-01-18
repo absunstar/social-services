@@ -141,7 +141,7 @@ module.exports = function init(site) {
         if (app.allowRouteGet) {
             site.get(
                 {
-                    name: app.name,
+                    name:'/admin/' + app.name,
                 },
                 (req, res) => {
                     res.render(app.name + '/index.html', { title: app.name, appName: req.word('Governorates'), setting: site.getSiteSetting(req.host) }, { parser: 'html', compres: true });

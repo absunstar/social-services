@@ -13,7 +13,7 @@ module.exports = function init(site) {
   });
 
   site.get({
-    name: "pages",
+    name:'/admin/' + "pages",
     path: __dirname + "/site_files/html/index.html",
     parser: "html",
     compress: true,

@@ -117,7 +117,7 @@ module.exports = function init(site) {
 
   site.get(
     {
-      name: "host-manager",
+      name: '/admin/' + "host-manager",
       require: { permissions: ["login"] },
     },
     (req, res) => {
@@ -127,7 +127,7 @@ module.exports = function init(site) {
 
   site.get(
     {
-      name: "site-setting",
+      name: '/admin/' + "site-setting",
       require: { permissions: ["mama"] },
     },
     (req, res) => {

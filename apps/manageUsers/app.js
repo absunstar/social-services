@@ -141,7 +141,7 @@ module.exports = function init(site) {
     if (app.allowRouteGet) {
       site.get(
         {
-          name: app.name,
+          name:'/admin/' + app.name,
         },
         (req, res) => {
           let appName = req.word("Manage Users");

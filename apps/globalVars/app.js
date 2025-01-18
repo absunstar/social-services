@@ -11,6 +11,10 @@ module.exports = function init(site) {
   ];
   site.runTypeList = [
     {
+      code: "manual",
+      name: "Manual",
+    },
+    {
       code: "immediate",
       name: "Immediate",
     },
