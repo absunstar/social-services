@@ -53,6 +53,7 @@ module.exports = function init(site) {
       'client-side/font-awesome.css',
       'client-side/WebShareEditor.css',
 
+      __dirname + '/site_files/css/userAccounts.css',
       __dirname + '/site_files/css/colorstheme.css',
       __dirname + '/site_files/css/burgeurmenu.css',
       __dirname + '/site_files/css/header.css',
@@ -118,6 +119,29 @@ module.exports = function init(site) {
       res.render('theme1/index.html', data, { parser: 'html css js', compres: true });
     }
   );
+
+  site.get(
+    {
+      name: '/userAccounts',
+    },
+    (req, res) => {
+      let setting = site.getSiteSetting(req.host) || {};
+
+      let data = {
+        setting: setting,
+        siteUpdateList: site.siteUpdateList,
+        site_logo: setting.logo?.url || '/images/logo.png',
+        user_image: req.session?.user?.image?.url || '/images/logo.png',
+        site_name: setting.siteName,
+      };
+      if (req.hasFeature('host.com')) {
+        data.site_logo = '//' + req.host + data.site_logo;
+        data.user_image = '//' + req.host + data.user_image;
+      }
+      res.render('theme1/userAccounts.html', data, { parser: 'html css js', compres: true });
+    }
+  );
+
 
   site.get(
     {

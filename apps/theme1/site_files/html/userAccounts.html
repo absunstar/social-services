@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="##session.language.id##" dir="##session.language.dir##" class="##session.language.dir##" ng-app="myApp">
+  <head x-import="theme1/head.html">
+  </head>
+
+  <body ng-controller="userAccounts">
+    <header x-import="theme1/header.html"></header>
+
+    <main class="h">
+      <div class="blue-backgound">
+        <div class="main-headers main-header-responsive" id="mainHeader">
+          <p class="main-subject text-start bg-white" id="mainHeader">Store Account</p>
+          <div class="filter-new-btns">
+            <button class="btn btn-primary filter-btn-responsive" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" aria-controls="offcanvasLeft">
+              <i class="fa-solid fa-filter text-center"></i>
+            </button>
+
+            <button class="Store-Account-btns btn btn-primary" id="new-btn" data-bs-toggle="modal" data-bs-target="#newActivityModal">
+              <i class="fa-solid fa-plus mx-auto"></i>
+              New Activity
+            </button>
+
+            <div class="input-group direction-ltr">
+              <input type="text" class="form-control direction-ltr" placeholder="Search By ..." aria-label="Search By ..." />
+
+              <i class="search-icon-input-main bg-primary text-white fa-solid fa-magnifying-glass direction-ltr"></i>
+            </div>
+          </div>
+        </div>
+        <div class="hero-section direction-ltr">
+          <div class="hero-filters">
+            <div style="margin-bottom: 5px" class="btn-group direction-ltr social-group-btn">
+              <button style="color: #585858 !important" type="button" class="btn social-media-btn-filter social-media-btn text-primary">Social Media</button>
+              <button
+                style="color: #585858 !important"
+                type="button"
+                class="btn dropdown-toggle dropdown-toggle-split social-media-btn text-primary"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#"><i class="fa-brands fa-facebook"></i> Facebook</a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#"><i class="fa-brands fa-google"></i> Google</a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#"><i class="fa-brands fa-tiktok"></i> Tiktok</a>
+                </li>
+              </ul>
+            </div>
+            <div style="margin-bottom: 5px" class="btn-group direction-ltr social-group-btn">
+              <button style="color: #585858 !important" type="button" class="btn social-media-btn social-media-btn-filter text-primary">Status</button>
+              <button
+                style="color: #585858 !important"
+                type="button"
+                class="btn dropdown-toggle dropdown-toggle-split social-media-btn text-primary"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#">Active <i class="fa-solid fa-person-running p-2"></i></a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#">Not Active <i class="fa-solid fa-person p-2"></i></a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#">Standalone <i class="fa-solid fa-hand-fist p-2"></i></a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#">Not Standalone <i class="fa-solid fa-ban p-2"></i></a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#">For Sale <i class="fa-solid fa-dollar-sign p-2"></i></a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#">Not For Sale <i class="fa-solid fa-ban p-2"></i></a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#">Trusted <i class="fa-regular fa-thumbs-up p-2"></i></a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#">Not Trusted <i class="fa-regular fa-thumbs-down p-2"></i></a>
+                </li>
+                <li class="social-btn-srch">
+                  <a class="dropdown-item text-primary fw-bold" href="#">Advanced <i class="fa-solid fa-magnifying-glass p-2"></i></a>
+                </li>
+              </ul>
+            </div>
+
+            <div style="margin-bottom: 5px" class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+              <label class="form-check-label" for="flexCheckDefault"> New </label>
+            </div>
+
+            <div style="margin-bottom: 5px" class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+              <label class="form-check-label" for="flexCheckDefault"> Authenticated </label>
+            </div>
+
+            <div style="margin-bottom: 5px" class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+              <label class="form-check-label" for="flexCheckDefault"> Recent Ads </label>
+            </div>
+
+            <div style="margin-bottom: 5px" class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+              <label class="form-check-label" for="flexCheckDefault"> Ads with Photos Only </label>
+            </div>
+
+            <div style="margin-bottom: 5px" class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+              <label class="form-check-label" for="flexCheckDefault"> Lowest Price </label>
+            </div>
+
+            <div style="margin-bottom: 5px" class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+              <label class="form-check-label" for="flexCheckDefault"> Highest Price </label>
+            </div>
+
+            <form class="direction-ltr price-form">
+              <!-- Price Range Display -->
+              <div class="d-flex justify-content-between direction-ltr">
+                <span id="price-min" class="text-muted">$0</span>
+                <span id="price-max" class="text-muted">$500</span>
+              </div>
+
+              <!-- Range Slider -->
+              <div class="range-container direction-ltr">
+                <input class="direction-ltr" type="range" class="form-range" id="rangeMin" min="0" max="500" step="1" value="0" />
+                <input class="direction-ltr" type="range" class="form-range" id="rangeMax" min="0" max="500" step="1" value="500" />
+                <!-- Styling for range track (optional) -->
+                <div class="direction-ltr"></div>
+              </div>
+
+              <!-- Selected Price Display -->
+              <div class="d-flex justify-content-between mt-3 direction-ltr">
+                <input type="number" class="form-control form-control-sm" id="priceStart" placeholder="Min" min="0" max="500" value="0" />
+                <span class="mx-2">:</span>
+                <input type="number" class="form-control form-control-sm" id="priceEnd" placeholder="Max" min="0" max="500" value="500" />
+              </div>
+            </form>
+          </div>
+
+          <!-- The Following for filters Responsive -->
+
+          <div class="offcanvas offcanvas-start direction-ltr" style="width: 230px" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
+            <div class="offcanvas-header direction-ltr">
+              <h5 class="offcanvas-title direction-ltr text-primary fw-bold" id="offcanvasLeftLabel">Filter By ...</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body direction-ltr">
+              <div class="hero-filters-responsive">
+                <div style="margin-bottom: 5px" class="btn-group direction-ltr social-group-btn">
+                  <button style="color: #585858 !important" type="button" class="btn social-media-btn social-media-btn-filter text-primary">Social Media</button>
+                  <button
+                    style="color: #585858 !important"
+                    type="button"
+                    class="btn dropdown-toggle dropdown-toggle-split social-media-btn text-primary"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#"><i class="fa-brands fa-facebook"></i> Facebook</a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#"><i class="fa-brands fa-google"></i> Google</a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#"><i class="fa-brands fa-tiktok"></i> Tiktok</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div style="margin-bottom: 5px" class="btn-group direction-ltr social-group-btn">
+                  <button style="color: #585858 !important" type="button" class="btn social-media-btn social-media-btn-filter text-primary">Status</button>
+                  <button
+                    style="color: #585858 !important"
+                    type="button"
+                    class="btn dropdown-toggle dropdown-toggle-split social-media-btn text-primary"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></button>
+                  <ul class="dropdown-menu">
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#">Active <i class="fa-solid fa-person-running p-2"></i></a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#">Not Active <i class="fa-solid fa-person p-2"></i></a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#">Standalone <i class="fa-solid fa-hand-fist p-2"></i></a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#">Not Standalone <i class="fa-solid fa-ban p-2"></i></a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#">For Sale <i class="fa-solid fa-dollar-sign p-2"></i></a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#">Not For Sale <i class="fa-solid fa-ban p-2"></i></a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#">Trusted <i class="fa-regular fa-thumbs-up p-2"></i></a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#">Not Trusted <i class="fa-regular fa-thumbs-down p-2"></i></a>
+                    </li>
+                    <li class="social-btn-srch">
+                      <a class="dropdown-item text-primary fw-bold" href="#">Advanced <i class="fa-solid fa-magnifying-glass p-2"></i></a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div style="margin-bottom: 5px" class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                  <label class="form-check-label" for="flexCheckDefault"> New </label>
+                </div>
+
+                <div style="margin-bottom: 5px" class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                  <label class="form-check-label" for="flexCheckDefault"> Authenticated </label>
+                </div>
+
+                <div style="margin-bottom: 5px" class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                  <label class="form-check-label" for="flexCheckDefault"> Recent Ads </label>
+                </div>
+
+                <div style="margin-bottom: 5px" class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                  <label class="form-check-label" for="flexCheckDefault"> Ads with Photos Only </label>
+                </div>
+
+                <div style="margin-bottom: 5px" class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                  <label class="form-check-label" for="flexCheckDefault"> Lowest Price </label>
+                </div>
+
+                <div style="margin-bottom: 5px" class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                  <label class="form-check-label" for="flexCheckDefault"> Highest Price </label>
+                </div>
+
+                <form class="direction-ltr price-form">
+                  <!-- Price Range Display -->
+                  <div class="d-flex justify-content-between direction-ltr">
+                    <span id="price-min" class="text-muted">$0</span>
+                    <span id="price-max" class="text-muted">$500</span>
+                  </div>
+
+                  <!-- Range Slider -->
+                  <div class="range-container direction-ltr">
+                    <input class="direction-ltr" type="range" class="form-range" id="rangeMin" min="0" max="500" step="1" value="0" />
+                    <input class="direction-ltr" type="range" class="form-range" id="rangeMax" min="0" max="500" step="1" value="500" />
+                    <!-- Styling for range track (optional) -->
+                    <div class="direction-ltr"></div>
+                  </div>
+
+                  <!-- Selected Price Display -->
+                  <div class="d-flex justify-content-between mt-3 direction-ltr">
+                    <input type="number" class="form-control form-control-sm" id="priceStart" placeholder="Min" min="0" max="500" value="0" />
+                    <span class="mx-2">:</span>
+                    <input type="number" class="form-control form-control-sm" id="priceEnd" placeholder="Max" min="0" max="500" value="500" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- The Following is for The Accordion Details -->
+          <div class="accordion direction-ltr ads-accord-details" id="accordionAccountsHeader" style="margin-bottom: 40px">
+            <div class="accordion-item direction-ltr">
+              <p class="accordion-header direction-ltr">
+                <button
+                  class="accordion-button direction-ltr accrd-header-details"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="false"
+                  aria-controls="collapseOne"
+                >
+                  <div class="accordion-content direction-ltr">
+                    <div class="accordion-mainsub-img social-tag">
+                      <img style="width: 30px; height: 30px; border-radius: 10px" src="./assets/image/Instagram Image.jpg" alt="" />
+
+                      <p class="fw-bold accrdn-text">Instagram</p>
+                      <i class="text-success fa-solid fa-circle-check"></i>
+                    </div>
+                    <p class="accrdn-text" style="border-right: 1px solid #000">2Fa Code</p>
+                    <p class="accrdn-text" style="border-right: 1px solid #000">Photo + 1 Post Added</p>
+                    <p class="accrdn-text" style="border-right: 1px solid #000">Email Active</p>
+                  </div>
+                  <p class="text-primary fw-bold accrd-price-tag">$1 / User</p>
+                </button>
+              </p>
+              <div id="collapseOne" class="accordion-collapse collapse direction-ltr" data-bs-parent="#accordionAccountsHeader">
+                <div class="accordion-body direction-ltr">
+                  <strong>Instagram Fresh 100 %</strong>
+                  <p class="direction-ltr">Code: WWcc55aa66448612</p>
+                  <p class="direction-ltr">Email is attached in the package.(https://www.1secmail.com/)</p>
+
+                  <p class="direction-ltr">2Fa Code attached in the package (https://2fa.live/)</p>
+                  <p class="direction-ltr">Profile Photo Added</p>
+                  <p class="direction-ltr">+1 Pst Added</p>
+
+                  <div class="flexSpaceBtwn direction-ltr">
+                    <p class="direction-ltr">File Format Username:password:Email:2fa code</p>
+
+                    <!------------- Modal ------------------>
+                    <div class="modal fade" id="photosModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content accordion-img-container">
+                          <div class="modal-header direction-ltr">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Photos</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body direction-ltr">
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                          </div>
+                          <div class="modal-footer direction-ltr">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center gap-4 p-1 mb-2">
+                    <button type="button" class="actionbtns btn btn-primary">
+                      <i class="fa-solid fa-cart-plus"></i>
+                    </button>
+                    <button type="button" class="actionbtns btn btn-warning" data-bs-toggle="modal" data-bs-target="#photosModal">
+                      <i class="text-white fa-solid fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item direction-ltr">
+              <p class="accordion-header direction-ltr">
+                <button class="accordion-button collapsed direction-ltr" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <div class="accordion-content direction-ltr">
+                    <div class="accordion-mainsub-img social-tag">
+                      <img style="width: 30px; height: 30px; border-radius: 10px" src="./assets/image/facebook Image.jpg" alt="" />
+
+                      <p class="fw-bold accrdn-text">Facebook</p>
+                      <i class="text-success fa-solid fa-circle-check"></i>
+                    </div>
+
+                    <p class="accrdn-text" style="border-right: 1px solid #000">Arabic names</p>
+                    <p class="accrdn-text" style="border-right: 1px solid #000">Reg 2 : 6 Months</p>
+                    <p class="accrdn-text" style="border-right: 1px solid #000">Advertising account Fresh</p>
+                    <p class="accrdn-text" style="border-right: 1px solid #000">Cookies included</p>
+                  </div>
+                  <p class="text-primary fw-bold accrd-price-tag">$10 / Package (150 User)</p>
+                </button>
+              </p>
+
+              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionAccountsHeader">
+                <div class="accordion-body direction-ltr">
+                  <strong>High quality Facebook accounts.</strong>
+                  <p class="direction-ltr">Code: AAgglkjhw55000</p>
+                  <p class="direction-ltr">Middle East | Arabic Names</p>
+
+                  <p class="direction-ltr">Registered 3 to 6 months ago</p>
+                  <p class="direction-ltr">Posts added to all accounts</p>
+                  <p class="direction-ltr">A profile picture added</p>
+                  <p class="direction-ltr">Cookies are included in the package</p>
+                  <p class="direction-ltr">
+                    <strong>Advertising account that has not been used before</strong>
+                  </p>
+
+                  <div class="flexSpaceBtwn direction-ltr">
+                    <p class="direction-ltr">
+                      <strong>https://accsmix.com/blog/how-to-open-facebook-account-with-cookies</strong>
+                    </p>
+
+                    <!-------- Images Modal -------------->
+                    <div class="modal fade" id="photosModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content" style="width: 500px; height: auto">
+                          <div class="modal-header direction-ltr">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Photos</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body direction-ltr">
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                          </div>
+                          <div class="modal-footer direction-ltr">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-center gap-4 p-1 mb-2">
+                  <button type="button" class="actionbtns btn btn-primary">
+                    <i class="fa-solid fa-cart-plus"></i>
+                  </button>
+                  <button type="button" class="actionbtns btn btn-warning" data-bs-toggle="modal" data-bs-target="#photosModal2">
+                    <i class="text-white fa-solid fa-eye"></i>
+                  </button>
+                  <button type="button" class="actionbtns btn btn-success" data-bs-toggle="modal" data-bs-target="#photosModal4">
+                    <i class="fa-solid fa-box-open"></i>
+                  </button>
+
+                  <!-------------Package Modal ------------------>
+                  <div class="modal fade" id="photosModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg package-table">
+                      <div class="modal-content">
+                        <div class="modal-header direction-ltr">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Package Details</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body direction-ltr">
+                          <div class="table-responsive direction-ltr">
+                            <table class="table table-striped text-center direction-ltr">
+                              <thead class="text-center">
+                                <tr class="text-center">
+                                  <th class="table-subjects direction-ltr bg-primary text-white fw-bold text-center align-middle" style="border-top-left-radius: 15px" scope="col">#</th>
+                                  <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" scope="col" style="width: 40px">Status</th>
+                                  <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" scope="col">Email</th>
+                                  <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" scope="col">Description</th>
+                                  <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" scope="col">User</th>
+                                  <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" scope="col">Store Type</th>
+                                  <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" style="border-top-right-radius: 15px" scope="col">Features</th>
+                                </tr>
+                              </thead>
+                              <tbody class="direction-ltr">
+                                <tr class="direction-ltr table-content">
+                                  <th class="direction-ltr bg-primary text-white fw-bold text-center align-middle" scope="row">1</th>
+                                  <td class="table-content direction-ltr text-success text-center align-middle">Active</td>
+                                  <td class="table-content direction-ltr text-center align-middle">test@test.com</td>
+                                  <td class="table-content direction-ltr text-center align-middle">Created in 25th, April 2005</td>
+                                  <td class="table-content direction-ltr text-center align-middle">Customer 3</td>
+                                  <td class="table-content direction-ltr text-center align-middle">
+                                    <p class="bg-success text-center align-middle text-white borderRadPad">Public</p>
+                                    <p class="text-center align-middle" style="margin: auto">Standalone</p>
+                                  </td>
+                                  <td class="table-content direction-ltr text-center align-middle">Trusted</td>
+                                </tr>
+                                <tr class="direction-ltr text-center align-middle">
+                                  <th class="direction-ltr bg-primary text-white fw-bold text-center align-middle" scope="row">2</th>
+                                  <td class="table-content direction-ltr text-danger text-center align-middle">Not Active</td>
+                                  <td class="table-content direction-ltr">test@test.com</td>
+                                  <td class="table-content direction-ltr text-center align-middle">Created in 25th, April 2005</td>
+                                  <td class="table-content direction-ltr text-center align-middle">Customer 1</td>
+                                  <td class="table-content direction-ltr text-center align-middle">
+                                    <p class="bg-danger text-center align-middle text-white borderRadPad">Private</p>
+                                    <p class="text-center align-middle" style="margin: auto">Standalone</p>
+                                  </td>
+                                  <td class="table-content direction-ltr text-center align-middle">Trusted</td>
+                                </tr>
+                                <tr class="direction-ltr">
+                                  <th class="direction-ltr bg-primary text-white fw-bold text-center align-middle" scope="row">3</th>
+                                  <td class="table-content direction-ltr text-warning text-center align-middle">Pending</td>
+                                  <td class="table-content direction-ltr">test@test.com</td>
+                                  <td class="table-content direction-ltr text-center align-middle">Created in 25th, April 2005</td>
+                                  <td class="table-content direction-ltr text-center align-middle">Customer 2</td>
+                                  <td class="table-content direction-ltr text-center align-middle">
+                                    <p class="bg-primary text-center align-middle text-white borderRadPad">Shared</p>
+                                    <p class="text-center align-middle" style="margin: auto">Standalone</p>
+                                  </td>
+                                  <td class="table-content direction-ltr text-center align-middle">Trusted</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="modal-footer direction-ltr">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item direction-ltr">
+              <p class="accordion-header">
+                <button class="accordion-button collapsed direction-ltr" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <div class="accordion-content direction-ltr">
+                    <div class="accordion-mainsub-img social-tag">
+                      <img style="width: 30px; height: 30px; border-radius: 10px" src="./assets/image/tiktok image.jpg" alt="" />
+                      <p class="fw-bold accrdn-text">Tiktok</p>
+                    </div>
+                    <p class="accrdn-text" style="border-right: 1px solid #000">Old Tik Tok account</p>
+                    <p class="accrdn-text" style="border-right: 1px solid #000">Registered from 2015 to 2022</p>
+                    <p class="accrdn-text" style="border-right: 1px solid #000">Email Active / Attached</p>
+                  </div>
+                  <p class="text-primary fw-bold accrd-price-tag">$5 / Package (15 Users)</p>
+                </button>
+              </p>
+              <div id="collapseThree" class="accordion-collapse collapse direction-ltr" data-bs-parent="#accordionAccountsHeader">
+                <div class="accordion-body direction-ltr">
+                  <strong>Old Tik Tok account👌.</strong>
+                  <p class="direction-ltr">Code: ttrrhhgks658100</p>
+                  <p class="direction-ltr">Registered from 2015 to 2022</p>
+
+                  <p class="direction-ltr">2Fa Code attached in the package (https://2fa.live/)</p>
+                  <p class="direction-ltr">Email attached [Hotmail may not be working]</p>
+
+                  <div class="flexSpaceBtwn direction-ltr">
+                    <p class="direction-ltr">Username + password + email🔥🔥</p>
+
+                    <!------------- Modal ------------------>
+                    <div class="modal fade" id="photosModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content" style="width: 500px; height: auto">
+                          <div class="modal-header direction-ltr">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Photos</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body direction-ltr">
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                            <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                          </div>
+                          <div class="modal-footer direction-ltr">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-center gap-4 p-1 mb-2">
+                  <button type="button" class="actionbtns btn btn-primary">
+                    <i class="fa-solid fa-cart-plus"></i>
+                  </button>
+                  <button type="button" class="actionbtns btn btn-warning" data-bs-toggle="modal" data-bs-target="#photosModal3">
+                    <i class="text-white fa-solid fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cards-wrapper" id="cards-wrapper">
+          <div class="card mb-3 card-container">
+            <div class="card-body direction-ltr">
+              <div class="direction-ltr card-subject-container">
+                <img style="width: 30px; height: 30px; border-radius: 10px" src="./assets/image/Instagram Image.jpg" alt="" />
+
+                <p class="fw-bold card-subject">Instagram</p>
+                <i class="text-success fa-solid fa-circle-check"></i>
+              </div>
+              <hr />
+              <div class="card-details direction-ltr">
+                <p>Old Tik Tok account</p>
+              </div>
+              <div class="card-details direction-ltr">
+                <p>Registered from 2015 to 2022</p>
+              </div>
+              <div class="card-details direction-ltr">
+                <p>Email Active / Attached</p>
+              </div>
+              <hr />
+              <div class="direction-ltr price-container">
+                <p class="unit-tag">15 pcs</p>
+                <p class="price-tag">User</p>
+                <p class="price-tag">5 $</p>
+              </div>
+
+              <hr />
+              <div class="action-btns-container">
+                <button type="button" class="actionbtns btn btn-primary">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+                <button type="button" class="actionbtns btn btn-warning" data-bs-toggle="modal" data-bs-target="#photosModal7">
+                  <i class="text-white fa-solid fa-eye"></i>
+                </button>
+                <button type="button" class="actionbtns btn btn-warning" data-bs-toggle="modal" data-bs-target="#descriptionModal">
+                  <i class="text-white fa-solid fa-book"></i>
+                </button>
+              </div>
+              <!------------- Images Modal ------------------>
+              <div class="modal fade" id="photosModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content accordion-img-container">
+                    <div class="modal-header direction-ltr">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Photos</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body direction-ltr">
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                    </div>
+                    <div class="modal-footer direction-ltr">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-----------------Description Modal -------------- -->
+              <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModal" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content accordion-img-container">
+                    <div class="modal-header direction-ltr">
+                      <h1 class="modal-title fs-5" id="descriptionModal">Description</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body direction-ltr">
+                      <strong>Old Tik Tok account👌.</strong>
+                      <p class="direction-ltr">Code: ttrrhhgks658100</p>
+                      <p class="direction-ltr">Registered from 2015 to 2022</p>
+
+                      <p class="direction-ltr">2Fa Code attached in the package (https://2fa.live/)</p>
+                      <p class="direction-ltr">Email attached [Hotmail may not be working]</p>
+                      <p class="direction-ltr">Username + password + email🔥🔥</p>
+                    </div>
+                    <div class="modal-footer direction-ltr">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3 card-container">
+            <div class="card-body direction-ltr">
+              <div class="direction-ltr card-subject-container">
+                <img style="width: 30px; height: 30px; border-radius: 10px" src="./assets/image/facebook Image.jpg" alt="" />
+
+                <p class="fw-bold card-subject">Facebook</p>
+                <i class="text-success fa-solid fa-circle-check"></i>
+              </div>
+              <hr />
+              <div class="card-details direction-ltr">
+                <p>Arabic names</p>
+              </div>
+              <div class="card-details direction-ltr">
+                <p>Reg 2 : 6 Months</p>
+              </div>
+              <div class="card-details direction-ltr">
+                <p>Cookies included</p>
+              </div>
+              <hr />
+              <div class="direction-ltr price-container">
+                <p class="unit-tag">1 Pack.</p>
+                <p class="price-tag">150 Users</p>
+                <p class="price-tag">10 $</p>
+              </div>
+
+              <hr />
+              <div class="action-btns-container">
+                <button type="button" class="actionbtns btn btn-primary">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+                <button type="button" class="actionbtns btn btn-warning" data-bs-toggle="modal" data-bs-target="#photosModal7">
+                  <i class="text-white fa-solid fa-eye"></i>
+                </button>
+                <button type="button" class="actionbtns btn btn-warning" data-bs-toggle="modal" data-bs-target="#descriptionModal2">
+                  <i class="text-white fa-solid fa-book"></i>
+                </button>
+                <button type="button" class="actionbtns btn btn-success" data-bs-toggle="modal" data-bs-target="#tableModal4">
+                  <i class="fa-solid fa-box-open"></i>
+                </button>
+              </div>
+              <!------------- Images Modal ------------------>
+              <div class="modal fade" id="photosModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content accordion-img-container">
+                    <div class="modal-header direction-ltr">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Photos</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body direction-ltr">
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                    </div>
+                    <div class="modal-footer direction-ltr">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-----------------Description Modal -------------- -->
+              <div class="modal fade" id="descriptionModal2" tabindex="-1" aria-labelledby="descriptionModal2" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content accordion-img-container">
+                    <div class="modal-header direction-ltr">
+                      <h1 class="modal-title fs-5" id="descriptionModal2">Description</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body direction-ltr">
+                      <strong>High quality Facebook accounts.</strong>
+                      <p class="direction-ltr">Code: AAgglkjhw55000</p>
+                      <p class="direction-ltr">Middle East | Arabic Names</p>
+
+                      <p class="direction-ltr">Registered 3 to 6 months ago</p>
+                      <p class="direction-ltr">Posts added to all accounts</p>
+                      <p class="direction-ltr">A profile picture added</p>
+                      <p class="direction-ltr">Cookies are included in the package</p>
+                      <p class="direction-ltr">
+                        <strong>Advertising account that has not been used before</strong>
+                      </p>
+                    </div>
+                    <div class="modal-footer direction-ltr">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-------------Package Modal ------------------>
+              <div class="modal fade" id="tableModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg package-table">
+                  <div class="modal-content">
+                    <div class="modal-header direction-ltr">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Package Details</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body direction-ltr">
+                      <div class="table-responsive direction-ltr">
+                        <table class="table table-striped text-center direction-ltr">
+                          <thead class="text-center">
+                            <tr class="text-center">
+                              <th class="table-subjects direction-ltr bg-primary text-white fw-bold text-center align-middle" style="border-top-left-radius: 15px" scope="col">#</th>
+                              <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" scope="col" style="width: 40px">Status</th>
+                              <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" scope="col">Email</th>
+                              <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" scope="col">Description</th>
+                              <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" scope="col">User</th>
+                              <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" scope="col">Store Type</th>
+                              <th class="table-subjects direction-ltr bg-primary text-center align-middle text-white fw-bold" style="border-top-right-radius: 15px" scope="col">Features</th>
+                            </tr>
+                          </thead>
+                          <tbody class="direction-ltr">
+                            <tr class="direction-ltr table-content">
+                              <th class="direction-ltr bg-primary text-white fw-bold text-center align-middle" scope="row">1</th>
+                              <td class="table-content direction-ltr text-success text-center align-middle">Active</td>
+                              <td class="table-content direction-ltr text-center align-middle">test@test.com</td>
+                              <td class="table-content direction-ltr text-center align-middle">Created in 25th, April 2005</td>
+                              <td class="table-content direction-ltr text-center align-middle">Customer 3</td>
+                              <td class="table-content direction-ltr text-center align-middle">
+                                <p class="bg-success text-center align-middle text-white borderRadPad">Public</p>
+                                <p class="text-center align-middle" style="margin: auto">Standalone</p>
+                              </td>
+                              <td class="table-content direction-ltr text-center align-middle">Trusted</td>
+                            </tr>
+                            <tr class="direction-ltr text-center align-middle">
+                              <th class="direction-ltr bg-primary text-white fw-bold text-center align-middle" scope="row">2</th>
+                              <td class="table-content direction-ltr text-danger text-center align-middle">Not Active</td>
+                              <td class="table-content direction-ltr">test@test.com</td>
+                              <td class="table-content direction-ltr text-center align-middle">Created in 25th, April 2005</td>
+                              <td class="table-content direction-ltr text-center align-middle">Customer 1</td>
+                              <td class="table-content direction-ltr text-center align-middle">
+                                <p class="bg-danger text-center align-middle text-white borderRadPad">Private</p>
+                                <p class="text-center align-middle" style="margin: auto">Standalone</p>
+                              </td>
+                              <td class="table-content direction-ltr text-center align-middle">Trusted</td>
+                            </tr>
+                            <tr class="direction-ltr">
+                              <th class="direction-ltr bg-primary text-white fw-bold text-center align-middle" scope="row">3</th>
+                              <td class="table-content direction-ltr text-warning text-center align-middle">Pending</td>
+                              <td class="table-content direction-ltr">test@test.com</td>
+                              <td class="table-content direction-ltr text-center align-middle">Created in 25th, April 2005</td>
+                              <td class="table-content direction-ltr text-center align-middle">Customer 2</td>
+                              <td class="table-content direction-ltr text-center align-middle">
+                                <p class="bg-primary text-center align-middle text-white borderRadPad">Shared</p>
+                                <p class="text-center align-middle" style="margin: auto">Standalone</p>
+                              </td>
+                              <td class="table-content direction-ltr text-center align-middle">Trusted</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="modal-footer direction-ltr">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3 card-container">
+            <div class="card-body direction-ltr">
+              <div class="direction-ltr card-subject-container">
+                <img style="width: 30px; height: 30px; border-radius: 10px" src="./assets/image/tiktok image.jpg" alt="" />
+
+                <p class="fw-bold card-subject">Tiktok</p>
+                <i class="text-success fa-solid fa-circle-check"></i>
+              </div>
+              <hr />
+              <div class="card-details direction-ltr">
+                <p>2Fa Code</p>
+              </div>
+              <div class="card-details direction-ltr">
+                <p>Photo + 1 Post Added</p>
+              </div>
+              <div class="card-details direction-ltr">
+                <p>Email Active</p>
+              </div>
+              <hr />
+              <div class="direction-ltr price-container">
+                <p class="unit-tag">1 pcs</p>
+                <p class="price-tag">User</p>
+                <p class="price-tag">1 $</p>
+              </div>
+
+              <hr />
+              <div class="action-btns-container">
+                <button type="button" class="actionbtns btn btn-primary">
+                  <i class="fa-solid fa-cart-plus"></i>
+                </button>
+                <button type="button" class="actionbtns btn btn-warning" data-bs-toggle="modal" data-bs-target="#photosModal7">
+                  <i class="text-white fa-solid fa-eye"></i>
+                </button>
+                <button type="button" class="actionbtns btn btn-warning" data-bs-toggle="modal" data-bs-target="#descriptionModal">
+                  <i class="text-white fa-solid fa-book"></i>
+                </button>
+              </div>
+              <!------------- Images Modal ------------------>
+              <div class="modal fade" id="photosModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content accordion-img-container">
+                    <div class="modal-header direction-ltr">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Photos</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body direction-ltr">
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                      <img class="modal-img" src="./assets/image/No_Image_Available.jpg" alt="" />
+                    </div>
+                    <div class="modal-footer direction-ltr">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-----------------Description Modal -------------- -->
+              <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModal" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content accordion-img-container">
+                    <div class="modal-header direction-ltr">
+                      <h1 class="modal-title fs-5" id="descriptionModal">Description</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body direction-ltr">
+                      <strong>Instagram Fresh 100 %</strong>
+                      <p class="direction-ltr">Code: WWcc55aa66448612</p>
+                      <p class="direction-ltr">Email is attached in the package.(https://www.1secmail.com/)</p>
+
+                      <p class="direction-ltr">2Fa Code attached in the package (https://2fa.live/)</p>
+                      <p class="direction-ltr">Profile Photo Added</p>
+                      <p class="direction-ltr">+1 Pst Added</p>
+                      <p class="direction-ltr">File Format Username:password:Email:2fa code</p>
+                    </div>
+                    <div class="modal-footer direction-ltr">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- The following is the New Activity Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="newActivityModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog steps-modal">
+            <div class="modal-content steps-modal">
+              <div class="modal-header direction-ltr">
+                <h1 class="modal-title fs-5 text-primary fw-bold" id="exampleModalLabel">New Activity</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body direction-ltr activity-form activity-form-bckgrd">
+                <form action="" class="form direction-ltr activity-form activity-form-border">
+                  <!-- THe Following is for The Progress Bar -->
+
+                  <div class="progressbar direction-ltr">
+                    <!-- The line that is going from 1st to 2nd step -->
+                    <div class="progress direction-ltr" id="progress"></div>
+
+                    <div class="progress-step progress-step-active direction-ltr" data-title="Step 1"></div>
+                    <div class="progress-step direction-ltr" data-title="Step 2"></div>
+                    <div class="progress-step direction-ltr" data-title="Step 3"></div>
+                    <div class="progress-step direction-ltr" data-title="Step 4"></div>
+                  </div>
+
+                  <!-- The First Step -->
+
+                  <div class="form-step form-step-active main-form-subjects direction-ltr">
+                    <div class="input-group direction-ltr form-input-group">
+                      <label class="form-input-label text-primary fw-bold" for="username">Title</label>
+                      <input class="form-input direction-ltr title-input" type="text" name="username" id="username" placeholder="Please enter your title" />
+                      <div>
+                        <img id="titleImg" class="title-img-upload" src="./assets/image/No_Image_Available.jpg" alt="No Image Available" onclick="triggerImageUpload()" />
+                        <input class="image-uploader" type="file" id="imageUploader" accept="image/*" style="display: none" onchange="handleImageUpload()" />
+                      </div>
+                    </div>
+                    <div class="input-group direction-ltr form-input-group">
+                      <div class="check-container">
+                        <div class="form-check direction-ltr">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                          <label class="form-check-label text-primary fw-bold" for="flexCheckDefault"> Active </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                          <label class="form-check-label text-primary fw-bold" for="flexCheckDefault"> Allow Sale </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="direction-ltr first-next-button">
+                      <a href="#" class="btn btn-primary btn-next text-white fw-bold width-50 ml-auto">Next</a>
+                    </div>
+                  </div>
+
+                  <!-- The Second Step -->
+
+                  <div class="form-step main-form-subjects direction-ltr">
+                    <div class="input-group mb-3 select-input">
+                      <label class="input-group-text bg-primary text-white fw-bold" for="inputGroupSelect01">Provider</label>
+                      <select class="form-select options-selection" id="inputGroupSelect01">
+                        <option selected>...Choose</option>
+                        <option value="1">Admin</option>
+                        <option value="2">User</option>
+                      </select>
+                    </div>
+                    <div class="input-group mb-3 select-input">
+                      <label class="input-group-text bg-primary text-white fw-bold" for="inputGroupSelect01">Social Platform</label>
+                      <select class="form-select options-selection" id="inputGroupSelect01">
+                        <option selected>...Choose</option>
+                        <option value="1">Instagram</option>
+                        <option value="2">Facebook</option>
+                        <option value="3">Google</option>
+                        <option value="4">Youtube</option>
+                      </select>
+                    </div>
+                    <div class="input-group mb-3 select-input">
+                      <label class="input-group-text bg-primary text-white fw-bold" for="inputGroupSelect01">Store Type</label>
+                      <select class="form-select options-selection" id="inputGroupSelect01">
+                        <option selected>...Choose</option>
+                        <option value="1">Public</option>
+                        <option value="2">Private</option>
+                        <option value="3">Shared</option>
+                      </select>
+                    </div>
+
+                    <div class="input-group mb-3 select-input user-input">
+                      <span class="input-group-text bg-primary text-white fw-bold" id="inputGroup-sizing-default">User</span>
+                      <input type="text" class="options-selection form-control direction-ltr" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                    </div>
+                    <div class="direction-ltr buttons-form-container">
+                      <a href="#" class="btn btn-danger btn-prev text-white fw-bold">Previous</a>
+                      <a href="#" class="btn btn-primary btn-next text-white fw-bold width-50 ml-auto">Next</a>
+                    </div>
+                  </div>
+
+                  <!-- The Third Step -->
+
+                  <div class="form-step main-form-subjects direction-ltr">
+                    <div class="input-group mb-1 select-input direction-ltr codes-container">
+                      <div class="eml-pss-prce-fcode direction-ltr">
+                        <h6 class="direction-ltr text-primary fw-bold mb-1">Email</h6>
+                        <input class="email-pass direction-ltr mb-2" type="text" placeholder="Please enter your Email" />
+                      </div>
+                      <div class="eml-pss-prce-fcode direction-ltr">
+                        <h6 class="direction-ltr text-primary fw-bold mb-1">Password</h6>
+                        <input class="email-pass direction-ltr" type="text" placeholder="Please enter your Password" />
+                      </div>
+                    </div>
+                    <div class="input-group mb-1 select-input direction-ltr">
+                      <div class="eml-pss-prce-fcode direction-ltr">
+                        <h6 class="direction-ltr text-primary fw-bold mb-1">Price $</h6>
+                        <input class="email-pass direction-ltr mb-2" type="text" placeholder="Please enter your Price $" />
+                      </div>
+                      <div class="eml-pss-prce-fcode direction-ltr">
+                        <h6 class="direction-ltr text-primary fw-bold mb-1">2FA Code</h6>
+                        <input class="email-pass direction-ltr mb-1" type="text" placeholder="Please enter your 2FA Code" />
+                      </div>
+                    </div>
+                    <div class="direction-ltr buttons-form-container">
+                      <a href="#" class="btn btn-danger btn-prev text-white fw-bold">Previous</a>
+                      <a href="#" class="btn btn-primary btn-next text-white fw-bold width-50 ml-auto">Next</a>
+                    </div>
+                  </div>
+
+                  <!-- The Fourth Step -->
+
+                  <div class="form-step main-form-subjects direction-ltr">
+                    <div class="input-group mb-3 select-input">
+                      <h6 class="direction-ltr text-primary fw-bold mb-3">Description</h6>
+                      <textarea class="description-area direction-ltr" placeholder="Please type your description" name="" id=""></textarea>
+                    </div>
+                    <div class="direction-ltr buttons-form-container">
+                      <a href="#" class="btn btn-danger btn-prev text-white fw-bold">Previous</a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer direction-ltr">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="py-4" x-import="theme1/footer.html"></footer>
+    <div x-import="theme1/scripts.html"></div>
+    
+    <script>
+      const rangeMin = document.getElementById("rangeMin");
+      const rangeMax = document.getElementById("rangeMax");
+      const priceStart = document.getElementById("priceStart");
+      const priceEnd = document.getElementById("priceEnd");
+
+      function updateSliders() {
+        const minValue = parseInt(rangeMin.value, 10);
+        const maxValue = parseInt(rangeMax.value, 10);
+
+        if (minValue >= maxValue) {
+          rangeMin.value = maxValue - 1;
+        }
+
+        priceStart.value = rangeMin.value;
+        priceEnd.value = rangeMax.value;
+      }
+
+      function updateNumbers() {
+        const minValue = parseInt(priceStart.value, 10);
+        const maxValue = parseInt(priceEnd.value, 10);
+
+        if (minValue >= maxValue) {
+          priceStart.value = maxValue - 1;
+        }
+
+        rangeMin.value = priceStart.value;
+        rangeMax.value = priceEnd.value;
+      }
+
+      rangeMin.addEventListener("input", updateSliders);
+      rangeMax.addEventListener("input", updateSliders);
+
+      priceStart.addEventListener("input", updateNumbers);
+      priceEnd.addEventListener("input", updateNumbers);
+
+
+      function triggerImageUpload() {
+        document.getElementById("imageUploader").click();
+      }
+
+      function handleImageUpload() {
+        const fileInput = document.querySelectorAll(".image-uploader");
+        const imgElement = document.querySelectorAll(".title-img-upload");
+
+        if (fileInput.files && fileInput.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            imgElement.src = e.target.result;
+          };
+          reader.readAsDataURL(fileInput.files[0]);
+        } else {
+          imgElement.src = "./assets/image/No_Image_Available.jpg";
+        }
+      }
+
+
+      const prevBtns = document.querySelectorAll(".btn-prev");
+      const nextBtns = document.querySelectorAll(".btn-next");
+      const progress = document.querySelector(".progress");
+      const formSteps = document.querySelectorAll(".form-step");
+      const progressSteps = document.querySelectorAll(".progress-step");
+
+      let formStepNum = 0;
+
+      nextBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          formStepNum++;
+          updateFormStep();
+          updateProgressBar();
+        });
+      });
+
+      prevBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          formStepNum--;
+          updateFormStep();
+          updateProgressBar();
+        });
+      });
+
+      function updateFormStep() {
+        formSteps.forEach((formStep) => {
+          formStep.classList.contains("form-step-active") && formStep.classList.remove("form-step-active");
+        });
+        formSteps[formStepNum].classList.add("form-step-active");
+      }
+
+      function updateProgressBar() {
+        progressSteps.forEach((progressStep, idx) => {
+          if (idx < formStepNum + 1) {
+            progressStep.classList.add("progress-step-active");
+          } else {
+            progressStep.classList.remove("progress-step-active");
+          }
+        });
+
+        const progressActive = document.querySelectorAll(".progress-step-active");
+
+        progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
+      }
+    </script>
+
+    <script x-import="theme1/userAccounts.js"></script>
+
+  </body>
+</html>
